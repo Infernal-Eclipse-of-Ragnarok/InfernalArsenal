@@ -1,6 +1,4 @@
-﻿using CalamityMod.CalPlayer.Dashes;
-using CalamityMod.CalPlayer;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
