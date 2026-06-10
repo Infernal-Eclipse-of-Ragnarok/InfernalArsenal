@@ -244,13 +244,13 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             {
                 if (scourgeBag)
                 {
-                    target.AddBuff(ModContent.BuffType<HolyFlames>(), 300);
+                    target.AddBuff(ModContent.BuffType<HolyFlames>(), 180);
                     if (Utils.NextBool(Main.rand, 5))
                     {
                         target.AddBuff(ModContent.BuffType<LimbBurn>(), 120);
                         for (int m = 0; m < 8; m++)
                         {
-                            int num5 = Dust.NewDust(target.position, target.width, target.height, DustID.Firework_Red, Main.rand.Next(-3, 3), Main.rand.Next(-3, 3), 255, new Color(255, 165, 255), 1.5f);
+                            int num5 = Dust.NewDust(target.position, target.width, target.height, DustID.Firework_Yellow, Main.rand.Next(-3, 3), Main.rand.Next(-3, 3), 255, new Color(255, 165, 255), 1.5f);
                             Main.dust[num5].noGravity = true;
                         }
                     }
@@ -259,7 +259,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                         scourgeBag2 = true;
                         for (int n = 0; n < 15; n++)
                         {
-                            int num6 = Dust.NewDust(Player.position, 20, 20, DustID.Firework_Red, 0f, 0f, 255, new Color(255, 255, 0), 1.35f);
+                            int num6 = Dust.NewDust(Player.position, 20, 20, DustID.Firework_Yellow, 0f, 0f, 255, new Color(255, 255, 0), 1.35f);
                             Main.dust[num6].noGravity = true;
                             Main.dust[num6].velocity = new Vector2(0.75f, 0f);
                             int num7 = Main.rand.Next(-50, 51);

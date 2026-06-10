@@ -882,8 +882,7 @@ Items: {
 		Tooltip:
 			'''
 			300% basic damage
-			Flail weapons on first hit create a blackhole spike ball
-			Further flail hits have a chance to create blackhole spike balls which home onto enemies, pulls enemies towards itself, and rarely inflicts [cbuff:CalamityMod/WitherDebuff]
+			Flail weapon hits have a chance to create blackholes which home onto enemies, pulls enemies towards itself, and rarely inflicts [cbuff:CalamityMod/WitherDebuff]
 			'This shouldn't work you know? A blackhole this size can absolutely destory the planet... I guess we shouldn't question it'
 			'''
 	}

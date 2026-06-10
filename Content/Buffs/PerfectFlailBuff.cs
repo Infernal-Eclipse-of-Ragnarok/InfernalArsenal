@@ -19,7 +19,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Buffs
             player.GetDamage(DamageClass.Generic) += 0.15f;
             //player.GetCritChance(DamageClass.Generic) += 15;
             //player.statDefense += 20;
-            player.endurance += 15;
+            player.endurance += 0.15f;
             player.moveSpeed += 0.15f;
         }
     }
