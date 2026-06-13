@@ -38,7 +38,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.shoot = ModContent.ProjectileType<DeusFlutePro>();
             Item.UseSound = ThoriumSounds.Flute_Sound;
 
-            // TBD
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.knockBack = 1.5f;
@@ -50,7 +49,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             InspirationCost = 2;
 
-            ((ModItem)this).Item.useStyle = 5;
             if (!ModLoader.HasMod("Look"))
             {
                 ((ModItem)this).Item.holdStyle = 3;

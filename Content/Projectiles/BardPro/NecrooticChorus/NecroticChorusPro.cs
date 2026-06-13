@@ -47,7 +47,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
                 spawned = true;
                 for (int num161 = 0; num161 < 8; num161++)
                 {
-                    Dust obj11 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 5, Projectile.velocity.X, Projectile.velocity.Y, 100);
+                    Dust obj11 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X, Projectile.velocity.Y, 100);
                     obj11.velocity = (Main.rand.NextFloatDirection() * (float)Math.PI).ToRotationVector2() * 2f + Projectile.velocity.SafeNormalize(Vector2.Zero) * 2f;
                     obj11.scale = 0.65f;
                     obj11.fadeIn = 1.3f;
@@ -71,7 +71,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
 
             if (Main.rand.NextBool(2))
             {
-                Dust dust = Dust.NewDustPerfect(Projectile.Center - Projectile.velocity * 3f, 267, Projectile.velocity * 0.5f, 0, Color.Red * (Main.rand.NextFloat() * 0.3f + 0.1f));
+                Dust dust = Dust.NewDustPerfect(Projectile.Center - Projectile.velocity * 3f, DustID.RainbowMk2, Projectile.velocity * 0.5f, 0, Color.Red * (Main.rand.NextFloat() * 0.3f + 0.1f));
                 dust.noGravity = true;
                 dust.scale = 0.5f;
             }

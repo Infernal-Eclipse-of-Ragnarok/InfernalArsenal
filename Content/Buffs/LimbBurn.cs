@@ -7,6 +7,7 @@ using CalamityMod;
 using CalamityMod.Systems.Collections;
 using CalamityMod.Particles;
 using Microsoft.Xna.Framework;
+using InfernalEclipseWeaponsDLC.Core.GlobalNPCs;
 
 namespace InfernalEclipseWeaponsDLC.Content.Buffs
 {
@@ -26,7 +27,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Buffs
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             BuffID.Sets.LongerExpertDebuff[Type] = true;
-            BuffDatasets.DebuffDataset[Type] = debuffData;
+            CalamityBuffSets.DebuffDataset[Type] = debuffData;
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -36,13 +37,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Buffs
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<LimbBurnNPC>().limbBurn = true;
-
-            if ((CalamityNPCSets.ResistSlowingDebuffsAndOtherSpecialEffects[npc.type] || npc.boss) &&
-                npc.Calamity().debuffResistanceTimer <= 0)
-            {
-                npc.Calamity().debuffResistanceTimer = 1800 + npc.buffTime[buffIndex];
-            }
+            npc.GetGlobalNPC<WeaponsGlobalNPC>().limbBurn = true;
 
             if (Utils.NextBool(Main.rand, 4))
             {
@@ -70,7 +65,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Buffs
                 Vector2 val = npc.position - Vector2.One * 2f;
                 Vector2 dustVel = npc.velocity + new Vector2(0f, Utils.NextFloat(Main.rand, -5f, -1f));
 
-                Dust obj = Dust.NewDustDirect(val, npc.width + 4, npc.height + 4, 87,
+                Dust obj = Dust.NewDustDirect(val, npc.width + 4, npc.height + 4, DustID.GemTopaz,
                     dustVel.X, dustVel.Y, 0, default(Color), 1f);
 
                 obj.noGravity = true;
@@ -79,34 +74,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Buffs
             }
 
             Lighting.AddLight(npc.position, 0.25f, 0.25f, 0.1f);
-        }
-    }
-
-    public class LimbBurnNPC : GlobalNPC
-    {
-        public override bool InstancePerEntity => true;
-
-        public bool limbBurn;
-
-        public override void ResetEffects(NPC npc)
-        {
-            limbBurn = false;
-        }
-
-        public override void PostAI(NPC npc)
-        {
-            int debuffResistanceTimer = npc.Calamity().debuffResistanceTimer;
-
-            if (debuffResistanceTimer <= 0 || debuffResistanceTimer > 1800)
-            {
-                float velocitySlownessFactor = 1f;
-
-                if (limbBurn)
-                    velocitySlownessFactor += 0.075f;
-
-                velocitySlownessFactor = 1f / velocitySlownessFactor;
-                npc.velocity *= velocitySlownessFactor;
-            }
         }
     }
 }

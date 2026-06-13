@@ -50,7 +50,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.shoot = ModContent.ProjectileType<SulfurSpirit>();
             Item.shootSpeed = 10f;
 
-            ((ModItem)this).Item.useStyle = 5;
             if (!ModLoader.HasMod("Look"))
             {
                 ((ModItem)this).Item.holdStyle = 3;

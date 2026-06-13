@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using ThoriumMod;
-using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.Scythes.GammaKnife
 {

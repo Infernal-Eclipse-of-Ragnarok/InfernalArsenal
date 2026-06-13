@@ -1,9 +1,9 @@
 displayName = Infernal Arsenal Mod
 author = Infernal Eclipse of Ragnarok Team
-version = 1.6
+version = 1.6.0.1
 modReferences = CalamityMod, ThoriumMod
 weakReferences = Luminance, Daybreak, SOTS, CatalystMod
 hideCode = true
 hideResources = true
 homepage = https://discord.gg/tc5nZdRvaU
-buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes
+buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, lib\*

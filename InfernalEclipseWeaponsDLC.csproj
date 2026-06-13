@@ -9,7 +9,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <Reference Include="CalamityMod">
-	    <HintPath>..\ModAssemblies\CalamityMod_v2.1.dll</HintPath>
+	    <HintPath>lib\CalamityMod.dll</HintPath>
 	  </Reference>
 	  <Reference Include="CatalystMod">
 	    <HintPath>..\ModAssemblies\CatalystMod_v1.1.5.dll</HintPath>
@@ -29,6 +29,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Content\Items\Weapons\Healer\Tools\" />
+	  <Folder Include="lib\" />
 	</ItemGroup>
 
 	<!-- References -->

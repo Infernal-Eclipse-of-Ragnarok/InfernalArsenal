@@ -9,6 +9,7 @@ using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod;
 using Terraria.Localization;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
 {
@@ -249,11 +250,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
             if (sunActive)
             {
                 Effect sunShader = ModContent.Request<Effect>("InfernalEclipseWeaponsDLC/Assets/Effects/AphelionSun", AssetRequestMode.ImmediateLoad).Value;
-                Texture2D noiseTex = TextureAssets.Extra[189].Value;
+                Texture2D noiseTex = TextureAssets.Extra[ExtrasID.FlameLashTrailShape].Value;
 
                 Main.graphics.GraphicsDevice.Textures[1] = noiseTex;
                 Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.LinearWrap;
-                Main.graphics.GraphicsDevice.Textures[2] = TextureAssets.Extra[193].Value;
+                Main.graphics.GraphicsDevice.Textures[2] = TextureAssets.Extra[ExtrasID.MagicMissileTrailErosion].Value;
                 Main.graphics.GraphicsDevice.SamplerStates[2] = SamplerState.LinearWrap;
 
                 sunSpinTime += 0.04f;

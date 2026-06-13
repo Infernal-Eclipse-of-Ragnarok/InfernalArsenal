@@ -39,7 +39,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.useTime = 14;
             Item.useAnimation = 14;
             Item.holdStyle = 5;
-            Item.useStyle = 12;
+            Item.useStyle = ItemUseStyleID.Guitar;
             Item.reuseDelay = 30;
             Item.autoReuse = true;
 

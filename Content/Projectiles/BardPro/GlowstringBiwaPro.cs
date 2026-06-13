@@ -111,7 +111,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
             return TileBounces < 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int dustAmount = 15; // number of dust particles
 

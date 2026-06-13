@@ -37,7 +37,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
         public override void AI()
         {
             // Dust
-            int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 15, 0f, 0f, 100, default, 1f);
+            int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.MagicMirror, 0f, 0f, 100, default, 1f);
             Main.dust[dust].velocity *= 0.2f;
             Main.dust[dust].noGravity = true;
 

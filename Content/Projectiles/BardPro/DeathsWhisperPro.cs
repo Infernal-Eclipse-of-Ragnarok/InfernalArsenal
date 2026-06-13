@@ -72,7 +72,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 
                     Color color = Color.Lerp(Color.White, Color.Fuchsia, Main.rand.NextFloat(0.5f, 1f));
 
-                    Dust dust = Dust.NewDustDirect(pos, 1, 1, 43, vel.X, vel.Y, 0, color, scale);
+                    Dust dust = Dust.NewDustDirect(pos, 1, 1, DustID.TintableDustLighted, vel.X, vel.Y, 0, color, scale);
                     dust.noGravity = true;
                     dust.noLight = false;
                     dust.noLightEmittence = false;
@@ -254,7 +254,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
                 float scale = Main.rand.NextFloat(3f, 5f);
                 Color color = Color.Lerp(Color.White, Color.Fuchsia, Main.rand.NextFloat(0.5f, 1f));
 
-                Dust dust = Dust.NewDustDirect(Projectile.Center, 1, 1, 43, vel.X, vel.Y, 0, color, scale);
+                Dust dust = Dust.NewDustDirect(Projectile.Center, 1, 1, DustID.TintableDustLighted, vel.X, vel.Y, 0, color, scale);
                 dust.noGravity = true;
             }
         }

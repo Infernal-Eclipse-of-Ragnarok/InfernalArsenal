@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Buffs.Healer;
@@ -35,7 +36,7 @@ namespace InfernalEclipseWeaponsDLC.Utilities
             target.GetThoriumPlayer().mostRecentHeal = healAmount;
             target.GetThoriumPlayer().mostRecentHealer = healer.whoAmI;
 
-            NetMessage.SendData(16, -1, -1, null, target.whoAmI);
+            NetMessage.SendData(MessageID.PlayerLifeMana, -1, -1, null, target.whoAmI);
             healer.ApplyInteractionNearbyNPCs();
 
             return true;
@@ -107,7 +108,7 @@ namespace InfernalEclipseWeaponsDLC.Utilities
                     int p = Projectile.NewProjectile(healer.GetSource_Accessory(thoriumHealer.innerFlame.Item, null),
                         healer.Center.X, healer.Center.Y - 50f, 0f, 0f,
                         ModContent.ProjectileType<InnerFlamePro>(), 0, 0f, healer.whoAmI);
-                    NetMessage.SendData(27, -1, -1, null, p);
+                    NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
 
                 if (thoriumHealer.accDewCollector.Active && healer.whoAmI == Main.myPlayer)
@@ -116,7 +117,7 @@ namespace InfernalEclipseWeaponsDLC.Utilities
                         target.Center.X, target.Center.Y,
                         Utils.NextFloat(Main.rand, -1f, 1f), Utils.NextFloat(Main.rand, -3f, -1f),
                         ModContent.ProjectileType<DewCollectorPro>(), 0, 0f, healer.whoAmI);
-                    NetMessage.SendData(27, -1, -1, null, p2);
+                    NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p2);
                 }
             }
 

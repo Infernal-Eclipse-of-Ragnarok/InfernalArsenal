@@ -31,7 +31,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic
 
             Item.useTime = 20;
             Item.useAnimation = 20;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.autoReuse = true;
 
             Item.channel = true;

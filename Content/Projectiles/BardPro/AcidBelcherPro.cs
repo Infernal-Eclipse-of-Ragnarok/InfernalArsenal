@@ -57,7 +57,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
             // Optional dust effect
             if (Utils.NextBool(Main.rand))
             {
-                Dust obj = Dust.NewDustPerfect(((Entity)((ModProjectile)this).Projectile).Center, 298, (Vector2?)null, 0, default(Color), 1f);
+                Dust obj = Dust.NewDustPerfect(((Entity)((ModProjectile)this).Projectile).Center, DustID.JungleTorch, (Vector2?)null, 0, default(Color), 1f);
                 obj.noGravity = true;
                 obj.scale = Utils.NextFloat(Main.rand, 0.65f, 0.8f);
                 obj.velocity = -((Entity)((ModProjectile)this).Projectile).velocity * 0.4f;

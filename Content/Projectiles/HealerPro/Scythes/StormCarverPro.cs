@@ -56,7 +56,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.Scythes
                     if (player.whoAmI == Main.myPlayer)
                     {
                         Projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.MountedCenter);
-                        NetMessage.SendData(27, -1, -1, null, Projectile.whoAmI);
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, Projectile.whoAmI);
                     }
                     swingTime = ((Projectile.ai[1] / Projectile.ai[0] - 0.75f) * 4f);
                     swing = Utils.ToRotation(Projectile.velocity) + MathHelper.ToRadians(MathHelper.SmoothStep(135f, 80f, swingTime) * player.direction);
@@ -79,7 +79,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.Scythes
                     if (player.whoAmI == Main.myPlayer)
                     {
                         Projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.MountedCenter);
-                        NetMessage.SendData(27, -1, -1, null, Projectile.whoAmI);
+                        NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, Projectile.whoAmI);
                     }
                     swingTime = ((Projectile.ai[1] / Projectile.ai[0] - 0.75f) * 4f);
                     swing = Utils.ToRotation(Projectile.velocity) - MathHelper.ToRadians(MathHelper.SmoothStep(135f, 80f, swingTime) * player.direction);

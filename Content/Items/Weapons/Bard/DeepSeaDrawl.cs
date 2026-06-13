@@ -29,7 +29,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         {
             Item.width = 38;
             Item.height = 40;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.noMelee = true;
 
@@ -47,7 +47,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             InspirationCost = 3;
 
-            ((ModItem)this).Item.useStyle = 5;
             if (!ModLoader.HasMod("Look"))
             {
                 ((ModItem)this).Item.holdStyle = 3;

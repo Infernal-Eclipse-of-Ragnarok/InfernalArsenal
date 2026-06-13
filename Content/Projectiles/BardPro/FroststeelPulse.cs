@@ -84,7 +84,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
         public override void BardOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 120);
-            target.AddBuff(ModContent.BuffType<GlacialState>(), 60);
+            target.AddBuff(BuffID.Frozen, 60);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

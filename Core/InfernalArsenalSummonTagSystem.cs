@@ -44,9 +44,9 @@ namespace InfernalEclipseWeaponsDLC.Core
                 SummonTag tag = new SummonTag(summonTagEntry.ItemType());
                 summonTagEntry.Setup?.Invoke(tag);
                 int debuff = summonTagEntry.BuffType();
-                if (!CalamityBuffSets.SummonTagDebuff.ContainsKey(debuff))
+                if (CalamityBuffSets.SummonTagDebuff[debuff] == null)
                 {
-                    CalamityBuffSets.SummonTagDebuff.Add(debuff, tag);
+                    CalamityBuffSets.SummonTagDebuff[debuff] = tag;
                 }
             }
         }

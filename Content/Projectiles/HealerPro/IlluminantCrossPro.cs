@@ -1,8 +1,4 @@
-﻿using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.Projectiles.Boss;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.RoguePro;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.RoguePro;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -10,15 +6,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
-using ThoriumMod.Utilities;
-using ThoriumMod.Empowerments;
-using ThoriumMod.Projectiles.Healer;
-using ThoriumMod.Buffs;
 using ThoriumMod.Buffs.Healer;
 using ThoriumMod.Sounds;
-using ThoriumMod.Utilities;
 using InfernalEclipseWeaponsDLC.Utilities;
-using CalamityMod.Buffs.DamageOverTime;
 using System.Collections.Generic;
 
 

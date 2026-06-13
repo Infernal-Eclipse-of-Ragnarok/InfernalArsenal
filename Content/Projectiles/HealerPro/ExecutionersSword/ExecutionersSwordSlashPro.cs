@@ -255,7 +255,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.ExecutionersSw
         {
             Player player = Main.player[Projectile.owner];
             Texture2D slashTexture = TextureAssets.Projectile[982].Value;
-            Texture2D tipTexture = TextureAssets.Extra[98].Value;
+            Texture2D tipTexture = TextureAssets.Extra[ExtrasID.SharpTears].Value;
 
             float progress = 1f - (player.itemAnimation / (float)player.itemAnimationMax);
             float scale = Projectile.scale;

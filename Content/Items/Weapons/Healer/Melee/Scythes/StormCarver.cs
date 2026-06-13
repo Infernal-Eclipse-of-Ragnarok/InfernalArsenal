@@ -80,7 +80,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes
                 float attackTime = player.itemAnimationMax <= 0 ? Item.useAnimation : player.itemAnimationMax > player.itemTimeMax ? player.itemTimeMax : player.itemAnimationMax;
                 int z = Projectile.NewProjectile((IEntitySource)(object)source, position, Vector2.Normalize(Main.MouseWorld - player.MountedCenter), type, damage, knockback, player.whoAmI, attackTime, attackTime, player.GetAdjustedItemScale(Item));
                 Main.projectile[z].direction = swingDirection;
-                NetMessage.SendData(27, -1, -1, null, z, 0f, 0f, 0f, 0, 0, 0);
+                NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, z, 0f, 0f, 0f, 0, 0, 0);
             }
             swingDirection = -swingDirection;
             return false;

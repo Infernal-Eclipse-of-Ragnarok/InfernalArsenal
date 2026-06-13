@@ -25,7 +25,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
             Item.damage = 14;
             Item.knockBack = 2f;
             Item.shoot = ModContent.ProjectileType<GrandThunderWhipProjectile>();
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.shootSpeed = 12f;
             Item.useTime = 28;
             Item.useAnimation = 28;

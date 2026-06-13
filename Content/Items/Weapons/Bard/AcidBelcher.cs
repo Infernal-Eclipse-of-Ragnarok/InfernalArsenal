@@ -48,7 +48,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             InspirationCost = 1;
 
-            ((ModItem)this).Item.useStyle = 5;
             if (!ModLoader.HasMod("Look"))
             {
                 ((ModItem)this).Item.holdStyle = 3;

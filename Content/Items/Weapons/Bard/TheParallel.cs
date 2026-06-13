@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Localization;
+using Terraria.ID;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -35,8 +36,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.width = 44;
             Item.height = 46;
             Item.holdStyle = 5;
-            Item.useStyle = 12;
-            ((ModItem)this).Item.holdStyle = 5;
+            Item.useStyle = ItemUseStyleID.Guitar;
+            Item.holdStyle = 5;
             Item.useTime = 4;
             Item.useAnimation = 12;
             Item.reuseDelay = 20;

@@ -46,7 +46,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.BarrenGarden
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<GlacialState>(), 60);
+            target.AddBuff(BuffID.Frozen, 60);
         }
 
         public override void AI()

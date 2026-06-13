@@ -67,6 +67,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
             Projectile.Opacity = MathHelper.Clamp(1f - (Projectile.timeLeft - 1170) / 30f, 0f, 1f);
             Lighting.AddLight(Projectile.Center, new Color(220, 83, 99).ToVector3() * Projectile.Opacity);
 
+            /*
             // homing, disabled for now
             if (false)
             {
@@ -86,6 +87,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
                     }
                 }
             }
+            */
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

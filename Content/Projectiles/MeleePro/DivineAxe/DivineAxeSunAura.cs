@@ -59,11 +59,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
             Effect sunShader = ModContent.Request<Effect>("InfernalEclipseWeaponsDLC/Assets/Effects/AphelionSun", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-            Texture2D noiseTex = TextureAssets.Extra[189].Value;
+            Texture2D noiseTex = TextureAssets.Extra[ExtrasID.FlameLashTrailShape].Value;
 
             Main.graphics.GraphicsDevice.Textures[1] = noiseTex;
             Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.LinearWrap;
-            Main.graphics.GraphicsDevice.Textures[2] = TextureAssets.Extra[193].Value;
+            Main.graphics.GraphicsDevice.Textures[2] = TextureAssets.Extra[ExtrasID.MagicMissileTrailErosion].Value;
             Main.graphics.GraphicsDevice.SamplerStates[2] = SamplerState.LinearWrap;
 
             float pulse = 0.1f * MathF.Sin(Main.GameUpdateCount * 0.04f);

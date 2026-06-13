@@ -44,14 +44,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.shoot = ModContent.ProjectileType<BrimstoneHarpPro>();
             Item.UseSound = SoundID.Item26;
 
-            // TBD
             Item.useTime = 32;
             Item.useAnimation = 32;
             Item.knockBack = 1.5f;
             Item.damage = 55;
             Item.shootSpeed = 14f;
 
-            ((ModItem)this).Item.useStyle = 5;
             if (!ModLoader.HasMod("Look"))
             {
                 ((ModItem)this).Item.holdStyle = 3;
