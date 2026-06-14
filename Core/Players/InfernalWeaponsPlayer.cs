@@ -37,6 +37,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
     {
         const int shard2chance = 20;
 
+        public bool quickLoader;
         public bool ArtLocket;
         public bool spearSearing;
         public bool spearArctic;
@@ -68,6 +69,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
         public override void ResetEffects()
         {
+            quickLoader = false;
             ArtLocket = false;
             spearSearing = false;
             spearArctic = false;
