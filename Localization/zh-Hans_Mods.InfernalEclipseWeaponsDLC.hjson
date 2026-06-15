@@ -829,109 +829,109 @@ Items: {
 	}
 
 	VibrantShield: {
-		// DisplayName: Vibrant Shield
-		/* Tooltip:
+		DisplayName: 振荡合金盾
+		Tooltip:
 			'''
-			Increases max void by 25
-			You constantly generate a 15 life shield
-			''' */
+			增加25点最大虚空值
+			你会持续生成一个15点的生命护盾
+			'''
 	}
 
 	DivineAxe: {
-		// DisplayName: Divine Axe
-		/* Tooltip:
+		DisplayName: 圣火之斧
+		Tooltip:
 			'''
-			Swings a slow and heavy axe that is infused with [cbuff:CalamityMod/HolyFlames]
-			On a direct hit with the axe, it summons a star shaped explosion which inflicts [cbuff:Daybreak]
-			<right>ing summons a sun above you and while holding <right> you will stab at it, causing it to release large explosions
-			These explosions inflict [cbuff:Daybreak]
-			''' */
+			挥舞一把[cbuff:CalamityMod/HolyFlames]灌注的重斧
+			斧头直接命中时会生成星形爆炸，并施加[cbuff:Daybreak]
+			按住右键会在你上方召唤一颗太阳，持续按住右键时你将向其刺击，使其释放大范围爆炸
+			爆炸会施加[cbuff:Daybreak]
+			'''
 	}
 
 	AncientSteelShield: {
-		// DisplayName: Ancient Steel Shield
-		/* Tooltip:
+		DisplayName: 远古钢盾
+		Tooltip:
 			'''
-			You constantly generate a 20 life shield
-			Attackers have a chance to be afflicted with a stacking, permanent bleed for 5 damage per second
-			This chance increases with your critical strike chance
-			''' */
+			你会持续生成一个20点的生命护盾
+			攻击者有概率被施加可叠加的永久流血效果，每秒造成5点伤害
+			该概率会随你的暴击率提升而增加
+			'''
 	}
 
 	DoubleFlail: {
-		// DisplayName: Double Flail-Core
-		/* Tooltip:
+		DisplayName: 双重连枷核心
+		Tooltip:
 			'''
-			75% basic damage
-			Flail weapons on first hit and for a chance every further hit create either a brimstone or blizzard spike ball
-			The Brimstone spike ball applies [cbuff:CalamityMod/BrimstoneFlames] to enemies and rarely grants the [iabuff:InfernalEclipseWeaponsDLC/HotFlailDmg] buff
-			The Blizzard spike ball applies [iabuff:Frostburn2] to enemies and rarely grants the [iabuff:InfernalEclipseWeaponsDLC/ColdFlailDefense] buff
-			''' */
+			75%基础伤害
+			连枷武器首次命中时以及后续每次命中有概率生成一个硫火或暴雪尖刺球
+			硫火尖刺球会造成[cbuff:CalamityMod/BrimstoneFlames]减益，并有概率赋予你[iabuff:InfernalEclipseWeaponsDLC/HotFlailDmg]增益
+			暴雪尖刺球会造成[iabuff:Frostburn2]减益，并有概率赋予你[iabuff:InfernalEclipseWeaponsDLC/ColdFlailDefense]增益
+			'''
 	}
 
 	PerfectPurple: {
-		// DisplayName: Cosmic Perfection Flail-Core
-		/* Tooltip:
+		DisplayName: 寰星连枷核心
+		Tooltip:
 			'''
-			100% basic damage
-			Flail weapons on first hit create a perfect spike ball
-			Further flail hits have a chance to create more perfect spike balls
-			Perfect spike balls inflict [cbuff:CalamityMod/GodSlayerInferno] and rarely grant the [iabuff:InfernalEclipseWeaponsDLC/PerfectFlailBuff] buff
-			''' */
+			100%基础伤害
+			连枷武器首次命中时生成一枚完美尖刺球
+			后续命中有概率生成更多完美尖刺球
+			完美尖刺球会造成[cbuff:CalamityMod/GodSlayerInferno]减益，并有概率赋予你[iabuff:InfernalEclipseWeaponsDLC/PerfectFlailBuff]增益
+			'''
 	}
 
 	BlackHoleFlail: {
-		// DisplayName: Black Hole Flail-Core
-		/* Tooltip:
+		DisplayName: 黑洞连枷核心
+		Tooltip:
 			'''
-			300% basic damage
-			Flail weapon hits have a chance to create blackholes which home onto enemies, pulls enemies towards itself, and rarely inflicts [cbuff:CalamityMod/WitherDebuff]
-			'This shouldn't work you know? A blackhole this size can absolutely destory the planet... I guess we shouldn't question it'
-			''' */
+			300%基础伤害
+			连枷武器命中概率生成黑洞，黑洞会自动追踪敌人，并将敌人吸向自身，同时概率造成[cbuff:CalamityMod/WitherDebuff]减益
+			“这本不该能实现，你知道的吧？这种规模的黑洞足以彻底摧毁行星……不过，也许我们不该去质疑它”
+			'''
 	}
 
 	PerennialShield: {
-		// DisplayName: Perennial Shield
-		/* Tooltip:
+		DisplayName: 永恒盾
+		Tooltip:
 			'''
-			You constantly generate a 50 life shield
-			Gains extra effects depending on what Reaver Armor set bonus you have
-			    [i:CalamityMod/ReaverHeadTank]: Increases max life by 15 and reduces damage taken by 10%
-			    [i:CalamityMod/ReaverHeadMobility]: 10% increased movement speed and allows the ability to ram dash
-			    [i:CalamityMod/ReaverHeadExplore]: 20% increased jump speed and grants fall damage immunity
-			''' */
+			你会持续生成一个50点的生命护盾
+			根据你当前装备的掠夺者套装效果获得额外加成
+				[i:CalamityMod/ReaverHeadTank]：最大生命值+15，受到的伤害降低10%
+				[i:CalamityMod/ReaverHeadMobility]：移动速度提升10%，并获得冲刺撞击能力
+				[i:CalamityMod/ReaverHeadExplore]：跳跃速度提升20%，并免疫坠落伤害
+			'''
 	}
 
 	HolyFlail: {
-		// DisplayName: Profaned Flail-Core
-		/* Tooltip:
+		DisplayName: 亵渎连枷核心
+		Tooltip:
 			'''
-			100% basic damage
-			Flail weapons on first hit create a profaned spike ball
-			Further flail hits have a chance to create more profaned spike balls
-			Profaned spike balls inflict [cbuff:CalamityMod/HolyFlames] and sometimes start holy fires on hit
-			''' */
+			100%基础伤害
+			连枷武器首次命中时生成一枚亵渎尖刺球
+			后续命中有概率生成更多亵渎尖刺球
+			亵渎尖刺球会造成[cbuff:CalamityMod/HolyFlames]减益，并概率在命中时引燃亵渎圣火
+			'''
 	}
 
 	TerraSheath: {
-		// DisplayName: Terra Sheath
-		/* Tooltip:
+		DisplayName: 泰拉剑鞘
+		Tooltip:
 			'''
-			Sword strikes release {0} terra orbs that home into nearby enemies if held and not used for {1} {^1:second;seconds}
-			These terra orbs recover 3% of you missing health upon hitting an enemy
-			''' */
+			手持且不使用{1}秒后用剑攻击会释放{0}个泰拉法球
+			这些泰拉法球在命中敌人时会恢复你3%已损失的生命值
+			'''
 	}
 
 	BlazeScourgeBag: {
-		// DisplayName: Blaze Scourge Bag
-		/* Tooltip:
+		DisplayName: 焚灾之袋
+		Tooltip:
 			'''
-			Gives the user master yoyo skills
-			Secondary yoyos will do 50% less damage
-			Your yoyo damage inflicts [cbuff:CalamityMod/HolyFlames] and has a chance to inflict [iabuff:InfernalEclipseWeaponsDLC/LimbBurn] on enemies
-			Damaging an enemy with a yoyo will grant you 10% damage reduction until you take damage
-			This effect must recharge for 15 seconds after protecting you
-			''' */
+			赋予使用者大师级悠悠球技巧
+			副悠悠球造成的伤害降低50%
+			你的悠悠球会造成[cbuff:CalamityMod/HolyFlames]减益，并有概率对敌人施加[iabuff:InfernalEclipseWeaponsDLC/LimbBurn]减益
+			使用悠悠球命中敌人时，你将获得10%伤害减免，持续至你受到伤害为止
+			该效果在触发保护后需要15秒重新充能
+			'''
 	}
 
 	ArtificersLocket: {
@@ -969,18 +969,18 @@ ItemTooltip: {
 	NeonRipperLore1: 在击败歌莉娅之后，埃雷利安决定重新利用它身上残留的部分装甲
 	NeonRipperLore2: 借此他打造了两件武器：第一件是一柄能够吸收灵气的镰刀，正如卡米的能力一般。
 	PBGBardALore2: 借此他打造了两件武器：第二件是一把能够射出炫彩光波的吉他。
-	/* DoubleFlailLore:
+	DoubleFlailLore:
 		'''
-		Calamitas and Permafrost always had great teamwork as student and teacher when she was still a child
-		These two Flails could be applying the same techniques to combine ice and fire in disasterous ways for your foes
-		''' */
-	/* PerfectPurpleLore:
+		灾厄与永冻之间一直配合默契，如同学生与导师一般，尤其是在她尚且年幼之时
+		这两把流星锤或许正运用了同样的技巧，以冰与火的结合之力对敌人造成灾难性的打击
 		'''
-		Yet, it wasn't perfect.
-		Teamwork can only take one so far. After all, you are your own best friend.
-		Two of one, could do so much more because...
-		You are perfect with yourself.
-		''' */
+	PerfectPurpleLore:
+		'''
+		然而，它并不完美。
+		团队协作终究只能走到某个程度。毕竟，真正最可靠的伙伴，始终是你自己。
+		“两个同一之物”，本可以做到更多，因为……
+		你与自己，才是最完美的组合。
+		'''
 	SearingSpearTip: 150% 基础伤害
 	ArcticSpearTip: 115% 基础伤害
 	VerveineItem: “来自兰花的祝福之物……”
@@ -1031,7 +1031,7 @@ ItemTooltip: {
 		cat: StarlightCat
 		Goldsock: Goldsockz2
 		paradox: Imagiknight_Parad0xical
-		// Arkangel: Arkangel
+		Arkangel: Arkangel
 	}
 
 	Cooldowns: {
@@ -1183,17 +1183,17 @@ Projectiles: {
 	AbsoluteTVRemoteRewindPro.DisplayName: 倒带光环
 	CosmicPunch.DisplayName: 宇宙拳套
 	Melee.GauntletofAnnihilationPunches.DisplayName: 宇宙重拳
-	// DivineAxeHoldout.DisplayName: Divine Axe
-	// DivineExplosion.DisplayName: Divine Explosion
-	// DivineSunAura.DisplayName: Divine Aura
-	// DivineAxeSunAura.DisplayName: Divine Axe Sun Aura
-	// ColdFlailCorePro.DisplayName: Cold Flail Core
-	// HotFlailCorePro.DisplayName: Hot Flail Core
-	// PerfectFlailCorePro.DisplayName: Perfect Flail Core
-	// BlackHoleFlailCorePro.DisplayName: Black Hole Flail Core
-	// HolyFlailCorePro.DisplayName: Holy Flail Core
-	// HolyFlailFire.DisplayName: Holy Fire
-	// TerraOrb.DisplayName: Terra Orb
+	DivineAxeHoldout.DisplayName: 圣火之斧
+	DivineExplosion.DisplayName: 圣火爆炸
+	DivineSunAura.DisplayName: 圣火光环
+	DivineAxeSunAura.DisplayName: 圣火之斧太阳光环
+	ColdFlailCorePro.DisplayName: 冷连枷核心
+	HotFlailCorePro.DisplayName: 热连枷核心
+	PerfectFlailCorePro.DisplayName: 完美连枷核心
+	BlackHoleFlailCorePro.DisplayName: 黑洞连枷核心
+	HolyFlailCorePro.DisplayName: 神圣连枷核心
+	HolyFlailFire.DisplayName: 亵渎圣火
+	TerraOrb.DisplayName: 泰拉法球
 }
 
 Buffs: {
@@ -1223,36 +1223,36 @@ Buffs: {
 	}
 
 	ColdFlailDefense: {
-		// Description: You're nullified by the freezing blue
-		// DisplayName: Nullification Blue
-		// ItemTooltip: Increased damage resistance by 10%
+		Description: 你被冻结的湛蓝所湮灭
+		DisplayName: 虚无湮蓝
+		ItemTooltip: +10%伤害减免
 	}
 
 	HotFlailDmg: {
-		// Description: You're amplified by the burning red
-		// DisplayName: Amplification Red
-		// ItemTooltip: Increased damage by 10%
+		Description: 你被炽烈的赤红所增幅
+		DisplayName: 增幅赤红
+		ItemTooltip: +10%伤害
 	}
 
 	PerfectFlailBuff: {
-		// DisplayName: Perfect Purple
-		// Description: You are Perfect.
-		// ItemTooltip: Increased damage, damage resistance and movement speed by 15%
+		DisplayName: 完美绛紫
+		Description: 你是完美的。
+		ItemTooltip: 伤害、伤害减免与移动速度提升15%
 	}
 
 	GrandThunderWhipTag: {
-		// DisplayName: Grand Thunder Whip Tag
-		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.GrandThunderWhipTag.Description
+		DisplayName: 惊雷鞭标记
+		Description: Mods.InfernalEclipseWeaponsDLC.Buffs.GrandThunderWhipTag.Description
 	}
 
 	LimbBurn: {
-		// DisplayName: Limb Burn
-		// Description: Your Muscles are deteriorating
-		/* ItemTooltip:
+		DisplayName: 肢体灼烧
+		Description: 你的肌肉正在萎蚀
+		ItemTooltip:
 			'''
-			Heat - 50 DPS
-			Lowers Enemy Speed by 7.5%
-			''' */
+			火系 - 50 DPS
+			减缓7.5%敌怪速度
+			'''
 	}
 }
 
@@ -1263,7 +1263,7 @@ Configs: {
 		Headers: {
 			VerveineWeapons: Verveine的武器
 			General: 通用
-			// SoltansCut: Soltan's Cut
+			SoltansCut: 索坦内容
 		}
 
 		AIGenedWeapons: {
@@ -1287,18 +1287,18 @@ Configs: {
 		}
 
 		LifeShields: {
-			// Label: Life Shields
-			// Tooltip: ""
+			Label: 生命护盾
+			Tooltip: ""
 		}
 
 		FlailCores: {
-			// Label: Flail Cores
-			// Tooltip: ""
+			Label: 连枷核心
+			Tooltip: ""
 		}
 
 		YoyoPouches: {
-			// Label: Yoyo Pouches
-			// Tooltip: ""
+			Label: 悠悠球袋
+			Tooltip: ""
 		}
 	}
 }

@@ -281,7 +281,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
 
                 Dust.NewDustPerfect(
                     Projectile.Center + dustVelocity,
-                    226, // Electric dust (same as Thorium)
+                    DustID.Electric, // Electric dust (same as Thorium)
                     dustVelocity,
                     128,
                     default,

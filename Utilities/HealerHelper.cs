@@ -100,9 +100,6 @@ namespace InfernalEclipseWeaponsDLC.Utilities
                     coralShieldCounter = 0;
                 }
 
-                if (thoriumHealer.accBeltoftheQuickResponse)
-                    healer.AddBuff(ModContent.BuffType<BeltoftheQuickResponseBuff>(), 180);
-
                 if (thoriumHealer.innerFlame.Active && thoriumHealer.LowestPlayer != healer.whoAmI && healer.whoAmI == Main.myPlayer)
                 {
                     int p = Projectile.NewProjectile(healer.GetSource_Accessory(thoriumHealer.innerFlame.Item, null),
@@ -110,24 +107,15 @@ namespace InfernalEclipseWeaponsDLC.Utilities
                         ModContent.ProjectileType<InnerFlamePro>(), 0, 0f, healer.whoAmI);
                     NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p);
                 }
-
-                if (thoriumHealer.accDewCollector.Active && healer.whoAmI == Main.myPlayer)
-                {
-                    int p2 = Projectile.NewProjectile(healer.GetSource_Accessory(thoriumHealer.accDewCollector.Item, null),
-                        target.Center.X, target.Center.Y,
-                        Utils.NextFloat(Main.rand, -1f, 1f), Utils.NextFloat(Main.rand, -3f, -1f),
-                        ModContent.ProjectileType<DewCollectorPro>(), 0, 0f, healer.whoAmI);
-                    NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, p2);
-                }
             }
 
             // Life recovery effects
-            if (thoriumHealer.aloePlant)
+            if (thoriumHealer.accAloeLeaf)
                 thoriumTarget.SetLifeRecoveryEffect(LifeRecoveryEffectType.AloeLeaf, 600, request: true);
-            if (thoriumHealer.medicalAcc && !thoriumTarget.OutOfCombat)
+            if (thoriumHealer.accMedicalBag && !thoriumTarget.OutOfCombat)
                 thoriumTarget.SetLifeRecoveryEffect(LifeRecoveryEffectType.MedicalBag, 300, request: true);
 
-            if (!selfHeal && thoriumHealer.equilibrium)
+            if (!selfHeal && thoriumHealer.accEqualizer)
             {
                 if (healer.statLife > target.statLife)
                     thoriumTarget.SetLifeRecoveryEffect(LifeRecoveryEffectType.Equalizer, 300, request: true);
