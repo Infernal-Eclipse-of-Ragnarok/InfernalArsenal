@@ -596,9 +596,9 @@ Items: {
 		// DisplayName: Grand Amplifier
 		/* Tooltip:
 			'''
-			<left> to fire a small thunderbolt that inflicts [rbuff:Electrified]
-			<right> to summon lightning above all nearby enemies with the [rbuff:Electrified] debuff
-			This lightning will remove the [rbuff:Electrified] debuff but deal a burst of high damage
+			<left> to fire a small thunderbolt that inflicts [cbuff:Electrified]
+			<right> to summon lightning above all nearby enemies with the [cbuff:Electrified] debuff
+			This lightning will remove the [cbuff:Electrified] debuff but deal a burst of high damage
 			''' */
 	}
 
@@ -620,7 +620,7 @@ Items: {
 		// DisplayName: C-GSS Gamma Knife
 		/* Tooltip:
 			'''
-			Ignores 15 points of defence
+			Ignores 15 points of defense
 			<left> to swing the knife directionally, firing a high intensity slash of gamma radiation
 			The slash will deal heavy damage at close range but dissipate as it travels
 			<right> to throw the knife, which will explode and return on collision with an enemy or tile
