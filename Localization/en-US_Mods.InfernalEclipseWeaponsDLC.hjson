@@ -328,7 +328,7 @@ Items: {
 			[iabuff:Ichor], [iabuff:Confused], [iabuff:OnFire], [iabuff:Frostburn],
 			[iabuff:Poisoned], [iabuff:ShadowFlame], [iabuff:CursedInferno],
 			[iabuff:CalamityMod/Crumbling], [iabuff:CalamityMod/CrushDepth], [iabuff:CalamityMod/AstralInfectionDebuff],
-			[iabuff:CalamityMod/Plague], [iabuff:CalamityMod/BrimstoneFlames], [iabuff:ThoriumMod/MagickStaffDebuff],
+			[iabuff:CalamityMod/Plague], [iabuff:CalamityMod/BrimstoneFlames],
 			[iabuff:ThoriumMod/Stunned] and [iabuff:ThoriumMod/Charmed]
 			'''
 	}
@@ -345,8 +345,8 @@ Items: {
 			[iabuff:CalamityMod/MiracleBlight], [iabuff:Confused], [iabuff:OnFire], [iabuff:Frostburn],
 			[iabuff:Poisoned], [iabuff:ShadowFlame], [iabuff:CursedInferno],
 			[iabuff:CalamityMod/Crumbling], [iabuff:CalamityMod/CrushDepth], [iabuff:CalamityMod/AstralInfectionDebuff],
-			[iabuff:CalamityMod/Plague], [iabuff:CalamityMod/BrimstoneFlames], [iabuff:ThoriumMod/MagickStaffDebuff],
-			[iabuff:Ichor], [iabuff:ThoriumMod/Stunned] and [iabuff:ThoriumMod/Charmed]
+			[iabuff:CalamityMod/Plague], [iabuff:CalamityMod/BrimstoneFlames], [iabuff:Ichor], 
+			[iabuff:ThoriumMod/Stunned] and [iabuff:ThoriumMod/Charmed]
 			'How much more do you need!?'
 			'''
 	}
