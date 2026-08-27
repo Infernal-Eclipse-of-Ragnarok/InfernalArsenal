@@ -8,6 +8,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.SuperCell;
 using CalamityMod;
+using CalamityMod.Items.Accessories.Wings;
+using System.Linq;
+using Terraria.Localization;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Vanity
 {
@@ -66,25 +69,29 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Vanity
                 float baseJumpSpeed = (CalamityServerConfig.Instance.FasterJumpSpeed ? 5.71f : 5.01f) + 1f;
                 StringBuilder sb = new StringBuilder(512);
                 sb.Append('\n');
-                sb.Append(CalamityUtils.GetText($"Common.WingStats").Format(time.FramesToSeconds(), run.ToMph(), (tMax * baseJumpSpeed).ToMph()));
-                sb.Append('\n');
                 if (Main.keyState.PressingShift())
                 {
-                    sb.Append(CalamityUtils.GetText($"Common.WingStatsAcceleration").Format(rAcc.ToMphps(), asc.ToMphps(), (asc + rise).ToMphps(), (rMax * baseJumpSpeed).ToMph(), (asc + fall).ToMphps()));
+                    sb.Append(CalamityUtils.GetText($"Common.WingStatsFull").Format(time.FramesToSeconds(),
+                    BaseWings.HorizontalSpeedText(run), run.ToMph(),
+                    BaseWings.VerticalSpeedText(1.35f), (1.35f * baseJumpSpeed).ToMph(),
+                    BaseWings.HorizontalAccelerationText(stats.AccRunAccelerationMult), rAcc.ToMphps(),
+                    BaseWings.VerticalAccelerationText(0.195f), 0.195f.ToMphps(),
+                    (0.1f + 0.15f).ToMphps(), (1 * baseJumpSpeed).ToMph(),
+                    (0.195f + 0.85f).ToMphps()));
                     if (hover)
                     {
                         sb.Append('\n');
-                        sb.Append(CalamityUtils.GetText($"Common.WingStatsHover").Format(hSpeed.ToMph(), hAcc.ToMphps()));
+                        sb.Append(Language.GetText($"Common.WingStatsHover").Format(hSpeed.ToMph(), hAcc.ToMphps()));
                     }
                 }
                 else
-                    sb.Append($"[c/B8B8B8:{CalamityUtils.GetTextValue("UI.HoldShiftTooltipExtensionIndicator")}]");
-
-                if (extraKey != null)
                 {
+                    sb.Append(CalamityUtils.GetText($"Common.WingStats").Format(time.FramesToSeconds(), BaseWings.HorizontalSpeedText(run), BaseWings.VerticalSpeedText(1.35f),
+                    BaseWings.HorizontalAccelerationText(stats.AccRunAccelerationMult), BaseWings.VerticalAccelerationText(0.195f)));
                     sb.Append('\n');
-                    sb.Append(CalamityUtils.GetTextValue($"Vanilla.Wings.{extraKey}"));
+                    sb.Append($"[c/B8B8B8:{Language.GetTextValue("Mods.CalamityMod.UI.HoldShiftTooltipExtensionIndicator")}]");
                 }
+
                 return sb.ToString();
             }
         }

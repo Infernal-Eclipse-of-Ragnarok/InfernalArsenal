@@ -431,7 +431,7 @@ Items: {
 			成功在计时区域击中3次会向四周释放8道寒冰冲击
 			成功在计时区域击中会不断增加它的伤害和咒音增幅等级
 			错失节拍会大幅降低这些加成并消耗10点灵感值
-			这些加成在切换武器后仍会保留，但若不是你激活的武器，加成会逐渐消散
+			这些加成在切换武器后仍会保留，但若你没有手持此武器，加成会逐渐消散
 			'''
 	}
 
@@ -726,7 +726,7 @@ Items: {
 			长剑处于嵌入状态时会释放出光暗能量
 			光辉能量会追踪附近的友方，并治疗等同于额外治疗量的生命值
 			暗影能量会追踪附近的敌人，造成伤害
-			若使用者的额外治疗量大于等于5，敌人还会被施加多种削弱性减益
+			若使用者的额外治疗量大于等于5则施加[cbuff:BetsysCurse][cbuff:Ichor][cbuff:CalamityMod/ArmorCrunch][cbuff:CalamityMod/ArmorCrunch][cbuff:CalamityMod/MarkedforDeath]和[cbuff:CalamityMod/WhisperingDeath]减益
 			一次只能投掷一把长剑
 			“抱歉了小猪猪，但这是必要的牺牲”
 			'''
@@ -824,7 +824,7 @@ Items: {
 			如果关闭饰品可见性，饰品效果会变得透明且安静
 			为所有队友增加{0}HP/s生命再生、{1}%最大生命值、{2}%伤害减免、{3}点防御和{4}%伤害
 			“思想始于微尘，却会在人心之间层层回响
-			当万众同声，它便化作无人可挡的洪流”——Imagiknight_Girus
+			当万众同声，它便化作无人可挡的洪流” ——Imagiknight_Girus
 			'''
 	}
 
@@ -1019,7 +1019,7 @@ ItemTooltip: {
 		Soltan: Soltan
 		bryce: bryce27
 		eviil81: evil81
-		rose: rosé
+		rose: ros�
 		Jill: JillyFish
 		Eduarrdo: Eduarrdo
 		Mae: ma3allim

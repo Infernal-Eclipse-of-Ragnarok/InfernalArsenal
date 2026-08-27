@@ -37,6 +37,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
         {
             Player player = Main.player[Projectile.owner];
 
+            Projectile.scale = player.GetAdjustedItemScale(player.HeldItem); // Adjust the projectile's scale based on the player's held item scale -Arkangel
+
             if (player.dead || !player.active || player.itemAnimation <= 0)
             {
                 Projectile.Kill();
@@ -79,7 +81,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
 
             if (progress >= 0.60f)
             {
-                Vector2 bladePosition = Projectile.Center + visualRotation.ToRotationVector2() * 130f;
+                Vector2 bladePosition = Projectile.Center + visualRotation.ToRotationVector2() * (130f * Projectile.scale); // Adjusted blade position based on projectile scale -Arkangel
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -164,8 +166,9 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float collisionPoint = 0f;
-            Vector2 end = Projectile.Center + Projectile.rotation.ToRotationVector2() * 150f;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, end, 60f, ref collisionPoint);
+
+            Vector2 end = Projectile.Center + Projectile.rotation.ToRotationVector2() * (150f * Projectile.scale);
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, end, 60f * Projectile.scale, ref collisionPoint); //added a scale multiplier for collision detection -Arkangel
         }
     }
 }

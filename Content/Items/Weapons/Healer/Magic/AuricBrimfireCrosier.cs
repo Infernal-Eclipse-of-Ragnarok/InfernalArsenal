@@ -56,7 +56,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic
             Item.mana = 30;
             radiantLifeCost = 2;
 
-            Item.rare = ModLoader.TryGetMod("NoxusBoss", out Mod noxus) ? noxus.Find<ModRarity>("LotusOfCreationRarity").Type : ModContent.RarityType<HotPink>();
+            Item.rare = ModLoader.TryGetMod("NoxusBoss", out Mod noxus) ? noxus.Find<ModRarity>("LotusOfCreationRarity").Type : ModContent.RarityType<BurnishedAuric>();
             Item.value = CalamityGlobalItem.RarityHotPinkBuyPrice;
 
             Item.shoot = ModContent.ProjectileType<Staff_Projectile>();

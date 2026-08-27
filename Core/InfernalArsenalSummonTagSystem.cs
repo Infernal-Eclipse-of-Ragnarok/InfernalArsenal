@@ -5,7 +5,6 @@ using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Core

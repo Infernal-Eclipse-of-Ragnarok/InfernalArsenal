@@ -67,7 +67,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro
             if (ModLoader.TryGetMod("ThoriumMod", out Mod thor))
             {
                 if (!target.boss) target.AddBuff(thor.Find<ModBuff>("Stunned").Type, 30, false);
-                target.AddBuff(thor.Find<ModBuff>("MagickStaffDebuff").Type, 300, false);
+                //target.AddBuff(thor.Find<ModBuff>("MagickStaffDebuff").Type, 300, false);
                 target.AddBuff(thor.Find<ModBuff>("Charmed").Type, 180, false);
             }
 

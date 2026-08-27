@@ -58,7 +58,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
         public override void WhenSpawned()
         {
             Projectile.knockBack = 0f;
-            Projectile.scale = 1f;
+            Projectile.scale = 1f; //force the scale to 1f to prevent scaling issues -Arkangel
             Projectile.ai[1] = 1f;
 
             Projectile.rotation = Vector2.UnitY.ToRotation() + MathHelper.ToRadians(-135f);
@@ -81,6 +81,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
                 Projectile.Kill();
                 return;
             }
+
+            Projectile.scale = 1f; //force the scale to 1f to prevent scaling issues -Arkangel
 
             Projectile.timeLeft = 2;
             Owner.itemTime = 2;

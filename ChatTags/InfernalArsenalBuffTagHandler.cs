@@ -34,7 +34,7 @@ namespace InfernalEclipseWeaponsDLC.ChatTags
             private static Dictionary<int, Color> BuffColorOverrides => _buffColorOverrides ??= new()
             {
                 [ModContent.BuffType<HolyGlare>()] = Color.Goldenrod,
-                [ModContent.BuffType<MagickStaffDebuff>()] = Color.Thistle,
+                //[ModContent.BuffType<MagickStaffDebuff>()] = Color.Thistle,
                 [ModContent.BuffType<Stunned>()] = Color.White,
                 [ModContent.BuffType<Charmed>()] = Color.White,
 
