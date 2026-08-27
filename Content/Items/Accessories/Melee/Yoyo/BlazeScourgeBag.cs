@@ -8,6 +8,8 @@ using InfernalEclipseWeaponsDLC.Core.NewFolder;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.Yoyo
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class BlazeScourgeBag : ModItem
     {
         public override bool IsLoadingEnabled(Mod mod) => WeaponConfig.Instance.YoyoPouches;

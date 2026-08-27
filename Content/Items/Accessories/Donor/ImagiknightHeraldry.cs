@@ -22,6 +22,8 @@ using CalamityMod.Tiles.Furniture.CraftingStations;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Donor
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     [AutoloadEquip(EquipType.Balloon)]
     public class ImagiknightHeraldry : ModItem
     {

@@ -1,5 +1,4 @@
-﻿using CalamityMod.Items;
-using InfernalEclipseWeaponsDLC.Core.NewFolder;
+﻿using InfernalEclipseWeaponsDLC.Core.NewFolder;
 using InfernalEclipseWeaponsDLC.Core.Players;
 using SOTS;
 using Terraria;
@@ -31,7 +30,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Summoner
             Item.width = 46;
             Item.height = 42;
             Item.rare = ItemRarityID.Lime;
-            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.value = Item.buyPrice(0, 45);
             Item.accessory = true;
         }
 

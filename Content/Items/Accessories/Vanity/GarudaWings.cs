@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CalamityMod.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,7 +8,6 @@ using Terraria.ModLoader;
 using InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.SuperCell;
 using CalamityMod;
 using CalamityMod.Items.Accessories.Wings;
-using System.Linq;
 using Terraria.Localization;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Vanity
@@ -28,7 +26,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Vanity
         {
             Item.width = 34;
             Item.height = 28;
-            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.value = Item.buyPrice(0, 45);
             Item.rare = ItemRarityID.Lime;
             Item.accessory = true;
         }
@@ -43,13 +41,20 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Vanity
                 player.noFallDmg = true;
             }
         }
+    }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
+    public class GarudaGlobalCalamity : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ModContent.ItemType<GarudaWings>();
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             void ApplyTooltipEdits(IList<TooltipLine> lines, Func<Item, TooltipLine, bool> predicate, Action<TooltipLine> action)
             {
                 foreach (TooltipLine line in lines)
-                    if (predicate.Invoke(Item, line))
+                    if (predicate.Invoke(item, line))
                         action.Invoke(line);
             }
             Func<Item, TooltipLine, bool> LineNum(int n) => (Item i, TooltipLine l) => l.Mod == "Terraria" && l.Name == $"Tooltip{n}";
@@ -60,7 +65,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Vanity
 
             string WingStatsTooltip(WingStats stats, float fall, float rise, float rMax, float tMax, float asc, string extraKey = null)
             {
-                int time = supercellWingTime;
+                int time = GarudaWings.supercellWingTime;
                 float run = stats.AccRunSpeedOverride;
                 float rAcc = stats.AccRunAccelerationMult * 0.08f;
                 bool hover = stats.HasDownHoverStats;

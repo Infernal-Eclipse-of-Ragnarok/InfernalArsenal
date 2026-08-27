@@ -9,6 +9,8 @@ using ThoriumMod.Items.BasicAccessories;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.FlailCores
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class HolyFlail : ModItem
     {
         public override bool IsLoadingEnabled(Mod mod) => WeaponConfig.Instance.FlailCores;

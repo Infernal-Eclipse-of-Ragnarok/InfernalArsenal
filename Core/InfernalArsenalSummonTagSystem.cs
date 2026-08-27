@@ -9,6 +9,8 @@ using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Core
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class InfernalArsenalSummonTagSystem : ModSystem
     {
         private struct SummonTagEntry

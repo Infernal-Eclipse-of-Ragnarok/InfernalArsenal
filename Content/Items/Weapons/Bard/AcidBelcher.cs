@@ -15,6 +15,7 @@ using CalamityMod.Items;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
     [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class AcidBelcher : BardItem
     {

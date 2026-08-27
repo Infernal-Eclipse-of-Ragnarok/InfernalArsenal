@@ -10,7 +10,7 @@ using CalamityMod.Items.Placeables.Furniture.Trophies;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using SOTS.Void;
 using System.Reflection;
-using InfernalEclipseWeaponsDLC.Core;
+using InfernalEclipseWeaponsDLC.Utilities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
 {

@@ -20,6 +20,8 @@ using Terraria.Localization;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.SuperCell
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     [AutoloadEquip(EquipType.Head)]
     public class SuperCellCirclet : ModItem
     {

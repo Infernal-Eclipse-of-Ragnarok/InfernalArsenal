@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.SuperCell
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class SuperCellPlayer : ModPlayer
     {
         public bool hasSuperCellGuardEquipped;
