@@ -27,7 +27,6 @@ using InfernalEclipseWeaponsDLC.Core.Players.Dashes;
 using ThoriumMod.Buffs;
 using CalamityMod.Buffs.DamageOverTime;
 using InfernalEclipseWeaponsDLC.Content.Buffs;
-using CalamityMod.Projectiles.Healing;
 
 #pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace InfernalEclipseWeaponsDLC.Core.NewFolder
@@ -37,8 +36,6 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
     {
         const int shard2chance = 20;
 
-        public bool quickLoader;
-        public bool ArtLocket;
         public bool spearSearing;
         public bool spearArctic;
         public bool minionCrits;
@@ -56,7 +53,6 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public bool hideHeraldryVisual;
         public bool hasWarbanner;
 
-        public int LocketTimer = 0;
         public int missileIndex = 10;
         public int CataclysmFistShotCount = 0;
         public int annihilationBonusShotTimeLeft = 0;
@@ -69,8 +65,6 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
         public override void ResetEffects()
         {
-            quickLoader = false;
-            ArtLocket = false;
             spearSearing = false;
             spearArctic = false;
             minionCrits = false;
@@ -135,27 +129,11 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             itemDrop = ModContent.ItemType<DeepSeaDrawlShard2>();
         }
 
-        public void ItemLifesteal(NPC target)
-        {
-        if (Player.GetModPlayer<InfernalWeaponsPlayer>().ArtLocket && target.life <= 0 && target.Calamity().gladiatorOnKill)
-                {
-                    float healPower = 20 * Utils.GetLerpValue(300, 0, Player.GetModPlayer<InfernalWeaponsPlayer>().LocketTimer, true);
-                    target.Calamity().gladiatorOnKill = false;
-                    if (healPower >= 1)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_OnHit(target), target.Center, target.velocity * 0.5f, ModContent.ProjectileType<GladiatorHealOrb>(), 0, 0, -1, (int)healPower);
-                        Player.GetModPlayer<InfernalWeaponsPlayer>().LocketTimer = 300;
-                    }
-                }
-        }
-
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             object result = ModLoader.GetMod("ThoriumMod").Call("IsBardProjectile", proj);
 
             bool concus = false;
-
-            this.ProjLifesteal(target, proj, damageDone, hit.Crit);
 
             if (ModLoader.TryGetMod("ThoriumRework", out Mod helheim))
             {
@@ -442,19 +420,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
             MiscEffects();
         }
-        public void ProjLifesteal(NPC target, Projectile proj, int damageDone, bool crit)
-        {
-        if (Player.GetModPlayer<InfernalWeaponsPlayer>().ArtLocket && target.life <= 0 && target.Calamity().gladiatorOnKill)
-                {
-                    float healPower = 20 * Utils.GetLerpValue(300, 0, Player.GetModPlayer<InfernalWeaponsPlayer>().LocketTimer, true);
-                    target.Calamity().gladiatorOnKill = false;
-                    if (healPower >= 1)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_OnHit(target), target.Center, target.velocity * 0.5f, ModContent.ProjectileType<GladiatorHealOrb>(), 0, 0, -1, (int)healPower);
-                        Player.GetModPlayer<InfernalWeaponsPlayer>().LocketTimer = 300;
-                    }
-                }
-        }
+
         private void MiscEffects()
         {
             if (ModLoader.HasMod("SOTS"))
@@ -473,8 +439,6 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                     SupremeCataclysmFist.GenerateDustOnOwnerHand(Player);
                 }
             }
-            if (LocketTimer > 0)
-                LocketTimer--;
         }
 
         // thank you fargos
