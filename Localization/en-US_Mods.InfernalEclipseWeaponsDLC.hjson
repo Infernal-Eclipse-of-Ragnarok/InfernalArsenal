@@ -930,27 +930,6 @@ Items: {
 			This effect must recharge for 15 seconds after protecting you
 			'''
 	}
-
-	ArtificersLocket: {
-		DisplayName: Artificers Locket
-		Tooltip:
-			'''
-			Enemies drop a healing orb on kill
-			Increases your defense and life regeneration based on how much artificer's energy you have
-			Gain an increase to your damage, movement speed and artificers energy regen speed the lower your health is, up to 25% at 50% life or below
-			Taking damage saps 20 artificer's energy
-			'''
-	}
-
-	QuickLoaderBag: {
-		DisplayName: Quick Loader Bag
-		Tooltip:
-			'''
-			10% increased damage and attack speed with dart weapons
-			Laces darts with the [cbuff:CalamityMod/Plague]
-			While equipped, most darts have a chance to become retrievable after impact
-			'''
-	}
 }
 
 ItemTooltip: {
