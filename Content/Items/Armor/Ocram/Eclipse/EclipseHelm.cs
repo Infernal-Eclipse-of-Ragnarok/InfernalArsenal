@@ -3,8 +3,6 @@ using Terraria.ModLoader;
 using Terraria;
 using ThoriumMod;
 using ThoriumMod.Utilities;
-using CalamityMod.Items;
-using CalamityMod.Items.Potions;
 using InfernalEclipseWeaponsDLC.Core;
 using System.Collections.Generic;
 using SOTS.Void;
@@ -18,7 +16,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.Eclipse
         {
             Item.width = 18;
             Item.height = 18;
-            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.value = Item.buyPrice(0, 45);
             Item.rare = ItemRarityID.Lime;
 
             if (!ModLoader.HasMod("SOTS"))
@@ -111,7 +109,9 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.Eclipse
             }
             else
             {
-                recipe.AddIngredient<AureusCell>(10);
+                if (ModIntegrationsSystem.Calamity.Loaded)
+                    recipe.AddIngredient(ModIntegrationsSystem.Calamity.Mod.Find<ModItem>("AureusCell").Type, 10);
+
                 recipe.AddIngredient(ItemID.SoulofSight, 5);
                 recipe.AddIngredient(ItemID.SoulofMight, 5);
                 recipe.AddIngredient(ItemID.SoulofFright, 5);

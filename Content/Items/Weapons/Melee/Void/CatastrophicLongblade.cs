@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using CalamityMod.Items.Placeables.Furniture.Trophies;
 using CalamityMod.Tiles.Furniture.CraftingStations;
-using InfernalEclipseWeaponsDLC.Core;
+using InfernalEclipseWeaponsDLC.Utilities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
 {

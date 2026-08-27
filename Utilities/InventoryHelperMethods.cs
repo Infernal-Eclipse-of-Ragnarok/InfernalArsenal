@@ -1,6 +1,6 @@
 ﻿using Terraria;
 
-namespace InfernalEclipseWeaponsDLC.Core
+namespace InfernalEclipseWeaponsDLC.Utilities
 {
     public class InventoryHelperMethods
     {

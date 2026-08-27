@@ -9,6 +9,8 @@ using InfernalEclipseWeaponsDLC.Core.NewFolder;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.LifeShields
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     [AutoloadEquip(EquipType.Shield)]
     public class PerennialShield : ModItem
     {

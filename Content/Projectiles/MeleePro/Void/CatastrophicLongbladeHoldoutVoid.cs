@@ -1,7 +1,7 @@
 ﻿using CalamityMod;
 using CalamityMod.Projectiles.BaseProjectiles;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void;
-using InfernalEclipseWeaponsDLC.Core;
+using InfernalEclipseWeaponsDLC.Utilities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

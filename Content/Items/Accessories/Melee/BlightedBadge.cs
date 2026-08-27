@@ -15,6 +15,8 @@ using ThoriumMod.Utilities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     [AutoloadEquip(EquipType.Neck)]
     public class BlightedBadge : ModItem
     {

@@ -9,6 +9,8 @@ using CalamityMod.Rarities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.FlailCores
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class BlackHoleFlail : ModItem
     {
         public override bool IsLoadingEnabled(Mod mod) => WeaponConfig.Instance.FlailCores;
