@@ -7,6 +7,8 @@ using Terraria.ModLoader;
 using Terraria;
 using CalamityMod;
 using CalamityMod.Buffs.DamageOverTime;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee;
+using DivineAxeItem = global::InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.DivineAxe;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
 {
@@ -98,6 +100,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
 
                     heatDust.noGravity = true;
                 }
+            }
+
+            if (player.HeldItem.type != ModContent.ItemType<DivineAxeItem>())
+            {
+                Projectile.Kill();
+                return;
             }
         }
 

@@ -1173,6 +1173,10 @@ Projectiles: {
 	HolyFlailCorePro.DisplayName: 神圣连枷核心
 	HolyFlailFire.DisplayName: 亵渎圣火
 	TerraOrb.DisplayName: 泰拉法球
+	// ArckaneStaffHoldout.DisplayName: Arckane Staff
+	// ArckaneGemPro.DisplayName: Arckane Gem
+	// ArckaneScythe1Pro.DisplayName: Arckane Scythe
+	// ArckaneScythe2Pro.DisplayName: Arckane Scythe
 }
 
 Buffs: {
