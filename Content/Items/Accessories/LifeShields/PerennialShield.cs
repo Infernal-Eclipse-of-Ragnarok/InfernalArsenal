@@ -18,7 +18,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.LifeShields
         {
             Item.ResearchUnlockCount = 1;
         }
-
         public override void SetDefaults()
         {
             Item.width = 60;
@@ -28,14 +27,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.LifeShields
             Item.accessory = true;
             Item.defense = 8;
         }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ThoriumPlayer thoriumPlayer = player.GetThoriumPlayer();
             thoriumPlayer.MetalShieldMax += 50;
             player.GetModPlayer<InfernalWeaponsPlayer>().perennialShield = true;
         }
-
         public override void AddRecipes()
         {
             CreateRecipe()
