@@ -1,32 +1,22 @@
-﻿using System;
-using CalamityMod.BiomeManagers;
+﻿using InfernalEclipseWeaponsDLC.Content.Buffs;
 using InfernalEclipseWeaponsDLC.Content.Items.Materials;
-using Terraria.DataStructures;
-using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.Void;
-using Terraria.ID;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
-using Terraria.Audio;
-using CalamityMod.Projectiles.Typeless;
-using CalamityMod;
-using InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee;
-using InfernalEclipseWeaponsDLC.Core.Cooldowns;
-using CalamityMod.Cooldowns;
-using CalamityMod.CalPlayer;
-using InfernalEclipseWeaponsDLC.Content.Items.Accessories.Donor;
-using System.Collections.Generic;
-using CalamityMod.Projectiles.BaseProjectiles;
-using ThoriumMod.Projectiles;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.FlailPro;
+using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.Void;
+using InfernalEclipseWeaponsDLC.Utilities;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 using ThoriumMod;
-using ThoriumMod.Utilities;
-using InfernalEclipseWeaponsDLC.Core.Players.Dashes;
 using ThoriumMod.Buffs;
-using CalamityMod.Buffs.DamageOverTime;
-using InfernalEclipseWeaponsDLC.Content.Buffs;
+using ThoriumMod.Projectiles;
+using ThoriumMod.Utilities;
 
 #pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace InfernalEclipseWeaponsDLC.Core.NewFolder
@@ -34,6 +24,8 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 {
     public class InfernalWeaponsPlayer : ModPlayer
     {
+        private Mod calamity => ModIntegrationsSystem.Calamity.Loaded? ModIntegrationsSystem.Calamity.Mod : null;
+
         const int shard2chance = 20;
 
         public bool spearSearing;
@@ -76,24 +68,11 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             holyFlail = false;
             perennialShield = false;
 
-            if (!imagiknightHeraldry && heraldyBuffFromOther <= 0f)
-                Player.Calamity().cooldowns.Remove(ImagiknightHeraldryBuff.ID);
-
-            if (!hasWarbanner)
-                Player.Calamity().cooldowns.Remove(WarbanneroftheRighteousBuff.ID);
-
-            imagiknightHeraldry = false;
-            hasWarbanner = false;
-
             if (annihilationBonusShotTimeLeft > 0)
                 annihilationBonusShotTimeLeft--;
 
             if (annihilationBonusShotCooldown > 0)
                 annihilationBonusShotCooldown--;
-
-            Player.Calamity().warbannerDamageMult = 0f;
-            heraldryDamageMult = 0f;
-            heraldyBuffFromOther = 0f;
         }
 
         public override void Load()
@@ -116,7 +95,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {
-            bool isSulfurCatch = Player.InModBiome<SulphurousSeaBiome>();
+            bool isSulfurCatch = calamity != null ? Player.InModBiome(calamity.Find<ModBiome>("SulphurousSeaBiome")) : Player.ZoneBeach;
             bool inWater = !attempt.inLava && !attempt.inHoney;
 
             if (!isSulfurCatch || !inWater) return;
@@ -160,9 +139,15 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             }
 
             //Flail chance procs
-            bool isFlail = proj.ModProjectile is FlailProBase || proj.ModProjectile is BaseMaceFlailProjectile || proj.aiStyle == ProjAIStyleID.Flail || ManualFlails.Contains(proj.type);
+            bool isFlail = proj.ModProjectile is FlailProBase || proj.aiStyle == ProjAIStyleID.Flail || ManualFlails.Contains(proj.type);
 
-            if (isFlail == true)
+            bool isCalMace = false;
+            if (ModIntegrationsSystem.Calamity.Loaded)
+            {
+                isCalMace = CalamityHelper.IsMaceFlail(proj);
+            }
+
+            if (isFlail || isCalMace)
             {
                 Vector2 vector = proj.velocity * 0.5f;
 
@@ -222,9 +207,9 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
             if (proj.aiStyle == ProjAIStyleID.Yoyo)
             {
-                if (scourgeBag)
+                if (scourgeBag && ModIntegrationsSystem.Calamity.Loaded)
                 {
-                    target.AddBuff(ModContent.BuffType<HolyFlames>(), 180);
+                    target.AddBuff(ModIntegrationsSystem.Calamity.Mod.Find<ModBuff>("HolyFlames").Type, 180);
                     if (Utils.NextBool(Main.rand, 5))
                     {
                         target.AddBuff(ModContent.BuffType<LimbBurn>(), 120);
@@ -268,117 +253,9 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             }
         }
 
-        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
-        {
-            if (blightedBadge && !npc.dontTakeDamage)
-            {
-                int onHitDamage = (int)Player.GetBestClassDamage().ApplyTo(BlightedBadge.ThornsDamage);
-
-                Projectile bolt = Projectile.NewProjectileDirect(Player.GetSource_OnHurt(hurtInfo.DamageSource), npc.Center, Vector2.Zero, ModContent.ProjectileType<FlashBolt>(), onHitDamage, 0f, Player.whoAmI, npc.whoAmI);
-                bolt.DamageType = Player.GetBestClass();
-            }
-        }
-
-        public override void UpdateEquips()
-        {
-            CalamityPlayer modPlayer = Player.Calamity();
-
-            if (imagiknightHeraldry)
-            {
-                modPlayer.WarbanneroftheRighteous = true;
-
-                int maxValue = (int)(ImagiknightHeraldry.MaxBonus * 100);
-                float bonus = ImagiknightHeraldry.CalculateBonus(Player);
-                float displayBonus = bonus * 100f; // Should range from 0 to the maxValue
-
-                if (modPlayer.cooldowns.TryGetValue(ImagiknightHeraldryBuff.ID, out var cooldown))
-                    cooldown.timeLeft = maxValue - (int)displayBonus;
-                else
-                    Player.AddCooldown(ImagiknightHeraldryBuff.ID, maxValue);
-
-                heraldryDamageMult = bonus;
-
-                modPlayer.warbannerDamageMult = Math.Max(modPlayer.warbannerDamageMult, heraldryDamageMult);
-            }
-            else
-            {
-                float bestBonus = 0f;
-                Player bestHeraldryPlayer = null;
-
-                for (int i = 0; i < Main.maxPlayers; i++)
-                {
-                    Player other = Main.player[i];
-
-                    if (!other.active || other.dead || other.whoAmI == Player.whoAmI)
-                        continue;
-
-                    if (other.team == 0 || other.team != Player.team)
-                        continue;
-
-                    InfernalWeaponsPlayer otherWeaponsPlayer = other.GetModPlayer<InfernalWeaponsPlayer>();
-
-                    if (!otherWeaponsPlayer.imagiknightHeraldry)
-                        continue;
-
-                    float bonus = ImagiknightHeraldry.CalculateBonusFromDistance(other, Player);
-
-                    if (bonus > bestBonus)
-                    {
-                        bestBonus = bonus;
-                        bestHeraldryPlayer = other;
-                    }
-                }
-
-                if (bestBonus > 0f)
-                {
-                    modPlayer.WarbanneroftheRighteous = true;
-                    heraldyBuffFromOther = bestBonus;
-
-                    if (bestHeraldryPlayer != null && !bestHeraldryPlayer.GetModPlayer<InfernalWeaponsPlayer>().hideHeraldryVisual)
-                        modPlayer.warbannerGlow = true;
-
-                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<WarbannerLight>()] < 1 && !bestHeraldryPlayer.GetModPlayer<InfernalWeaponsPlayer>().hideHeraldryVisual && !Player.dead)
-                    {
-                        Projectile.NewProjectileDirect(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<WarbannerLight>(), 0, 0f, Player.whoAmI);
-                    }
-
-                    int maxValue = (int)(ImagiknightHeraldry.MaxBonus * 100);
-                    int displayBonus = (int)(bestBonus * 100f);
-
-                    if (modPlayer.cooldowns.TryGetValue(ImagiknightHeraldryBuff.ID, out var cooldown))
-                        cooldown.timeLeft = maxValue - displayBonus;
-                    else
-                        Player.AddCooldown(ImagiknightHeraldryBuff.ID, maxValue);
-
-                    modPlayer.warbannerDamageMult = Math.Max(modPlayer.warbannerDamageMult, bestBonus);
-                }
-            }
-        }
-
         public override void PostUpdateEquips()
         {
-            CalamityPlayer calamityPlayer = Player.Calamity();
             ThoriumPlayer thoriumPlayer = Player.GetThoriumPlayer();
-
-            if (perennialShield)
-            {
-                if (calamityPlayer.reaverSpeed)
-                {
-                    Player.moveSpeed += 0.1f;
-                    calamityPlayer.DashID = PerennialShieldDash.ID;
-                    Player.dashType = 0;
-                }
-                else if (calamityPlayer.reaverDefense)
-                {
-                    Player.endurance += 0.1f;
-                    Player.statLifeMax2 += 15;
-                }
-                else if (calamityPlayer.reaverExplore)
-                {
-                    Player.jumpSpeedBoost += 1f;
-                    Player.noFallDmg = true;
-                }
-            }
 
             if (scourgeBag2)
             {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CalamityMod.Items;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,7 +11,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Materials
             Item.width = 40;
             Item.height = 40;
             Item.buyPrice(0, 22, 80, 0);
-            Item.value = CalamityGlobalItem.RarityLightPurpleBuyPrice;
+            Item.value = Item.buyPrice(0, 35);
             Item.rare = ItemRarityID.Lime;
         }
     }

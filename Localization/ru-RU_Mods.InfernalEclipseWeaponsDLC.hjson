@@ -1133,6 +1133,10 @@ Projectiles: {
 	// HolyFlailCorePro.DisplayName: Holy Flail Core
 	// HolyFlailFire.DisplayName: Holy Fire
 	// TerraOrb.DisplayName: Terra Orb
+	// ArckaneStaffHoldout.DisplayName: Arckane Staff
+	// ArckaneGemPro.DisplayName: Arckane Gem
+	// ArckaneScythe1Pro.DisplayName: Arckane Scythe
+	// ArckaneScythe2Pro.DisplayName: Arckane Scythe
 }
 
 Buffs: {

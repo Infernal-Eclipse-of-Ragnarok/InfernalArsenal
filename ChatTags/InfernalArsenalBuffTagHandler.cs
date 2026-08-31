@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using CalamityMod.ChatTags;
-using CalamityMod;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -15,9 +13,26 @@ using ThoriumMod.Buffs.Healer;
 using Terraria.GameInput;
 using System.Linq;
 using InfernalEclipseWeaponsDLC.Content.Buffs;
+using InfernalEclipseWeaponsDLC.Utilities;
 
 namespace InfernalEclipseWeaponsDLC.ChatTags
 {
+    public abstract class AbstractTagHandler<TSelf> : ITagHandler, ILoadable, IAutoload<ILoadable.AutoloadImpl> where TSelf : AbstractTagHandler<TSelf>, new()
+    {
+        protected abstract string[] TagNames { get; }
+
+        public abstract TextSnippet Parse(string text, Color baseColor = default(Color), string options = null);
+
+        public virtual void Load(Mod mod)
+        {
+            ChatManager.Register<TSelf>(TagNames);
+        }
+
+        public virtual void Unload()
+        {
+        }
+    }
+
     public sealed class InfernalArsenalBuffTagHandler : AbstractTagHandler<InfernalArsenalBuffTagHandler>
     {
         public sealed class Snippet(int buffId) : TextSnippet
@@ -62,8 +77,10 @@ namespace InfernalEclipseWeaponsDLC.ChatTags
                     Color buffColor;
                     if (BuffColorOverrides.TryGetValue(buffId, out Color overrideColor))
                         buffColor = overrideColor;
+                    else if (ModLoader.HasMod("CalamityMod"))
+                        buffColor = CalamityHelper.DebuffTooltipColor(buffId);
                     else
-                        buffColor = CalamityUtils.GetDebuffTooltipNameColor(buffId);
+                        buffColor = new Color(230, 202, 250);
 
                     var name = $"{(DrawIcon ? " " : "")}{Lang.GetBuffName(buffId)}";
                     ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, name, position, buffColor, 0f, Vector2.Zero, new Vector2(scale));

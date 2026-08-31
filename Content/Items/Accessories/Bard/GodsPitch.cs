@@ -1,7 +1,4 @@
-﻿using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
+﻿using InfernalEclipseWeaponsDLC.Core;
 using InfernalEclipseWeaponsDLC.Core.NewFolder;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -17,6 +14,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Bard
     [AutoloadEquip(EquipType.Face)]
     public class GodsPitch : BardItem
     {
+        public Mod calamity => ModIntegrationsSystem.Calamity.Loaded ? ModIntegrationsSystem.Calamity.Mod : null;
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
@@ -29,8 +28,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Bard
             Item.width = 36;
             Item.height = 38;
             Item.accessory = true;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
-            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.rare = (calamity != null) ? calamity.Find<ModRarity>("BurnishedAuric").Type : ItemRarityID.Purple;
+            Item.value = Item.buyPrice(2, 40);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -73,9 +72,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Bard
                 .AddIngredient<TunePlayerDamage>()
                 .AddIngredient<TunePlayerDamageReduction>()
                 .AddIngredient<TunePlayerLifeRegen>()
-                .AddIngredient<TunePlayerMovementSpeed>()
-                .AddTile<CosmicAnvil>()
-                .Register();
+                .AddIngredient<TunePlayerMovementSpeed>();
+                
 
             if (ModLoader.TryGetMod("ThoriumRework", out Mod helheim))
             {
@@ -83,7 +81,18 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Bard
                     recipe.AddIngredient(cInstrument.Type);
             }
 
-            recipe.AddIngredient<AuricBar>(5);
+            if (calamity != null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("AuricBar").Type, 5);
+                recipe.AddTile(calamity.Find<ModTile>("CosmicAnvil").Type);
+            }
+            else
+            {
+                recipe.AddIngredient(ItemID.LunarBar, 5);
+                recipe.AddTile(TileID.LunarCraftingStation);
+            }
+
+            recipe.Register();
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Projectiles.Healing;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro;
+using InfernalEclipseWeaponsDLC.Core;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -36,18 +33,22 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.Sheaths
             accDamage = $"{this.SheathData.DamageMultiplier * 100f}% basic damage";
             Item.width = 36;
             Item.height = 34;
-            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
+            Item.value = Item.buyPrice(0, 60);
             Item.rare = ItemRarityID.Yellow;
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
+            Recipe recipe = CreateRecipe()
                 .AddIngredient<LeechingSheath>()
                 .AddIngredient<BrokenHeroFragment>(3)
-                .AddIngredient<LivingShard>(12)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
+
+            if (ModIntegrationsSystem.Calamity.Loaded)
+            {
+                recipe.AddIngredient(ModIntegrationsSystem.Calamity.Mod.Find<ModItem>("LivingShard").Type, 12);
+            }
         }
     }
 

@@ -6,6 +6,13 @@ namespace InfernalEclipseWeaponsDLC.Core
 {
     public class ModIntegrationsSystem : ModSystem
     {
+        public static class Calamity
+        {
+            public static string Name = "CalamityMod";
+            public static Mod Mod => ModLoader.GetMod(Name);
+            public static bool Loaded => ModLoader.HasMod(Name);
+        }
+
         public override void PostSetupContent()
         {
             SetupWeaponOutLite();

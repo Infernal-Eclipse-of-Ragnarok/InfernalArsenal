@@ -9,6 +9,8 @@ using System.Collections.Generic;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.SuperCell
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     [AutoloadEquip(EquipType.Legs)]
     public class SuperCellSabatons : ModItem
     {

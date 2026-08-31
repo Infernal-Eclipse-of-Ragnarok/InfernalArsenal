@@ -11,6 +11,8 @@ using Terraria;
 
 namespace InfernalEclipseWeaponsDLC.Core.Players.Dashes
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class PerennialShieldDash : PlayerDashEffect
     {
         public static new string ID { get; private set; }

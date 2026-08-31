@@ -1,5 +1,4 @@
-﻿using CalamityMod.Items;
-using InfernalEclipseWeaponsDLC.Core.Players;
+﻿using InfernalEclipseWeaponsDLC.Core.Players;
 using SOTS.Items.AbandonedVillage;
 using Terraria;
 using Terraria.ID;
@@ -25,7 +24,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.LifeShields
             Item.width = 54;
             Item.height = 54;
             Item.rare = ItemRarityID.Blue;
-            Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
+            Item.value = Item.buyPrice(0, 1);
             Item.accessory = true;
             Item.defense = 1;
         }

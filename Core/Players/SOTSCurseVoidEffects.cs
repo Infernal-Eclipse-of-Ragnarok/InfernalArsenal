@@ -1,5 +1,4 @@
-﻿using CalamityMod;
-using SOTS.Common.GlobalNPCs;
+﻿using SOTS.Common.GlobalNPCs;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -22,7 +21,7 @@ namespace InfernalEclipseWeaponsDLC.Core.Players
             {
                 DebuffNPC debuffNPC = npc.GetGlobalNPC<DebuffNPC>();
 
-                float critChance = Player.GetTotalCritChance(Player.GetBestClass());
+                float critChance = Player.GetTotalCritChance(DamageClass.Generic);
                 float baseChance = 0.05f + critChance * 0.01f;
                 int baseStacks = 1;
                 if (Main.rand.NextFloat(1) < baseChance / (baseStacks + debuffNPC.BleedingCurse * 0.8f))

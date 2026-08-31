@@ -12,8 +12,8 @@ using ThoriumMod.Items;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.Necrosinger
 {
-    [JITWhenModsEnabled("ThoriumMod")]
-    [ExtendsFromMod("ThoriumMod")]
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     [AutoloadEquip(EquipType.Body)]
     public class NecrosingerRibs : BardItem
     {

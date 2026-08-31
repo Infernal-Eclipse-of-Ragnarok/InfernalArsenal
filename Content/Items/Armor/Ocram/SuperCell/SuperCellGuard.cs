@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using Terraria;
 using CalamityMod.Items;
 using CalamityMod.Items.Potions;
-using InfernalEclipseWeaponsDLC.Core;
 using InfernalEclipseWeaponsDLC.Content.Items.Accessories.Vanity;
 using InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.Eclipse;
 using CalamityMod.Items.Materials;
@@ -12,6 +11,8 @@ using CalamityMod.CalPlayer;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.SuperCell
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     [AutoloadEquip(EquipType.Body)]
     public class SuperCellGuard : ModItem
     {
