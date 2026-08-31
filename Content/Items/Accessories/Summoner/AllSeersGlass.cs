@@ -1,11 +1,10 @@
-﻿using CalamityMod.Items;
-using InfernalEclipseWeaponsDLC.Core.NewFolder;
+﻿using InfernalEclipseWeaponsDLC.Core.NewFolder;
 using InfernalEclipseWeaponsDLC.Core.Players;
-using SOTS;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ThoriumMod.Items.BossMini;
 using ThoriumMod.Utilities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Summoner
@@ -14,12 +13,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Summoner
     [ExtendsFromMod("ThoriumMod")]
     public class AllSeersGlass : ModItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            //return true;
-            return WeaponConfig.Instance.UnfinishedContent;
-        }
-
         public override void SetStaticDefaults()
         {
             ItemID.Sets.AnimatesAsSoul[Type] = true;
@@ -31,7 +24,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Summoner
             Item.width = 46;
             Item.height = 42;
             Item.rare = ItemRarityID.Lime;
-            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.value = Item.buyPrice(0, 45);
             Item.accessory = true;
         }
 
@@ -39,32 +32,23 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Summoner
         {
             player.maxTurrets += 2;
             player.GetCritChance(DamageClass.Generic) += 10f;
-
-            if (ModLoader.HasMod("SOTS"))
-                SetSOTSCritBonusDamage.SetUp(player);
-            else
-                player.GetThoriumPlayer().bonusCritDamage += 0.15f;
-
             player.GetModPlayer<InfernalWeaponsPlayer>().minionCrits = true;
             player.GetModPlayer<ThoriumAccessoryKeyEffects>().canFreezeCamera = true;
 
             if (!hideVisual)
             {
                 player.GetThoriumPlayer().accScryingGlass = true;
-                player.GetThoriumPlayer().accScryingGlassActive = true;
             }
         }
-    }
-
-    [JITWhenModsEnabled("SOTS")]
-    [ExtendsFromMod("SOTS")]
-    public static class SetSOTSCritBonusDamage
-    {
-        public static void SetUp(Player player)
+        public override void AddRecipes()
         {
-            SOTSPlayer sotsPlayer = SOTSPlayer.ModPlayer(player);
-
-            sotsPlayer.CritBonusDamage += 15;
+        CreateRecipe()
+            .AddIngredient<ScryingGlass>(1)
+            .AddIngredient(ItemID.RifleScope, 1)
+            .AddIngredient(ItemID.FragmentSolar, 8)
+            .AddIngredient(ItemID.FragmentStardust, 4)
+            .AddTile(TileID.LunarCraftingStation)
+               .Register();
         }
     }
 }
