@@ -1,4 +1,6 @@
-﻿using CalamityMod.Buffs.DamageOverTime;
+﻿using CalamityMod.Dusts;
+using CalamityMod.Dusts.WaterSplash; // fixed loading issues with the sulphuric splash and brimestone flame dust -Arkangel 
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Buffs.StatDebuffs;
 using InfernalEclipseWeaponsDLC.Utilities;
 using Microsoft.Xna.Framework;

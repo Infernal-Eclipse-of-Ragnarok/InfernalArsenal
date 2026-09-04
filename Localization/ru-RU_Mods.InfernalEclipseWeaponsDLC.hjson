@@ -893,6 +893,11 @@ Items: {
 			This effect must recharge for 15 seconds after protecting you
 			''' */
 	}
+
+	EvilPumpkin: {
+		// DisplayName: Evil Pumpkin
+		// Tooltip: ""
+	}
 }
 
 ItemTooltip: {
@@ -1137,6 +1142,7 @@ Projectiles: {
 	// ArckaneGemPro.DisplayName: Arckane Gem
 	// ArckaneScythe1Pro.DisplayName: Arckane Scythe
 	// ArckaneScythe2Pro.DisplayName: Arckane Scythe
+	// EvilPumpkinMinion.DisplayName: Evil Pumpkin Minion
 }
 
 Buffs: {
@@ -1196,6 +1202,11 @@ Buffs: {
 			Heat - 50 DPS
 			Lowers Enemy Speed by 7.5%
 			''' */
+	}
+
+	EvilPumpkinBuff: {
+		// DisplayName: Evil Pumpkin Buff
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.EvilPumpkinBuff.Description
 	}
 }
 

@@ -933,6 +933,11 @@ Items: {
 			该效果在触发保护后需要15秒重新充能
 			'''
 	}
+
+	EvilPumpkin: {
+		// DisplayName: Evil Pumpkin
+		// Tooltip: ""
+	}
 }
 
 ItemTooltip: {
@@ -1177,6 +1182,7 @@ Projectiles: {
 	// ArckaneGemPro.DisplayName: Arckane Gem
 	// ArckaneScythe1Pro.DisplayName: Arckane Scythe
 	// ArckaneScythe2Pro.DisplayName: Arckane Scythe
+	// EvilPumpkinMinion.DisplayName: Evil Pumpkin Minion
 }
 
 Buffs: {
@@ -1236,6 +1242,11 @@ Buffs: {
 			火系 - 50 DPS
 			减缓7.5%敌怪速度
 			'''
+	}
+
+	EvilPumpkinBuff: {
+		// DisplayName: Evil Pumpkin Buff
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.EvilPumpkinBuff.Description
 	}
 }
 
