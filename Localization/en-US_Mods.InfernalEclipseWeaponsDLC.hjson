@@ -933,7 +933,7 @@ Items: {
 
 	EvilPumpkin: {
 		DisplayName: Evil Pumpkin
-		Tooltip: ""
+		Tooltip: "Summons a respawning pumpkin minion that rapidly attacks nearby enemies"
 	}
 }
 
