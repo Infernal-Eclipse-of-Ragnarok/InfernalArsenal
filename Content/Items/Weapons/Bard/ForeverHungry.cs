@@ -8,20 +8,12 @@ using Terraria.ModLoader;
 using ThoriumMod.Sounds;
 using ThoriumMod.Projectiles.Bard;
 using System;
-using Terraria.GameContent.ItemDropRules;
-using CalamityMod;
-using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Potions;
-using CalamityMod.Items.Weapons.Rogue;
-using InfernalEclipseWeaponsDLC;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
-using ThoriumMod.NPCs.BloodMoon;
 using Terraria.DataStructures;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
     [ExtendsFromMod("ThoriumMod")]
     public class ForeverHungry : BardItem
     {
@@ -37,7 +29,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         public override void SetBardDefaults()
         {
             Item.Size = new Vector2(44, 48);
-            Item.value = CalamityGlobalItem.RarityLightRedBuyPrice;
+            Item.value = Item.buyPrice(0, 10);
 
             Item.useTime = 20;
             Item.useAnimation = 20;
@@ -78,6 +70,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         }
     }
 
+    [JITWhenModsEnabled("ThoriumMod")]
     [ExtendsFromMod("ThoriumMod")]
     public class BouncingHungry : BardProjectile
     {
@@ -152,6 +145,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
     }
 
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class ForeverHungryBlood : BardProjectile
     {
         public override string Texture => "InfernalEclipseWeaponsDLC/Assets/Textures/Empty";

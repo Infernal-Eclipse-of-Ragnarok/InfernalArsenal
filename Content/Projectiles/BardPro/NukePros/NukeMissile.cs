@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,6 +8,8 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NukePros
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class NukeMissile : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;

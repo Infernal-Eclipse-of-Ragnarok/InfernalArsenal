@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CalamityMod.Items;
+﻿using CalamityMod.Items;
 using CalamityMod.Rarities;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.DukeSynth;
 using Microsoft.Xna.Framework;
@@ -18,6 +13,8 @@ using ThoriumMod.Items;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class DukeSynth : BardItem
     {
         public override string Texture => "InfernalEclipseWeaponsDLC/Content/Items/Weapons/Bard/DukeSynthShoot";

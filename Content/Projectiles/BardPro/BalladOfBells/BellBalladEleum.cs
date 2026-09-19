@@ -1,19 +1,14 @@
-﻿using CalamityMod.Items.Weapons.Ranged;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
+﻿using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.BalladOfBells
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class BellBalladEleum : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Percussion;

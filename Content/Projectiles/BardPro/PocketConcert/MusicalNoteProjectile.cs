@@ -1,21 +1,19 @@
 ﻿using InfernalEclipseWeaponsDLC.Content.Dusts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Utilities;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using ThoriumMod.Projectiles.Bard;
 using ThoriumMod;
-using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
 using Terraria.ID;
 using CalamityMod.Buffs.DamageOverTime;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.PocketConcert
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class MusicalNoteProjectile : BardProjectile
     {
         public static readonly Color[] Colors =

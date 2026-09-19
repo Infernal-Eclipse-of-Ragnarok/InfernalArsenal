@@ -1,4 +1,3 @@
-using CalamityMod.Items;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -10,13 +9,13 @@ using ThoriumMod.Empowerments;
 using ThoriumMod.Items;
 using ThoriumMod.Projectiles.Bard;
 using ThoriumMod.Sounds;
-using InfernalEclipseWeaponsDLC;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.Audio;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
     [ExtendsFromMod("ThoriumMod")]
     public class SandSlasher : BardItem
     {
@@ -45,7 +44,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             Item.UseSound = ThoriumSounds.String_Sound;
 
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
+            Item.value = Item.buyPrice(0, 2);
             Item.rare = ItemRarityID.Green;
 
             Item.shoot = ModContent.ProjectileType<SandSlasher_Projectile>();
@@ -72,6 +71,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         }
     }
 
+    [JITWhenModsEnabled("ThoriumMod")]
     [ExtendsFromMod("ThoriumMod")]
     public class SandSlasher_Projectile : BardProjectile
     {
@@ -171,6 +171,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
     }
 
 
+    [JITWhenModsEnabled("ThoriumMod")]
     [ExtendsFromMod("ThoriumMod")]
     public class SandSlasherSandnado : BardProjectile
     {

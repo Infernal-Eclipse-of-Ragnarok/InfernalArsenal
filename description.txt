@@ -18,7 +18,7 @@ It currently adds the following:
 
 It is recommended to use Recipe Browser to see how to obtain the new weapons.
 
-This mod also has combatability with Consolaria & Secrets of the Shadows.
+This mod also has combatability with Calamity, Consolaria & Secrets of the Shadows.
 
 If you have any other issues please report them in the discord (https://discord.gg/tc5nZdRvaU).
 

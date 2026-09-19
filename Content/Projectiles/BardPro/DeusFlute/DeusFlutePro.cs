@@ -8,6 +8,8 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.DeusFlute
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class DeusFlutePro : BardProjectile
     {
         public override string Texture => $"Terraria/Images/Item_{ItemID.None}";

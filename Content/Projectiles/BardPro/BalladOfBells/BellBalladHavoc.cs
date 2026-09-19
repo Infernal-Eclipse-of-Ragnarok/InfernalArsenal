@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.BalladOfBells
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class BellBalladHavoc : BellBalladEleum
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Percussion;

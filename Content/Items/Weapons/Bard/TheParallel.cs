@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ThoriumMod.Items;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Sounds;
@@ -10,7 +6,6 @@ using ThoriumMod;
 using CalamityMod.Items;
 using Terraria.ModLoader;
 using CalamityMod.Rarities;
-using CalamityMod.CustomRecipes;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -20,6 +15,8 @@ using Terraria.ID;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class TheParallel : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.String;

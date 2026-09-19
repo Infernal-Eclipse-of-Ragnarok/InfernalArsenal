@@ -18,6 +18,8 @@ using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class DeathsWhisperPro : BardProjectile, IPixelatedPrimitiveRenderer
     {
         public override string Texture => $"Terraria/Images/Item_{ItemID.None}";

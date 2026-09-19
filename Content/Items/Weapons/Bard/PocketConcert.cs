@@ -15,6 +15,8 @@ using CalamityMod.Items.Materials;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class PocketConcert : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Electronic;

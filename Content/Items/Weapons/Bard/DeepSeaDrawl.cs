@@ -3,17 +3,17 @@ using ThoriumMod.Items;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Sounds;
 using ThoriumMod;
-using CalamityMod.Items;
 using Terraria.ModLoader;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.DataStructures;
-using CalamityMod.Items.Placeables.Abyss;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class DeepSeaDrawl : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Brass;
@@ -43,7 +43,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.shootSpeed = 14f;
 
             Item.rare = ItemRarityID.Orange;
-            Item.value = CalamityGlobalItem.RarityOrangeBuyPrice;
+            Item.value = Item.buyPrice(0, 5);
 
             InspirationCost = 3;
 
@@ -82,15 +82,21 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         }
         public override void AddRecipes()
         {
+            bool hasCal = ModLoader.TryGetMod("CalamityMod", out Mod cal);
+
             //Adding a recipe for Infernum Mode only due chests not spawning in the Abyss in Infernum.
-            if (ModLoader.TryGetMod("InfernumMode", out Mod _))
+            if (ModLoader.HasMod("InfernumMode"))
             {
                 CreateRecipe()
-                    .AddIngredient<AbyssGravel>(10)
-                    .AddIngredient<PlantyMush>(5)
+                    .AddIngredient(cal.Find<ModItem>("AbyssGravel").Type, 10)
+                    .AddIngredient(cal.Find<ModItem>("PlantyMush").Type, 5)
                     .AddIngredient(ItemID.Bone, 3)
                     .AddTile(TileID.Anvils)
                     .Register();
+            }
+            else if (!hasCal)
+            {
+
             }
         }
     }

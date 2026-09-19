@@ -1,19 +1,17 @@
-﻿using CalamityMod.Buffs.Potions;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
-using ThoriumMod.Items.Donate;
 using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.BalladOfBells
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class BellBalladHavocSlash : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Percussion;

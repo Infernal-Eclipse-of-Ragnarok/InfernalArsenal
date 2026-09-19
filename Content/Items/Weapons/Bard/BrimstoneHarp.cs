@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ThoriumMod.Items;
 using ThoriumMod.Empowerments;
-using ThoriumMod.Sounds;
 using ThoriumMod;
-using CalamityMod.Items;
 using Terraria.ModLoader;
-using CalamityMod.Rarities;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Localization;
 using Terraria.ID;
-using ThoriumMod.Items.BardItems;
-using CalamityMod.Items.Placeables;
-using static Terraria.Player;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class BrimstoneHarp : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.String;
@@ -55,7 +46,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
                 ((ModItem)this).Item.holdStyle = 3;
             }
 
-            Item.value = CalamityGlobalItem.RarityPinkBuyPrice;
+            Item.value = Item.buyPrice(0, 20);
             Item.rare = ItemRarityID.Pink;
 
             InspirationCost = 2;

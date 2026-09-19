@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using ReLogic.Utilities;
-using Terraria.Audio;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.PocketConcert
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class PocketConcertPlayer : ModPlayer
     {
         public static int Type { get; private set; }

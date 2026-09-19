@@ -8,6 +8,8 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.BalladOfBells
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class BellBalladSunlightLaser : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Percussion;

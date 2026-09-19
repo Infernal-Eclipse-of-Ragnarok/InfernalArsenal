@@ -7,11 +7,12 @@ using Terraria.GameContent;
 using Terraria.ID;
 using ThoriumMod.Projectiles.Bard;
 using Terraria.ModLoader;
-using CalamityMod.Buffs.DamageOverTime;
 using ThoriumMod;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class DeepSeaDrawlPro : BardProjectile
     {
         public override void SetStaticDefaults()
@@ -108,7 +109,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 
         public override void BardOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<RiptideDebuff>(), 180);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
+                target.AddBuff(cal.Find<ModBuff>("RiptideDebuff").Type, 180);
         }
     }
 }

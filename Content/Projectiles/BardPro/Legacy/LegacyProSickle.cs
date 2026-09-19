@@ -1,22 +1,13 @@
-﻿using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
-using ThoriumMod.Buffs;
 using ThoriumMod.Projectiles.Bard;
-using ThoriumMod.Projectiles.Scythe;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.Legacy
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class LegacyProSickle : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Brass;

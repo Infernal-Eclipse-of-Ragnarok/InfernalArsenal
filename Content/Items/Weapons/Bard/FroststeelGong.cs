@@ -1,21 +1,22 @@
-﻿using System;
+﻿using CalamityMod.Rarities;
+using CalamityMod.Tiles.Furniture.CraftingStations;
+using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
+using Microsoft.Xna.Framework;
+using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using ThoriumMod.Empowerments;
 using ThoriumMod;
+using ThoriumMod.Empowerments;
 using ThoriumMod.Items.BardItems;
-using Microsoft.Xna.Framework;
 using ThoriumMod.Sounds;
-using CalamityMod.Items;
-using CalamityMod.Rarities;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class FroststeelGong : BigInstrumentItemBase
     {
         public override bool ForceDisableAutoReuse => true;
@@ -53,22 +54,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.damage = 600;
             Item.knockBack = 4f;
             Item.UseSound = ThoriumSounds.Gong_Sound;
-
-            if (ModLoader.TryGetMod("Clamity", out Mod clamity))
-            {
-                ModRarity clamityRarity = clamity.Find<ModRarity>("EvercoldCyan");
-
-                if (clamityRarity != null)
-                {
-                    Item.rare = clamityRarity.Type;
-                }
-            }
-            else
-            {
-                Item.rare = ModContent.RarityType<BurnishedAuric>();
-            }
-
-            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.rare = ModLoader.TryGetMod("Clamity", out Mod clamity) ? clamity.Find<ModRarity>("EvercoldCyan").Type : ModContent.RarityType<BurnishedAuric>();
+            Item.value = Item.buyPrice(2, 40);
             InspirationCost = 10;
         }
 
@@ -81,14 +68,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         {
             // Always get Thorium (we depend on it anyway)
             Mod thorium = ModLoader.GetMod("ThoriumMod");
-            Mod calamity = null;
-            Mod clamity = null;
-            Mod ragnarok = null;
-
-            // Try to safely get Calamity and Ragnarok
-            ModLoader.TryGetMod("CalamityMod", out calamity);
-            ModLoader.TryGetMod("Clamity", out clamity);
-            ModLoader.TryGetMod("RagnarokMod", out ragnarok);
+            ModLoader.TryGetMod("CalamityMod", out Mod calamity);
+            ModLoader.TryGetMod("Clamity", out Mod clamity);
 
             Recipe recipe = CreateRecipe();
             if (ModLoader.TryGetMod("ThoriumMod", out Mod thoriumMod))
@@ -123,8 +104,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             SoundEngine.PlaySound(SoundID.Item50, player.Center); // frosty chime sound
         }
 
-        public override void SafeBardShoot(int success, int level, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position,
-    Vector2 velocity, int type, int damage, float knockback)
+        public override void SafeBardShoot(int success, int level, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             // Fire Froststeel Pulse directly from the player’s center
             Projectile.NewProjectile(

@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
     [LegacyName("DogClarinet")]
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class DeathsWhisper : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;

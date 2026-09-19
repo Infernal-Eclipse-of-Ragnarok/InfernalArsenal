@@ -6,6 +6,8 @@ using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.PocketConcert
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public sealed class PocketConcertAudioSystem : ModSystem
     {
         public static readonly SoundStyle Loop = new SoundStyle($"{nameof(InfernalEclipseWeaponsDLC)}/Assets/Effects/Sounds/PocketConcertLoop") with
