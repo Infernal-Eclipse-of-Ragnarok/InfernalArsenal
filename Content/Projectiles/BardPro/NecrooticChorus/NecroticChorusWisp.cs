@@ -31,7 +31,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.friendly = true;
-            Projectile.timeLeft = int.MaxValue;
+            Projectile.timeLeft = 300;
             Projectile.Opacity = 0f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
@@ -80,6 +80,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
             if (Projectile.Opacity < 1f)
                 Projectile.Opacity += 0.1f;
 
+            /*
             if (Projectile.owner == Main.myPlayer)
             {
                 bool chorusEquipped = owner.HeldItem.type == ModContent.ItemType<NecroticChorus>() || Main.mouseItem.type == ModContent.ItemType<NecroticChorus>();
@@ -92,6 +93,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
                     
                 }
             }
+            */
 
             if (owner.dead || !owner.active || Projectile.timeLeft <= 1)
             {
@@ -103,6 +105,13 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
             return true;
         }
 
+        public void RefreshLifetime()
+        {
+            Projectile.timeLeft = 300;
+            Despawn = false;
+            Projectile.Opacity = 1f;
+            Projectile.netUpdate = true;
+        }
 
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
@@ -204,8 +213,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
 
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
-            float speed = 12f;
-            float inertia = 10f;
+            float speed = 30f;
+            float inertia = 4f;
 
             if (foundTarget)
             {

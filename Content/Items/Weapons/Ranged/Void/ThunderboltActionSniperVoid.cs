@@ -9,6 +9,8 @@ using InfernalEclipseWeaponsDLC.Content.Projectiles.RangedPro.Void;
 using SOTS.Void;
 using CalamityMod.Items.Materials;
 using SOTS.Items.Celestial;
+using CalamityMod.Items;
+using CalamityMod.Rarities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged.Void
 {
@@ -20,15 +22,28 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged.Void
         public override bool IsLoadingEnabled(Mod mod) => ModLoader.HasMod("SOTS");
         public override void SafeSetDefaults()
         {
-            Item.CloneDefaults(ModContent.ItemType<ThunderboltActionSniper>());
             Item.damage = 1660;
+            Item.DamageType = DamageClass.Ranged;
+            Item.useTime = 60;
+            Item.useAnimation = 60;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 6f;
+            Item.value = CalamityGlobalItem.RarityTurquoiseBuyPrice;
+            Item.rare = ModContent.RarityType<Turquoise>();
+            Item.shoot = ModContent.ProjectileType<VoidBolt>();
+            Item.shootSpeed = 6f;
+            Item.useAmmo = AmmoID.Bullet;
+            Item.width = 136;
+            Item.height = 40;
+            Item.crit = 26;
         }
         public override int GetVoid(Player player) => 20;
-        public override Vector2? HoldoutOffset() => new Vector2(-29, -10f);
+        public override Vector2? HoldoutOffset() => new Vector2(-25, -4f);
         public override void HoldItem(Player player) => player.scope = true;
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(velocity + new Vector2(0, -0.6f)) * 122;
+            Vector2 muzzleOffset = Vector2.Normalize(velocity + new Vector2(0, -0.6f)) * 112;
 
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {

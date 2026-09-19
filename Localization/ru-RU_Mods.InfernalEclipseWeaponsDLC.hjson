@@ -921,7 +921,7 @@ ItemTooltip: {
 		You are perfect with yourself.
 		''' */
 	SearingSpearTip: 150% базового урона
-	ArcticSpearTip: 115% базового урона
+	ArcticSpearTip: 100% базового урона
 	// VerveineItem: "'An item from the orchid's blessing...'"
 	/* EngineGatling:
 		'''

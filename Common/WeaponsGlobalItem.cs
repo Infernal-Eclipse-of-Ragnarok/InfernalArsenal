@@ -43,7 +43,7 @@ namespace InfernalEclipseWeaponsDLC.Common
 
                 if (weaponPlayer.spearArctic)
                 {
-                    Projectile.NewProjectile(source, position, direction, ModContent.ProjectileType<CryonicSpearTip>(), (int)(damage * 1.15), knockback, player.whoAmI, 0.0f, 0.0f, 0.0f);
+                    Projectile.NewProjectile(source, position, direction, ModContent.ProjectileType<CryonicSpearTip>(), (int)(damage * 1), knockback, player.whoAmI, 0.0f, 0.0f, 0.0f);
                 }
             }
             return true;

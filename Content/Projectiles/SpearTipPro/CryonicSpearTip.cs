@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +26,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SpearTipPro
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 180;
             Projectile.light = 0.2f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.usesIDStaticNPCImmunity = false;
@@ -57,9 +58,33 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SpearTipPro
             Vector2 dustPos = Projectile.Center - Projectile.velocity * 0.5f;
         }
 
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Type].Value;
+
+            Vector2 drawPosition = Projectile.Center - Main.screenPosition;
+            Vector2 origin = texture.Size() / 2f;
+
+            Main.EntitySpriteDraw(
+                texture,
+                drawPosition,
+                null,
+                lightColor,
+                Projectile.rotation,
+                origin,
+                Projectile.scale,
+                SpriteEffects.None,
+                0
+            );
+
+            return false;
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 180);
+
+            Projectile.damage /= 2;
         }
     }
 }

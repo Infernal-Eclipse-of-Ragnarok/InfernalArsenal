@@ -43,17 +43,31 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.noUseGraphic = false; // Hide item while using, same as SteelDrum
-            Item.holdStyle = 3;       // Use the same hold animation
+            Item.noUseGraphic = false;
+            Item.holdStyle = 3;
             Item.width = 30;
             Item.height = 30;
             Item.shootSpeed = 20;
-            Item.shoot = ModContent.ProjectileType<FroststeelPulse>(); // now the pulse
-            Item.autoReuse = false; // optional: single strike per use
+            Item.shoot = ModContent.ProjectileType<FroststeelPulse>();
+            Item.autoReuse = false;
             Item.damage = 600;
             Item.knockBack = 4f;
             Item.UseSound = ThoriumSounds.Gong_Sound;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+
+            if (ModLoader.TryGetMod("Clamity", out Mod clamity))
+            {
+                ModRarity clamityRarity = clamity.Find<ModRarity>("EvercoldCyan");
+
+                if (clamityRarity != null)
+                {
+                    Item.rare = clamityRarity.Type;
+                }
+            }
+            else
+            {
+                Item.rare = ModContent.RarityType<BurnishedAuric>();
+            }
+
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             InspirationCost = 10;
         }
