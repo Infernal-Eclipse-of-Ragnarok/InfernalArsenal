@@ -701,7 +701,8 @@ Items: {
 			'''
 	}
 
-	DisplayName: All Seer's Glass
+	AllSeersGlass: {
+	    DisplayName: All Seer's Glass
         Tooltip:
             '''
             10% increased critical strike chance
