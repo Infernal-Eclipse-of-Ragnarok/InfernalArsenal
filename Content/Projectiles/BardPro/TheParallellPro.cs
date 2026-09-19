@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ThoriumMod;
-using ReLogic.Content;
 using ThoriumMod.Projectiles.Bard;
 using CalamityMod.Buffs.StatDebuffs;
 using Terraria.GameContent;
@@ -17,6 +13,8 @@ using System.Reflection;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class TheParallellPro : BardProjectile
     {
         public override string Texture => "CalamityMod/Items/Weapons/Rogue/CosmicKunai";

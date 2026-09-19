@@ -1,6 +1,4 @@
-using CalamityMod.Items;
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -8,16 +6,12 @@ using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Items;
-using ThoriumMod.Projectiles.Bard;
 using ThoriumMod.Sounds;
-using InfernalEclipseWeaponsDLC;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
-using Terraria.Audio;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
     [ExtendsFromMod("ThoriumMod")]
     public class GlowstringBiwa : BardItem
     {
@@ -46,7 +40,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             Item.UseSound = ThoriumSounds.String_Sound;
 
-            Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
+            Item.value = Item.buyPrice(0, 1);
             Item.rare = ItemRarityID.Blue;
 
             Item.shoot = ModContent.ProjectileType<GlowstringBiwaPro>();

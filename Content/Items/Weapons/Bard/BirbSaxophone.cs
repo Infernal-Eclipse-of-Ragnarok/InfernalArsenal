@@ -1,5 +1,4 @@
-﻿using CalamityMod.Items;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -12,6 +11,8 @@ using ThoriumMod.Sounds;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class BirbSaxophone : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;
@@ -40,7 +41,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.damage = 80;
             Item.shootSpeed = 14f;
 
-            Item.value = CalamityGlobalItem.RarityPurpleBuyPrice;
+            Item.value = Item.buyPrice(1, 20);
             Item.rare = ItemRarityID.Purple;
 
             InspirationCost = 3;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.Audio;
+﻿using Terraria.Audio;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
@@ -15,6 +10,8 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.DukeSynth
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class SulfurSpirit : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Electronic;

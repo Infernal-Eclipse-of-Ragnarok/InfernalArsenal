@@ -1,21 +1,22 @@
-﻿using System;
+﻿using CalamityMod.Rarities;
+using CalamityMod.Tiles.Furniture.CraftingStations;
+using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
+using Microsoft.Xna.Framework;
+using System;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using ThoriumMod.Empowerments;
 using ThoriumMod;
+using ThoriumMod.Empowerments;
 using ThoriumMod.Items.BardItems;
-using Microsoft.Xna.Framework;
 using ThoriumMod.Sounds;
-using CalamityMod.Items;
-using CalamityMod.Rarities;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
-using CalamityMod.Tiles.Furniture.CraftingStations;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class FroststeelGong : BigInstrumentItemBase
     {
         public override bool ForceDisableAutoReuse => true;
@@ -43,18 +44,18 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
-            Item.noUseGraphic = false; // Hide item while using, same as SteelDrum
-            Item.holdStyle = 3;       // Use the same hold animation
+            Item.noUseGraphic = false;
+            Item.holdStyle = 3;
             Item.width = 30;
             Item.height = 30;
             Item.shootSpeed = 20;
-            Item.shoot = ModContent.ProjectileType<FroststeelPulse>(); // now the pulse
-            Item.autoReuse = false; // optional: single strike per use
+            Item.shoot = ModContent.ProjectileType<FroststeelPulse>();
+            Item.autoReuse = false;
             Item.damage = 600;
             Item.knockBack = 4f;
             Item.UseSound = ThoriumSounds.Gong_Sound;
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
-            Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
+            Item.rare = ModLoader.TryGetMod("Clamity", out Mod clamity) ? clamity.Find<ModRarity>("EvercoldCyan").Type : ModContent.RarityType<BurnishedAuric>();
+            Item.value = Item.buyPrice(2, 40);
             InspirationCost = 10;
         }
 
@@ -67,14 +68,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         {
             // Always get Thorium (we depend on it anyway)
             Mod thorium = ModLoader.GetMod("ThoriumMod");
-            Mod calamity = null;
-            Mod clamity = null;
-            Mod ragnarok = null;
-
-            // Try to safely get Calamity and Ragnarok
-            ModLoader.TryGetMod("CalamityMod", out calamity);
-            ModLoader.TryGetMod("Clamity", out clamity);
-            ModLoader.TryGetMod("RagnarokMod", out ragnarok);
+            ModLoader.TryGetMod("CalamityMod", out Mod calamity);
+            ModLoader.TryGetMod("Clamity", out Mod clamity);
 
             Recipe recipe = CreateRecipe();
             if (ModLoader.TryGetMod("ThoriumMod", out Mod thoriumMod))
@@ -109,8 +104,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             SoundEngine.PlaySound(SoundID.Item50, player.Center); // frosty chime sound
         }
 
-        public override void SafeBardShoot(int success, int level, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position,
-    Vector2 velocity, int type, int damage, float knockback)
+        public override void SafeBardShoot(int success, int level, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             // Fire Froststeel Pulse directly from the player’s center
             Projectile.NewProjectile(

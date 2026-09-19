@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
 using ThoriumMod.Projectiles.Bard;
 using Microsoft.Xna.Framework;
-
 using ThoriumMod;
 using CalamityMod.Buffs.DamageOverTime;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.RestoredDeepSeaDrawl
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class OurSharknado : BardProjectile
     {
         List<Projectile> children = [];
@@ -117,10 +114,13 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.RestoredDeepSeaD
 
         public override void BardOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<CrushDepth>(), 180);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
+                target.AddBuff(cal.Find<ModBuff>("CrushDepth").Type, 180);
         }
     }
 
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class SharknadoDebuffGlobal : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
@@ -129,8 +129,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.RestoredDeepSeaD
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (projectile.type == ProjectileID.Sharknado &&
-                projectile.GetGlobalProjectile<SharknadoDebuffGlobal>().fromDeepSeaDrawl)
+            if (projectile.type == ProjectileID.Sharknado && projectile.GetGlobalProjectile<SharknadoDebuffGlobal>().fromDeepSeaDrawl)
             {
                 target.AddBuff(ModContent.BuffType<CrushDepth>(), 180);
             }

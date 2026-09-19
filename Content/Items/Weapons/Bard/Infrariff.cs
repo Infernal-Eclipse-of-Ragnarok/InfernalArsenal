@@ -19,6 +19,7 @@ using CalamityMod.CustomRecipes;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
     [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class Infrariff : BardItem
     {
@@ -133,7 +134,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         }
     }
 
-    [ExtendsFromMod("ThoriumMod")]
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class InfrariffProjectile : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.String;
@@ -274,6 +276,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         }
     }
 
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class InfrariffLaser : BardProjectile
     {
         public override string Texture => $"Terraria/Images/Item_{ItemID.Zenith}"; // hidden, not drawn

@@ -1,5 +1,4 @@
-﻿using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
+﻿using InfernalEclipseWeaponsDLC.Utilities;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -13,6 +12,8 @@ using ThoriumMod.Projectiles.Bard;
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 {
     // Adapted from CalamityMod.Projectiles.Boss.RedLightningFeather
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class BirbSaxophonePro : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;
@@ -94,8 +95,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 
         public override bool PreDraw(ref Color lightColor)
         {
-            CalamityUtils.DrawAfterimagesCentered(Projectile, ProjectileID.Sets.TrailingMode[Projectile.type], lightColor, 1, TextureAssets.Projectile[Projectile.type].Value, drawCentered: false);
-            return false;
+            if (ModLoader.HasMod("CalamityMod"))
+            {
+                CalamityHelper.DrawAfterimagesCentered(Projectile, ProjectileID.Sets.TrailingMode[Projectile.type], lightColor, 1, TextureAssets.Projectile[Projectile.type].Value, drawCentered: false);
+                return false;
+            }
+            return true;
         }
 
         public override void OnKill(int timeLeft)
@@ -139,8 +144,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
         {
             if (hit.Damage > 0 && Projectile.Opacity > 0.1f)
             {
-                //target.AddBuff(BuffID.Electrified, 60);
-                target.AddBuff(ModContent.BuffType<VermillionFlux>(), 120);
+                if (ModLoader.TryGetMod("CalamityMod", out Mod calamity)) 
+                {
+                    target.AddBuff(calamity.Find<ModBuff>("VermillionFlux").Type, 120);
+                }
+                else target.AddBuff(BuffID.Electrified, 60);
             }
 
             if (hit.Crit)

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ThoriumMod.Items;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Sounds;
 using ThoriumMod;
-using CalamityMod.Items;
 using Terraria.ModLoader;
-using CalamityMod.Rarities;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -16,6 +13,8 @@ using Terraria.Localization;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class DeusFlute : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;
@@ -44,8 +43,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.damage = 80;
             Item.shootSpeed = 22f;
 
-            Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
-            Item.rare = ModContent.RarityType<CosmicPurple>();
+            Item.value = Item.buyPrice(0, 80);
+            Item.rare = ItemRarityID.Cyan;
 
             InspirationCost = 2;
 

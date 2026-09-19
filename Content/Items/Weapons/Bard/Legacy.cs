@@ -1,12 +1,5 @@
-﻿using CalamityMod.Items;
-using CalamityMod.CustomRecipes;
-using CalamityMod.Items.Materials;
-using CalamityMod.Items.Placeables;
-using CalamityMod.Items.Potions;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.Legacy;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.Scythes;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.Legacy;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -14,13 +7,13 @@ using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Items;
-using ThoriumMod.Projectiles.Bard;
 using ThoriumMod.Sounds;
 using ThoriumMod.Tiles;
-using ThoriumMod.Items.BardItems;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class Legacy : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Brass;
@@ -46,7 +39,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.UseSound = ThoriumSounds.BugleHorn_Sound;
             Item.shoot = ModContent.ProjectileType<LegacyProBolt>();
             Item.shootSpeed = 15f;
-            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.value = Item.buyPrice(0, 45);
             Item.rare = ItemRarityID.Lime;
 
             if (!ModLoader.HasMod("Look"))
@@ -98,17 +91,21 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         {
             if (!ModLoader.TryGetMod("Consolaria", out Mod _))
             {
-                CreateRecipe()
-                    .AddIngredient<AureusCell>(10)
-                    .AddIngredient<AcidBelcher>(1)
-                    .AddIngredient(ItemID.SoulofSight, 5)
-                    .AddIngredient(ItemID.SoulofMight, 5)
-                    .AddIngredient(ItemID.SoulofFright, 5)
-                    .AddIngredient(ItemID.SoulofNight, 8)
-                    .AddIngredient(ItemID.Bone, 12)
-                    .AddIngredient(ItemID.CursedFlame, 8)
-                    .AddTile(ModContent.TileType<SoulForgeNew>())
-                    .Register();
+                Recipe recipe = CreateRecipe()
+                                    .AddIngredient<AcidBelcher>(1)
+                                    .AddIngredient(ItemID.SoulofSight, 5)
+                                    .AddIngredient(ItemID.SoulofMight, 5)
+                                    .AddIngredient(ItemID.SoulofFright, 5)
+                                    .AddIngredient(ItemID.SoulofNight, 8)
+                                    .AddIngredient(ItemID.Bone, 12)
+                                    .AddIngredient(ItemID.CursedFlame, 8)
+                                    .AddTile(ModContent.TileType<SoulForgeNew>())
+                                    .Register();
+
+                if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
+                {
+                    recipe.AddIngredient(cal.Find<ModItem>("AureusCell").Type, 10);
+                }
             }
         }
 

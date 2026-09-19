@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InfernalEclipseWeaponsDLC.Content.Items.Materials;
+﻿using InfernalEclipseWeaponsDLC.Content.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,11 +8,12 @@ using ThoriumMod;
 using ThoriumMod.Items;
 using ThoriumMod.Tiles;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.RestoredDeepSeaDrawl;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.ExecutionersSword;
 using Terraria.DataStructures;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class RestoredDeepSeaDrawl : BardItem
     {
         public const int numTyphoons = 3;
@@ -31,7 +27,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Empowerments.AddInfo<Damage>(2);
             Empowerments.AddInfo<CriticalStrikeChance>(3);
             Empowerments.AddInfo<AttackSpeed>(2);
-            // Right click support
+
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 

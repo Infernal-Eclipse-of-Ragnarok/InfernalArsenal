@@ -1,5 +1,4 @@
 ﻿using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -14,6 +13,8 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class NecroticChorusWisp : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Brass;

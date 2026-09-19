@@ -1,13 +1,6 @@
-﻿using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using CalamityMod.Buffs.StatDebuffs;
-using CalamityMod.NPCs.TownNPCs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
@@ -15,9 +8,10 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class NecroticChorusPro : BardProjectile
     {
-
         public override BardInstrumentType InstrumentType => BardInstrumentType.Brass;
         public override string Texture => $"Terraria/Images/Item_{ItemID.None}";
 
@@ -114,8 +108,16 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus
                 }
             }
 
-            target.AddBuff(ModContent.BuffType<BurningBlood>(), 180);
-            target.AddBuff(ModContent.BuffType<ArmorCrunch>(), 180);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
+            {
+                target.AddBuff(cal.Find<ModBuff>("BurningBlood").Type, 180);
+                target.AddBuff(cal.Find<ModBuff>("ArmorCrunch").Type, 180);
+            }
+            else
+            {
+                target.AddBuff(BuffID.ShadowFlame, 180);
+                target.AddBuff(BuffID.BrokenArmor, 180);
+            }
         }
     }
 }

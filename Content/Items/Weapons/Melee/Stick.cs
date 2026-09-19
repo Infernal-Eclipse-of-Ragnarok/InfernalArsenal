@@ -1,5 +1,4 @@
 ﻿using CalamityMod;
-using CalamityMod.Items;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -27,7 +26,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
             Item.knockBack = 15f; //Knockback IV
             Item.ArmorPenetration = 15; //Breach IV
 
-            Item.value = CalamityGlobalItem.RarityPurpleBuyPrice;
+            Item.value = Item.buyPrice(1, 20);
             Item.rare = ItemRarityID.Purple;
             Item.UseSound = SoundID.Item1;
 

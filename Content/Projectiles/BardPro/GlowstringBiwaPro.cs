@@ -1,23 +1,18 @@
-﻿using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ThoriumMod;
-using ThoriumMod.Utilities;
-using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class GlowstringBiwaPro : ModProjectile
     {
-        public override string Texture => "CalamityMod/Particles/Light";
+        public override string Texture => "InfernalEclipseWeaponsDLC/Assets/Textures/Light";
 
         public override void SetStaticDefaults()
         {

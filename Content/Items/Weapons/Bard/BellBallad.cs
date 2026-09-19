@@ -1,6 +1,4 @@
-﻿using CalamityMod.Items;
-using CalamityMod.Items.Materials;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.BalladOfBells;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.BalladOfBells;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -12,6 +10,8 @@ using ThoriumMod.Items;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class BellBallad : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Percussion;
@@ -42,7 +42,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.damage = 75;
             Item.shootSpeed = 14f;
 
-            Item.value = CalamityGlobalItem.RarityLimeBuyPrice;
+            Item.value = Item.buyPrice(0, 45);
             Item.rare = ItemRarityID.Lime;
 
             InspirationCost = 1;
@@ -100,14 +100,21 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.Bell, 1)
-                .AddIngredient<EssenceofEleum>(3)
-                .AddIngredient<EssenceofHavoc>(3)
-                .AddIngredient<EssenceofSunlight>(3)
-                .AddIngredient<AshesofCalamity>(5)
-                .AddTile(TileID.MythrilAnvil)
-                .Register();
+            if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
+            {
+                CreateRecipe()
+                    .AddIngredient(ItemID.Bell, 1)
+                    .AddIngredient(cal.Find<ModItem>("EssenceofEleum").Type, 3)
+                    .AddIngredient(cal.Find<ModItem>("EssenceofHavoc").Type, 3)
+                    .AddIngredient(cal.Find<ModItem>("EssenceofSunlight").Type, 3)
+                    .AddIngredient(cal.Find<ModItem>("AshesofCalamity").Type, 5)
+                    .AddTile(TileID.MythrilAnvil)
+                    .Register();
+            }
+            else
+            {
+
+            }
         }
     }
 }

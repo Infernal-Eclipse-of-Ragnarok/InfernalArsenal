@@ -1,6 +1,5 @@
 using System;
 using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.Items;
 using CalamityMod.Items.Materials;
 using CalamityMod.Particles;
@@ -12,7 +11,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
@@ -23,6 +21,7 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
     [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class PlasmaOcarina : BardItem
     {
@@ -207,7 +206,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         }
     }
 
-    //Borrowed from Calamity Mod
+    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
+    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
     public class BardPulseRiffleShot : BardProjectile, ILocalizedModType, IModType
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;

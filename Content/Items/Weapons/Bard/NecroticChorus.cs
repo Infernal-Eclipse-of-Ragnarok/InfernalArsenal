@@ -1,5 +1,3 @@
-using CalamityMod.Items;
-using CalamityMod.Rarities;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NecrooticChorus;
 using Microsoft.Xna.Framework;
 using System;
@@ -14,6 +12,8 @@ using ThoriumMod.Sounds;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class NecroticChorus : BardItem
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Brass;
@@ -37,7 +37,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 20f;
-            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
+            Item.value = Item.buyPrice(0, 60);
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = ThoriumSounds.Bard_Horn;
             Item.shoot = ModContent.ProjectileType<NecroticChorusWisp>();
