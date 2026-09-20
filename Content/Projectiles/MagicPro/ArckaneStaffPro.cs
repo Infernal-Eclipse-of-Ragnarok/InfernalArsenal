@@ -44,7 +44,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 4;
             Projectile.timeLeft = 240;
         }
 
@@ -165,7 +164,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 4;
             Projectile.timeLeft = 240;
             Projectile.tileCollide = false;
         }
@@ -219,7 +217,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 4;
             Projectile.timeLeft = 240;
             Projectile.tileCollide = false;
         }

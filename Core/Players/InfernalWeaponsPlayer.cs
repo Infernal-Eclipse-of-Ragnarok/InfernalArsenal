@@ -30,7 +30,8 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
         public bool spearSearing;
         public bool spearArctic;
-        public bool minionCrits;
+        public bool sentryCrits;
+        public bool seersGlass;
         public bool godsPitch;
         public bool blightedBadge;
         public bool imagiknightHeraldry;
@@ -59,7 +60,8 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         {
             spearSearing = false;
             spearArctic = false;
-            minionCrits = false;
+            sentryCrits = false;
+            seersGlass = false;
             godsPitch = false;
             blightedBadge = false;
             doubleFlailAcc = false;
@@ -246,7 +248,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             if (proj.hostile)
                 return;
 
-            if (minionCrits && IsSummonDamage(proj))
+            if (sentryCrits && IsSummonDamage(proj) && (proj.sentry || ProjectileID.Sets.SentryShot[proj.type]))
             {
                 if (Main.rand.Next(100) < ActualClassCrit(Player, DamageClass.Summon))
                     modifiers.SetCrit();
@@ -298,6 +300,16 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             MiscEffects();
         }
 
+        public override void ModifyZoom(ref float zoom)
+        {
+            ThoriumPlayer mp = Player.GetThoriumPlayer();
+
+            if (mp.accScryingGlassActive && mp.accScryingGlass && seersGlass)
+            {
+                zoom *= 2f;
+            }
+        }
+
         private void MiscEffects()
         {
             if (ModLoader.HasMod("SOTS"))
@@ -332,10 +344,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                 || (includeWhips && ProjectileID.Sets.IsAWhip[projectile.type]);
         }
 
-        public float ActualClassCrit(Player player, DamageClass damageClass)
-            => (damageClass == DamageClass.Summon || damageClass == DamageClass.SummonMeleeSpeed) && !(minionCrits)
-            ? 0
-            : player.GetTotalCritChance(damageClass);
+        public float ActualClassCrit(Player player, DamageClass damageClass) => (damageClass == DamageClass.Summon || damageClass == DamageClass.SummonMeleeSpeed) && !(sentryCrits) ? 0 : player.GetTotalCritChance(damageClass);
 
         private static void AddManualFlailProjectile(string modName, string projectileName)
         {

@@ -25,7 +25,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override void SetBardDefaults()
         {
-            Item.Size = new Vector2(62, 62);
+            Item.Size = new Vector2(82, 82);
 
             Item.useTime = 40;
             Item.useAnimation = 40;

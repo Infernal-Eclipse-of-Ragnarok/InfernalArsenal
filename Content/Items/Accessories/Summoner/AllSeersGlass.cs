@@ -1,5 +1,4 @@
 ﻿using InfernalEclipseWeaponsDLC.Core.NewFolder;
-using InfernalEclipseWeaponsDLC.Core.Players;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -32,23 +31,19 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Summoner
         {
             player.maxTurrets += 2;
             player.GetCritChance(DamageClass.Generic) += 10f;
-            player.GetModPlayer<InfernalWeaponsPlayer>().minionCrits = true;
-            player.GetModPlayer<ThoriumAccessoryKeyEffects>().canFreezeCamera = true;
-
-            if (!hideVisual)
-            {
-                player.GetThoriumPlayer().accScryingGlass = true;
-            }
+            player.GetModPlayer<InfernalWeaponsPlayer>().sentryCrits = true;
+            player.GetModPlayer<InfernalWeaponsPlayer>().seersGlass = true;
+            player.GetThoriumPlayer().accScryingGlass = true;
         }
         public override void AddRecipes()
         {
-        CreateRecipe()
-            .AddIngredient<ScryingGlass>(1)
-            .AddIngredient(ItemID.RifleScope, 1)
-            .AddIngredient(ItemID.FragmentSolar, 8)
-            .AddIngredient(ItemID.FragmentStardust, 4)
-            .AddTile(TileID.LunarCraftingStation)
-               .Register();
+            CreateRecipe()
+                .AddIngredient<ScryingGlass>(1)
+                .AddIngredient(ItemID.RifleScope, 1)
+                .AddIngredient(ItemID.FragmentSolar, 8)
+                .AddIngredient(ItemID.FragmentStardust, 4)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 }

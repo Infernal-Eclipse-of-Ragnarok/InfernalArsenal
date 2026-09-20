@@ -700,17 +700,16 @@ Items: {
 			'''
 	}
 
-	DisplayName: All Seer's Glass
-        Tooltip:
-            '''
-            10% increased critical strike chance
-            Increases your max number of sentries by 2
-            Grants a greater zoom passively
-            Zoom effect can disabled with accessory visability
-            Allows minions and sentries to be able to hit critical strikes
-            Pressing the '{$ThoriumMod.Keybinds.AccessoryAbility.DisplayName}' key will toggle an increased range of view
-            'It sees you becoming an unbreakable fortress in your future'
-            '''
+	AllSeersGlass: {
+		DisplayName: All Seer's Glass
+		Tooltip:
+			'''
+			10% increased critical strike chance
+			Increases your max number of sentries by 2
+			Allows sentries to be able to hit critical strikes
+			Pressing the '{$ThoriumMod.Keybinds.AccessoryAbility.DisplayName}' key will toggle an greatly increased range of view
+			'It sees you becoming an unbreakable fortress in your future'
+			'''
 	}
 
 	SwordofaThousandTruths: {
