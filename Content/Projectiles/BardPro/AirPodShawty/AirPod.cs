@@ -22,8 +22,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.AirPodShawty
 
         public override void SetBardDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 12;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.aiStyle = -1;
             Projectile.penetrate = 1;
             Projectile.alpha = 0;

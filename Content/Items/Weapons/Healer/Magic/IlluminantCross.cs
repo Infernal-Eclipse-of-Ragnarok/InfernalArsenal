@@ -31,7 +31,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic
 
             Item.useTime = 20;
             Item.useAnimation = 20;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useStyle = 5;
             Item.autoReuse = true;
 
             Item.channel = true;
@@ -53,7 +53,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-14f, -7f);
+            return new Vector2(-14f, -12f);
         }
 
         public override void AddRecipes()

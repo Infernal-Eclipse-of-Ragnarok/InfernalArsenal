@@ -54,6 +54,15 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override bool AltFunctionUse(Player player) => true;
 
+        public override float UseTimeMultiplier(Player player)
+        {
+            return player.altFunctionUse == 2 ? 1f : 0.5f;
+        }
+
+        public override float UseAnimationMultiplier(Player player)
+        {
+            return player.altFunctionUse == 2 ? 1f : 0.5f;
+        }
         public override bool CanPlayInstrument(Player player) => player.altFunctionUse == 2 || player.ownedProjectileCounts[Item.shoot] < 10;
 
         public override Vector2? HoldoutOffset()
@@ -76,6 +85,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override bool BardShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            RefreshWisps(player);
+
             if (player.altFunctionUse == 2)
             {
                 // Right-click: Shoot 7 blood bolts in shotgun spread
@@ -108,6 +119,28 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             {
                 // Left-click: Default behavior (wisps)
                 return true;
+            }
+        }
+
+        private void RefreshWisps(Player player)
+        {
+            int wispType = ModContent.ProjectileType<NecroticChorusWisp>();
+
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile projectile = Main.projectile[i];
+
+                if (!projectile.active ||
+                    projectile.owner != player.whoAmI ||
+                    projectile.type != wispType)
+                {
+                    continue;
+                }
+
+                if (projectile.ModProjectile is NecroticChorusWisp wisp)
+                {
+                    wisp.RefreshLifetime();
+                }
             }
         }
 

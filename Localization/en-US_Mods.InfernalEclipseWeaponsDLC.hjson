@@ -74,9 +74,10 @@ Items: {
 		DisplayName: Necrotic Chorus
 		Tooltip:
 			'''
-			Summons up to 10 wisps that home onto foes
-			<right> for an alternate blood spit attack 
+			Summons up to 10 wisps that home onto foes and last for 5 seconds
+			<right> for an alternate blood spit attack
 			Blood spit inflicts [cbuff:CalamityMod/ArmorCrunch] and [cbuff:CalamityMod/BurningBlood]
+			Using either function resets the lifetime of all active wisps
 			'''
 	}
 
@@ -956,7 +957,7 @@ ItemTooltip: {
 		You are perfect with yourself.
 		'''
 	SearingSpearTip: 150% basic damage
-	ArcticSpearTip: 115% basic damage
+	ArcticSpearTip: 100% basic damage
 	VerveineItem: "'An item from the orchid's blessing...'"
 	EngineGatling:
 		'''

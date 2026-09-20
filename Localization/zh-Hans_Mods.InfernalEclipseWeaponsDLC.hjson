@@ -961,7 +961,7 @@ ItemTooltip: {
 		你与自己，才是最完美的组合。
 		'''
 	SearingSpearTip: 150% 基础伤害
-	ArcticSpearTip: 115% 基础伤害
+	ArcticSpearTip: 100% 基础伤害
 	VerveineItem: “来自兰花的祝福之物……”
 	EngineGatling:
 		'''

@@ -20,6 +20,7 @@ using CalamityMod.Items.Placeables;
 using CalamityMod.CustomRecipes;
 using CalamityMod.Rarities;
 using CalamityMod.Tiles.Furniture.CraftingStations;
+using CalamityMod.Buffs.StatDebuffs;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Hybrid
 {
@@ -45,7 +46,20 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Hybrid
             Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = true;
 
-            Item.rare = ModContent.RarityType<BurnishedAuric>();
+            if (ModLoader.TryGetMod("Clamity", out Mod clamity))
+            {
+                ModRarity clamityRarity = clamity.Find<ModRarity>("EvercoldCyan");
+
+                if (clamityRarity != null)
+                {
+                    Item.rare = clamityRarity.Type;
+                }
+            }
+            else
+            {
+                Item.rare = ModContent.RarityType<BurnishedAuric>();
+            }
+
             Item.value = CalamityGlobalItem.RarityVioletBuyPrice;
             Item.UseSound = SoundID.Item32;
 
