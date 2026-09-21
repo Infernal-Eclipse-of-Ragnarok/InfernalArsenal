@@ -1,13 +1,7 @@
-﻿using CalamityMod;
-using CalamityMod.Buffs.DamageOverTime;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
-using Microsoft.CodeAnalysis.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +10,8 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class BrimstonePetalPro : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.String;
@@ -56,7 +52,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 
         public override void BardOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<BrimstoneFlames>(), 180);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
+            {
+                target.AddBuff(cal.Find<ModBuff>("BrimstoneFlames").Type, 180);
+            }
+            else target.AddBuff(BuffID.OnFire3, 180);
         }
 
         public override bool PreDraw(ref Color lightColor)
