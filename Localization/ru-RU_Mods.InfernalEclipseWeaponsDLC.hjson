@@ -669,8 +669,8 @@ Items: {
 			'''
 			10% increased critical strike chance
 			Increases your max number of sentries by 2
-			Allows minions and sentries to be able to hit critical strikes
-			Pressing the '{$ThoriumMod.Keybinds.AccessoryAbility.DisplayName}' key will toggle an increased range of view
+			Allows sentries to be able to hit critical strikes
+			Pressing the '{$ThoriumMod.Keybinds.AccessoryAbility.DisplayName}' key will toggle an greatly increased range of view
 			'It sees you becoming an unbreakable fortress in your future'
 			''' */
 	}

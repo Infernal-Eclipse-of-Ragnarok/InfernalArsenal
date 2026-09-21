@@ -3,7 +3,6 @@ using CalamityMod.CalPlayer;
 using CalamityMod.Cooldowns;
 using CalamityMod.Projectiles.Typeless;
 using InfernalEclipseWeaponsDLC.Content.Items.Accessories.Donor;
-using InfernalEclipseWeaponsDLC.Content.Items.Accessories.LifeShields;
 using InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee;
 using InfernalEclipseWeaponsDLC.Core.Cooldowns;
 using InfernalEclipseWeaponsDLC.Core.NewFolder;
