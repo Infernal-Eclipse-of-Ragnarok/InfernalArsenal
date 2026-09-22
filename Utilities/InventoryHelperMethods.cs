@@ -1,8 +1,9 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace InfernalEclipseWeaponsDLC.Utilities
 {
-    public class InventoryHelperMethods
+    public static class InventoryHelperMethods
     {
         public static bool HasNeighborItem(Player player, int needleType, int neighborType)
         {
@@ -36,5 +37,17 @@ namespace InfernalEclipseWeaponsDLC.Utilities
             => InMainBounds(index) && !player.inventory[index].IsAir && predicate(player.inventory[index]);
 
         private static bool InMainBounds(int index) => index >= 0 && index <= 57;
+
+        public static Rectangle GetCurrentFrame(this Item item, ref int frame, ref int frameCounter, int frameDelay, int frameAmt, bool frameCounterUp = true)
+        {
+            if (frameCounter >= frameDelay)
+            {
+                frameCounter = -1;
+                frame = frame == frameAmt - 1 ? 0 : frame + 1;
+            }
+            if (frameCounterUp)
+                frameCounter++;
+            return new Rectangle(0, item.height * frame, item.width, item.height);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.DataStructures;
+using CalamityMod.Items.Accessories;
 using CalamityMod.Projectiles.BaseProjectiles;
 using CalamityMod.Systems.Collections;
 using Microsoft.Xna.Framework;
@@ -21,5 +22,9 @@ namespace InfernalEclipseWeaponsDLC.Utilities
         public static void SetDebuffData(int buffId, DebuffData debuffData) => CalamityBuffSets.DebuffDataset[buffId] = debuffData;
 
         public static bool IsMaceFlail(Projectile proj) => proj.ModProjectile is BaseMaceFlailProjectile;
+
+        public static bool DownedDoG => DownedBossSystem.downedDoG;
+
+        public static bool HasMeleeScaleIncreaes(Player player) => player.GetModPlayer<IVDripPlayer>().HasAlcohol(AlcoholType.Ale) || player.GetModPlayer<IVDripPlayer>().HasAlcohol(AlcoholType.Sake);
     }
 }

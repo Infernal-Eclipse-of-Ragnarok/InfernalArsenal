@@ -891,6 +891,17 @@ Items: {
 			This effect must recharge for 15 seconds after protecting you
 			''' */
 	}
+
+	RGBMurasama: {
+		// DisplayName: RGB Murasama
+		/* Tooltip:
+			'''
+			A high-frequency blade that can cleanly slice through even the mightiest foe
+			Every third swing deals immense damage
+			Prove your worth by slaying The Devourer of Gods to unsheath this sword
+			'I spent three thousand dollars.'
+			''' */
+	}
 }
 
 ItemTooltip: {

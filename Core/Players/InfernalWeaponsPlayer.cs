@@ -50,6 +50,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public int CataclysmFistShotCount = 0;
         public int annihilationBonusShotTimeLeft = 0;
         public int annihilationBonusShotCooldown = 0;
+        public int murasamaHitCooldown = 0;
 
         public float heraldryDamageMult = 0f;
         public float heraldyBuffFromOther = 0f;
@@ -255,6 +256,11 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             }
         }
 
+        public override void UpdateDead()
+        {
+            murasamaHitCooldown = 0;
+        }
+
         public override void PostUpdateEquips()
         {
             ThoriumPlayer thoriumPlayer = Player.GetThoriumPlayer();
@@ -268,6 +274,9 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
         public override void PostUpdateMiscEffects()
         {
+            if (murasamaHitCooldown > 0)
+                murasamaHitCooldown--;
+
             if (ModLoader.HasMod("SOTS"))
             {
                 if (Player.controlUseItem && Player.HeldItem.type == Mod.Find<ModItem>("GauntletofAnnihilationVoid").Type)
