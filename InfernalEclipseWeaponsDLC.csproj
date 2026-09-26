@@ -23,6 +23,9 @@
 	  <Reference Include="SOTS">
 	    <HintPath>..\ModAssemblies\SOTS_v0.25.1.6.dll</HintPath>
 	  </Reference>
+	  <Reference Include="SubworldLibrary">
+	    <HintPath>..\..\..\..\..\..\Downloads\SubworldLibrary.dll</HintPath>
+	  </Reference>
 	  <Reference Include="ThoriumMod">
 	    <HintPath>lib\ThoriumMod.dll</HintPath>
 	  </Reference>
