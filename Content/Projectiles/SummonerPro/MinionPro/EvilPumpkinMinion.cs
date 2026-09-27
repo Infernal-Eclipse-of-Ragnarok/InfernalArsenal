@@ -198,7 +198,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
                 NPC target = Main.npc[i];
                 if (target.active && !target.friendly && !target.dontTakeDamage && Vector2.Distance(Projectile.Center, target.Center) < 100f)
                 {
-                    target.SimpleStrikeNPC(Projectile.damage, 0, false, 0f);
+                    target.SimpleStrikeNPC(Projectile.damage, 0, false, 0f, DamageClass.Summon);
                     target.AddBuff(BuffID.OnFire3, 180);
                 }
             }
