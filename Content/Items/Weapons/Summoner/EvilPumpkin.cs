@@ -1,3 +1,4 @@
+using CalamityMod.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
 {
-    public class EvilPumpkin : ModItem //maybe change name idk 
+    public class EvilPumpkin : ModItem
     {
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Summon;
             Item.mana = 10;
             Item.width = 32;
@@ -22,8 +23,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
             Item.useAnimation = 36;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
-            Item.value = Item.buyPrice(0, 1, 0, 0);
-            Item.rare = ItemRarityID.Green;
+            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
+            Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item44;
             Item.buffType = ModContent.BuffType<Buffs.EvilPumpkinBuff>();
             Item.shoot = ModContent.ProjectileType<Projectiles.SummonerPro.MinionPro.EvilPumpkinMinion>();
@@ -61,9 +62,9 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
         {
             Recipe recipe = CreateRecipe();
 
+            recipe.AddIngredient(ItemID.SpookyWood, 150);
             recipe.AddIngredient(ItemID.Pumpkin, 30);
-            recipe.AddIngredient(ItemID.SpookyWood, 10);
-            recipe.AddIngredient(ItemID.SoulofFright, 5);
+            recipe.AddIngredient(ItemID.SoulofFright, 10);
 
             recipe.AddTile(TileID.MythrilAnvil);
 

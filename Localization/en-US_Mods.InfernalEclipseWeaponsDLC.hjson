@@ -940,6 +940,11 @@ Items: {
 			'I spent three thousand dollars.'
 			'''
 	}
+
+	EvilPumpkin: {
+		DisplayName: Evil Pumpkin Staff
+		Tooltip: "Summons a regrowing evil pumpkin minion that explodes on enemy contact"
+	}
 }
 
 ItemTooltip: {
@@ -1184,6 +1189,7 @@ Projectiles: {
 	ArckaneGemPro.DisplayName: Arckane Gem
 	ArckaneScythe1Pro.DisplayName: Arckane Scythe
 	ArckaneScythe2Pro.DisplayName: Arckane Scythe
+	EvilPumpkinMinion.DisplayName: Evil Pumpkin Minion
 }
 
 Buffs: {
@@ -1243,6 +1249,11 @@ Buffs: {
 			Heat - 50 DPS
 			Lowers Enemy Speed by 7.5%
 			'''
+	}
+
+	EvilPumpkinBuff: {
+		DisplayName: Evil Pumpkins
+		Description: A dubious harvest attacks your enemies
 	}
 }
 

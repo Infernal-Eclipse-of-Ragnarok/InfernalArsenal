@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,6 +34,10 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
             Projectile.DamageType = DamageClass.Summon;
             Projectile.minionSlots = 1f;
             Projectile.penetrate = -1;
+
+            Projectile.usesIDStaticNPCImmunity = false;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 40;
         }
 
         public override bool? CanCutTiles() => false;
@@ -49,6 +54,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
                 Projectile.spriteDirection = Projectile.velocity.X > 0 ? -1 : 1;
             }
 
+            if (State == State_Attack)
+            {
+                Lighting.AddLight(Projectile.Center, 1f, 0.3f, 0.05f);
+            }
+
             if (State != State_Respawn)
             {
                 Projectile.frameCounter++;
@@ -61,9 +71,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
             }
             else
             {
-                Projectile.alpha = 255;
                 Projectile.friendly = false;
-                Projectile.position = player.Center;
+
+                Vector2 respawnOffset = Main.rand.NextVector2Circular(100, 100);
+                Vector2 centreCorrection = new Vector2(-3, -6);
+                Projectile.Center = player.Center + centreCorrection + respawnOffset;
+
                 Timer++;
 
                 if (Timer > 60) // Waits for 1 second before "respawning" for a rapid fire feeling -Arkangel
@@ -72,7 +85,14 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
                     Timer = 0;
                     Projectile.alpha = 0;
                     Projectile.friendly = true;
+
+                    SpawnRespawnEffects();
                 }
+                else
+                {
+                    Projectile.alpha = 255;
+                }
+
                 return;
             }
 
@@ -171,12 +191,15 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
 
         private void Explode()
         {
+            SoundEngine.PlaySound(SoundID.DD2_FlameburstTowerShot, Projectile.Center);
+
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC target = Main.npc[i];
                 if (target.active && !target.friendly && !target.dontTakeDamage && Vector2.Distance(Projectile.Center, target.Center) < 100f)
                 {
                     target.SimpleStrikeNPC(Projectile.damage, 0, false, 0f);
+                    target.AddBuff(BuffID.OnFire3, 180);
                 }
             }
 
@@ -188,12 +211,102 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
                 if (dust.type == DustID.Torch) dust.noGravity = true;
             }
 
+            for (int i = 0; i < 25; i++)
+            {
+                Vector2 position = Projectile.Center + Main.rand.NextVector2Circular(12f, 12f);
+
+                Vector2 velocity = Main.rand.NextVector2CircularEdge(1f, 1f);
+                velocity *= Main.rand.NextFloat(8f, 12f);
+
+                int dustType = DustID.Torch;
+
+                Color dustColor = dustType == DustID.GrassBlades
+                    ? new Color(35, 100, 30)
+                    : default;
+
+                Dust dust = Dust.NewDustPerfect(
+                    position,
+                    dustType,
+                    velocity,
+                    100,
+                    dustColor,
+                    Main.rand.NextFloat(1.2f, 2.0f)
+                );
+
+                dust.noGravity = true;
+            }
+
             if (Main.netMode != NetmodeID.Server)
             {
-                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2Circular(5f, 5f), Mod.Find<ModGore>("EvilPumpkinGore_1").Type);
-                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2Circular(5f, 5f), Mod.Find<ModGore>("EvilPumpkinGore_2").Type);
-                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2Circular(5f, 5f), Mod.Find<ModGore>("EvilPumpkinGore_3").Type);
-                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, Main.rand.NextVector2Circular(5f, 5f), Mod.Find<ModGore>("EvilPumpkinGore_4").Type);
+                int gore1 = Gore.NewGore(
+                    Projectile.GetSource_FromThis(),
+                    Projectile.Center,
+                    Main.rand.NextVector2Circular(5f, 5f),
+                    Mod.Find<ModGore>("EvilPumpkinGore_1").Type
+                );
+                Main.gore[gore1].timeLeft = 180;
+
+                int gore2 = Gore.NewGore(
+                    Projectile.GetSource_FromThis(),
+                    Projectile.Center,
+                    Main.rand.NextVector2Circular(5f, 5f),
+                    Mod.Find<ModGore>("EvilPumpkinGore_2").Type
+                );
+                Main.gore[gore2].timeLeft = 180;
+
+                int gore3 = Gore.NewGore(
+                    Projectile.GetSource_FromThis(),
+                    Projectile.Center,
+                    Main.rand.NextVector2Circular(5f, 5f),
+                    Mod.Find<ModGore>("EvilPumpkinGore_3").Type
+                );
+                Main.gore[gore3].timeLeft = 180;
+
+                int gore4 = Gore.NewGore(
+                    Projectile.GetSource_FromThis(),
+                    Projectile.Center,
+                    Main.rand.NextVector2Circular(5f, 5f),
+                    Mod.Find<ModGore>("EvilPumpkinGore_4").Type
+                );
+                Main.gore[gore4].timeLeft = 180;
+            }
+        }
+
+        private void SpawnRespawnEffects()
+        {
+            if (Main.netMode == NetmodeID.Server)
+                return;
+
+            SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+
+            for (int i = 0; i < 25; i++)
+            {
+                Vector2 position = Projectile.Center + Main.rand.NextVector2Circular(12f, 12f);
+
+                Vector2 velocity = Main.rand.NextVector2CircularEdge(1f, 1f);
+                velocity *= Main.rand.NextFloat(4f, 6f);
+
+                // Slightly bias the burst upwards.
+                //velocity.Y -= 0.5f;
+
+                int dustType = Main.rand.NextBool(2)
+                    ? DustID.GrassBlades
+                    : DustID.Torch;
+
+                Color dustColor = dustType == DustID.GrassBlades
+                    ? new Color(35, 100, 30)
+                    : default;
+
+                Dust dust = Dust.NewDustPerfect(
+                    position,
+                    dustType,
+                    velocity,
+                    100,
+                    dustColor,
+                    Main.rand.NextFloat(1.2f, 2.0f)
+                );
+
+                dust.noGravity = true;
             }
         }
 
