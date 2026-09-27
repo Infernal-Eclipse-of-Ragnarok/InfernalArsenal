@@ -1,4 +1,3 @@
-using CalamityMod.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -23,7 +22,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
             Item.useAnimation = 36;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
-            Item.value = CalamityGlobalItem.RarityYellowBuyPrice;
+            Item.value = Item.buyPrice(0, 60);
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item44;
             Item.buffType = ModContent.BuffType<Buffs.EvilPumpkinBuff>();

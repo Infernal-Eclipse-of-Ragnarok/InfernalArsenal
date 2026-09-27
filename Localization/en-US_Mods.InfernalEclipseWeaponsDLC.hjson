@@ -943,7 +943,7 @@ Items: {
 
 	EvilPumpkin: {
 		DisplayName: Evil Pumpkin Staff
-		Tooltip: "Summons a regrowing evil pumpkin minion that explodes on enemy contact"
+		Tooltip: Summons a regrowing evil pumpkin minion that explodes on enemy contact
 	}
 }
 

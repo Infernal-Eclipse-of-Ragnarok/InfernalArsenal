@@ -904,8 +904,8 @@ Items: {
 	}
 
 	EvilPumpkin: {
-		// DisplayName: Evil Pumpkin
-		// Tooltip: ""
+		// DisplayName: Evil Pumpkin Staff
+		// Tooltip: Summons a regrowing evil pumpkin minion that explodes on enemy contact
 	}
 }
 
@@ -1214,8 +1214,8 @@ Buffs: {
 	}
 
 	EvilPumpkinBuff: {
-		// DisplayName: Evil Pumpkin Buff
-		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.EvilPumpkinBuff.Description
+		// DisplayName: Evil Pumpkins
+		// Description: A dubious harvest attacks your enemies
 	}
 }
 
