@@ -117,8 +117,8 @@ Items: {
 	GrandThunderWhip: {
 		Tooltip:
 			'''
+			{$CommonItemTooltip.Whips}
 			3 summon tag damage
-			Inflicts [cbuff:Electrified] on hit
 			'''
 		DisplayName: Grand Thunder Whip
 	}
@@ -635,8 +635,8 @@ Items: {
 		Tooltip:
 			'''
 			<left> to fire a small thunderbolt that inflicts [cbuff:Electrified]
-			<right> to summon lightning above all nearby enemies with the [cbuff:Electrified] debuff
-			This lightning will remove the [cbuff:Electrified] debuff but deal a burst of high damage
+			<right> to summon lightning above all nearby enemies with an Electric type debuff
+			This lightning will remove Electric debuffs but deal a burst of high damage that scales depending on the debuff
 			'''
 	}
 

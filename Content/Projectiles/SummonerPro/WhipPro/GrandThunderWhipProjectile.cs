@@ -45,7 +45,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro
             Projectile.width = 40;
             Projectile.height = 40;
             Projectile.WhipSettings.Segments = 10;
-            Projectile.WhipSettings.RangeMultiplier = 0.4f;
+            Projectile.WhipSettings.RangeMultiplier = 0.55f;
 
             whipSegment = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Projectiles/SummonerPro/WhipPro/GrandThunderWhipSegment").Value;
             whipTip = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Projectiles/SummonerPro/WhipPro/GrandThunderWhipTip").Value;
@@ -126,7 +126,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro
             if (Projectile.damage < 1)
                 Projectile.damage = 1;
 
-            target.AddBuff(BuffID.Electrified, 60);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
+            {
+                target.AddBuff(cal.Find<ModBuff>("StaticDischarge").Type, 120);
+            }
+
             target.AddBuff(ModContent.BuffType<GrandThunderWhipTag>(), 240);
 
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
