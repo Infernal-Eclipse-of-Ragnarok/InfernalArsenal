@@ -945,6 +945,18 @@ Items: {
 		DisplayName: Evil Pumpkin Staff
 		Tooltip: Summons a regrowing evil pumpkin minion that explodes on enemy contact
 	}
+
+	JollyTune: {
+		DisplayName: Jolly Tune
+		Tooltip:
+			'''
+			Summons music notes that will begin to orbit around you
+			Upon summoning the 8th, the music notes will be fired out before homing onto foes
+			Successfully timing hits will steadily increase its damage and empowerment level
+			Mistiming these hits will decrease these bonuses greatly and cost 10 inspiration
+			These bonuses will stay between weapon swaps, but gradually fade when not your active weapon
+			'''
+	}
 }
 
 ItemTooltip: {
@@ -1022,6 +1034,7 @@ ItemTooltip: {
 		cat: StarlightCat
 		Goldsock: Goldsockz2
 		paradox: Imagiknight_Parad0xical
+		orpheus: Imagiknight Orpheus
 		Arkangel: Arkangel
 	}
 
@@ -1190,6 +1203,7 @@ Projectiles: {
 	ArckaneScythe1Pro.DisplayName: Arckane Scythe
 	ArckaneScythe2Pro.DisplayName: Arckane Scythe
 	EvilPumpkinMinion.DisplayName: Evil Pumpkin Minion
+	JollyTunePro.DisplayName: Jolly Tune Pro
 }
 
 Buffs: {
