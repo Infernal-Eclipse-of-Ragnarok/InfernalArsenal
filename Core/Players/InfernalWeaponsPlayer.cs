@@ -15,6 +15,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Buffs;
+using ThoriumMod.Items.Donate;
 using ThoriumMod.Projectiles;
 using ThoriumMod.Utilities;
 
@@ -268,7 +269,46 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             if (scourgeBag2)
             {
                Player.AddBuff(ModContent.BuffType<YoyoProtectionBuff>(), 2);
-               thoriumPlayer.thoriumEndurance += 0.1f;
+               Player.endurance += 0.1f;
+            }
+        }
+
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            ThoriumPlayer thoriumPlayer = Player.GetThoriumPlayer();
+
+            if (scourgeBag2)
+            {
+                ((ModPlayer)this).Player.AddBuff(ModContent.BuffType<YoyoProtectionDebuff>(), 60 * SandshroudPouch.CooldownSeconds, true, false);
+                scourgeBag2 = false;
+
+                for (int n = 0; n < 15; n++)
+                {
+                    int num6 = Dust.NewDust(
+                        Player.position,
+                        0,
+                        0,
+                        DustID.Firework_Yellow,
+                        0f,
+                        0f,
+                        255,
+                        new Color(255, 255, 0),
+                        1.35f
+                    );
+
+                    Main.dust[num6].noGravity = true;
+
+                    int num7 = Main.rand.Next(-50, 51);
+                    int num8 = Main.rand.Next(-50, 51);
+
+                    Dust dust = Main.dust[num6];
+
+                    dust.position.X += num7;
+                    dust.position.Y += num8;
+
+                    dust.velocity.X = num7 * 0.075f;
+                    dust.velocity.Y = num8 * 0.075f;
+                }
             }
         }
 
