@@ -94,7 +94,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
                 SoundEngine.PlaySound(zap, Projectile.Center);
             }
 
-            // ⭐ THIS RETURN IS CRITICAL ⭐
             if (LightningProgress <= 0f && Projectile.timeLeft > 2)
                 return;
 
@@ -253,16 +252,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
                     p.netUpdate = true;
                 }
             }
-
-            /*
-            // === REMOVE ELECTRIFIED ===
-            if (target.HasBuff(BuffID.Electrified))
-                target.DelBuff(BuffID.Electrified);
-
-            var calNPC = target.Calamity();
-            if (calNPC.electrified == true)
-                calNPC.electrified = false;
-            */
         }
 
 
@@ -281,7 +270,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
 
                 Dust.NewDustPerfect(
                     Projectile.Center + dustVelocity,
-                    DustID.Electric, // Electric dust (same as Thorium)
+                    DustID.Electric,
                     dustVelocity,
                     128,
                     default,
@@ -349,8 +338,24 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
 
             public override void ResetEffects(NPC npc)
             {
-                if (electrifiedBlockTimer > 0)
-                    electrifiedBlockTimer--;
+                if (electrifiedBlockTimer <= 0)
+                    return;
+
+                electrifiedBlockTimer--;
+
+                // Prevent SoulBurn from applying its ElectricDebuffMultiplier
+                if (ModLoader.TryGetMod("InfernalEclipseAPI", out Mod infernalEclipseAPI))
+                {
+                    ModBuff soulBurn = infernalEclipseAPI.Find<ModBuff>("SoulBurn7");
+
+                    if (soulBurn != null)
+                    {
+                        int buffIndex = npc.FindBuffIndex(soulBurn.Type);
+
+                        if (buffIndex != -1)
+                            npc.DelBuff(buffIndex);
+                    }
+                }
             }
 
             public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -372,14 +377,80 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
                     changed = true;
                 }
 
-                // Remove Calamity Electrified
-                if (ModLoader.TryGetMod("CalamityMod", out _))
+                // Remove Calamity electric debuffs
+                if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
                 {
                     var calNPC = npc.Calamity();
+
+                    // Remove the actual Calamity buffs
+                    string[] buffNames =
+                        {"AuricRebuke",
+                        "VermillionFlux",
+                        "GalvanicCorrosion",
+                        "StaticDischarge"};
+
+                    foreach (string buffName in buffNames)
+                    {
+                        ModBuff buff = calamity.Find<ModBuff>(buffName);
+
+                        if (buff != null)
+                        {
+                            int buffIndex = npc.FindBuffIndex(buff.Type);
+
+                            if (buffIndex != -1)
+                            {
+                                npc.DelBuff(buffIndex);
+                                changed = true;
+                            }
+                        }
+                    }
+
+                    // Also clear the corresponding CalamityNPC flags
+                    if (calNPC.auricRebuke)
+                    {
+                        calNPC.auricRebuke = false;
+                        changed = true;
+                    }
+
+                    if (calNPC.vermillionFlux)
+                    {
+                        calNPC.vermillionFlux = false;
+                        changed = true;
+                    }
+
+                    if (calNPC.galvanicCorrosion)
+                    {
+                        calNPC.galvanicCorrosion = false;
+                        changed = true;
+                    }
+
                     if (calNPC.electrified)
                     {
                         calNPC.electrified = false;
                         changed = true;
+                    }
+
+                    if (calNPC.staticDischarge)
+                    {
+                        calNPC.staticDischarge = false;
+                        changed = true;
+                    }
+                }
+
+                // Remove SoulBurn7 if InfernalEclipseAPI is loaded
+                if (ModLoader.TryGetMod("InfernalEclipseAPI", out Mod infernalEclipseAPI))
+                {
+                    ModBuff soulBurn = infernalEclipseAPI.Find<ModBuff>("SoulBurn7");
+
+                    if (soulBurn != null)
+                    {
+                        int soulBurnIndex = npc.FindBuffIndex(soulBurn.Type);
+
+                        if (soulBurnIndex != -1)
+                        {
+                            npc.DelBuff(soulBurnIndex);
+                            changed = true;
+                        }
                     }
                 }
 

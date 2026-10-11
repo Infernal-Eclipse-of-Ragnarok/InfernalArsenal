@@ -22,7 +22,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.timeLeft = 2; // lives only 2 ticks
+            Projectile.timeLeft = 2;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
@@ -71,29 +71,63 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
 
                 var calNPC = npc.Calamity();
 
-                if (calNPC.electrified == false)
-                    continue; // skip NPCs without Electrified
+                bool hasSoulBurn = false;
+
+                // Optional InfernalEclipseAPI check
+                if (ModLoader.TryGetMod("InfernalEclipseAPI", out Mod infernalEclipseAPI))
+                {
+                    ModBuff soulBurn = infernalEclipseAPI.Find<ModBuff>("SoulBurn7");
+
+                    if (soulBurn != null)
+                        hasSoulBurn = npc.FindBuffIndex(soulBurn.Type) != -1;
+                }
+
+                if (calNPC.electrified == false && 
+                    calNPC.staticDischarge == false && 
+                    calNPC.vermillionFlux == false &&
+                    calNPC.auricRebuke == false &&
+                    calNPC.galvanicCorrosion == false &&
+                    !hasSoulBurn)
+                    continue;
 
                 Vector2 spawnPos = npc.Center + new Vector2(0f, -150f);
+                float debuffMultiplier = 1f;
+
+                if (calNPC.auricRebuke)
+                {
+                    debuffMultiplier = 200;
+                }
+                else if (hasSoulBurn)
+                {
+                    debuffMultiplier = 50f;
+                }
+                else if (calNPC.vermillionFlux)
+                {
+                    debuffMultiplier = 40;
+                }
+                else if (calNPC.galvanicCorrosion)
+                {
+                    debuffMultiplier = 3;
+                }
+                else if (calNPC.electrified)
+                {
+                    debuffMultiplier = 1.5f;
+                }
+                else
+                {
+                    debuffMultiplier = 1f;
+                }
 
                 int proj2 = Projectile.NewProjectile(
                     Projectile.GetSource_FromThis(),
                     spawnPos,
                     Vector2.Zero,
                     ModContent.ProjectileType<GrandAmplifierLightning>(),
-                    player.HeldItem.damage,
+                    (int)(player.HeldItem.damage * debuffMultiplier),
                     0f,
                     player.whoAmI,
                     npc.whoAmI
                 );
-                /*
-                // === REMOVE ELECTRIFIED ===
-                if (npc.HasBuff(BuffID.Electrified))
-                    npc.DelBuff(BuffID.Electrified);
-
-                if (calNPC.electrified == true)
-                    calNPC.electrified = false;
-                */
             }
 
             if (spawnedAny)
@@ -101,7 +135,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
                 SoundEngine.PlaySound(SoundID.Item92, player.Center);
             }
 
-            Projectile.Kill(); // remove immediately after execution
+            Projectile.Kill();
         }
     }
 }

@@ -31,7 +31,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro.GrandAmplifier
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Electrified, 300, false);
+            target.AddBuff(BuffID.Electrified, 180, false);
+
+            //target.AddBuff(ModContent.BuffType<StaticDischarge>(), 3 * 60);
+            //target.AddBuff(ModContent.BuffType<GalvanicCorrosion>(), 3 * 60);
+            //target.AddBuff(ModContent.BuffType<VermillionFlux>(), 3 * 60);
+            //target.AddBuff(ModContent.BuffType<AuricRebuke>(), 3 * 60);
         }
 
         public override void AI()

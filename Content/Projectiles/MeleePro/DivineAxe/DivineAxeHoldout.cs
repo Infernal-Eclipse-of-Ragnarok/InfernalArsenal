@@ -53,6 +53,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
             float progress = 1f - ((float)player.itemAnimation / player.itemAnimationMax);
             float lerpValue = 0f;
 
+            Projectile.friendly = progress >= 0.60f;
+
             if (progress < 0.15f)
             {
                 float localProgress = progress / 0.15f;
