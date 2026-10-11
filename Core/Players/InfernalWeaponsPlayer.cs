@@ -4,6 +4,7 @@ using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.FlailPro;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.Void;
+using InfernalEclipseWeaponsDLC.Core.Netcode;
 using InfernalEclipseWeaponsDLC.Utilities;
 using Microsoft.Xna.Framework;
 using System;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
@@ -51,9 +53,21 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public int annihilationBonusShotTimeLeft = 0;
         public int annihilationBonusShotCooldown = 0;
         public int murasamaHitCooldown = 0;
+        public int gorgonShotsHit;
 
         public float heraldryDamageMult = 0f;
         public float heraldyBuffFromOther = 0f;
+
+        public Vector2 mouseWorldDeltaFromPlayer;
+        public float mouseRotationFromPlayer;
+        private Vector2 oldMouseWorldDeltaFromPlayer;
+        private int mouseWorldPacketTimer;
+        private const int MouseWorldPacketInterval = 2;
+        public bool mouseWorldListener;
+        public bool mouseRotationListener;
+        public bool syncMousePosition;
+        public bool syncMouseRotation;
+        public Vector2 mouseWorld => Player.MountedCenter + mouseWorldDeltaFromPlayer;
 
         private static readonly HashSet<int> ManualFlails = new();
 
@@ -76,6 +90,11 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
 
             if (annihilationBonusShotCooldown > 0)
                 annihilationBonusShotCooldown--;
+
+            if (gorgonShotsHit < 0)
+                gorgonShotsHit = 0;
+            else if (gorgonShotsHit > 20)
+                gorgonShotsHit = 20;
         }
 
         public override void Load()
@@ -256,6 +275,30 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             }
         }
 
+        public override void PreUpdate()
+        {
+            if (Main.myPlayer == base.Player.whoAmI)
+            {
+                Vector2 vector = (LockOnHelper.Enabled ? LockOnHelper.PredictedPosition : Main.MouseWorld);
+                mouseWorldDeltaFromPlayer = vector - base.Player.MountedCenter;
+                mouseRotationFromPlayer = mouseWorldDeltaFromPlayer.ToRotation();
+
+                if (mouseWorldListener && Vector2.Distance(mouseWorldDeltaFromPlayer, oldMouseWorldDeltaFromPlayer) > 5f)
+                {
+                    oldMouseWorldDeltaFromPlayer = mouseWorldDeltaFromPlayer;
+                    syncMousePosition = true;
+                    mouseWorldListener = false;
+                }
+
+                if (mouseRotationListener && Math.Abs(mouseWorldDeltaFromPlayer.ToRotation() - oldMouseWorldDeltaFromPlayer.ToRotation()) > 0.15f)
+                {
+                    oldMouseWorldDeltaFromPlayer = mouseWorldDeltaFromPlayer;
+                    syncMouseRotation = true;
+                    mouseRotationListener = false;
+                }
+            }
+        }
+
         public override void UpdateDead()
         {
             murasamaHitCooldown = 0;
@@ -307,6 +350,28 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             }
 
             MiscEffects();
+
+            if (Player.whoAmI == Main.myPlayer && Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                mouseWorldPacketTimer = Math.Min(mouseWorldPacketTimer + 1, MouseWorldPacketInterval);
+                if (mouseWorldPacketTimer >= MouseWorldPacketInterval)
+                {
+                    if (syncMousePosition)
+                    {
+                        mouseWorldPacketTimer = 0;
+                        syncMousePosition = false;
+                        syncMouseRotation = false;
+                        MousePositionSyncPacket.Send(this);
+                    }
+
+                    if (syncMouseRotation)
+                    {
+                        mouseWorldPacketTimer = 0;
+                        syncMouseRotation = false;
+                        MouseRotationSyncPacket.Send(this);
+                    }
+                }
+            }
         }
 
         public override void ModifyZoom(ref float zoom)

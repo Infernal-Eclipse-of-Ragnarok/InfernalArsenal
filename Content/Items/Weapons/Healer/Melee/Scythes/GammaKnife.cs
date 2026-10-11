@@ -30,7 +30,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes
 
         public static readonly SoundStyle Sound = new($"{nameof(InfernalEclipseWeaponsDLC)}/Assets/Effects/Sounds/Swing", 2)
         {
-            PitchVariance = 0.25f
+            PitchVariance = 0.25f,
+            Volume = 0.8f
         };
 
         public override void SetDefaults()
@@ -97,8 +98,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes
             return true;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source,
-    Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float attackTime = player.itemAnimationMax;
 

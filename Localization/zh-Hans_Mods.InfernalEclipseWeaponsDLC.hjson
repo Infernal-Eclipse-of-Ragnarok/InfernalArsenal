@@ -949,6 +949,11 @@ Items: {
 		// DisplayName: Evil Pumpkin Staff
 		// Tooltip: Summons a regrowing evil pumpkin minion that explodes on enemy contact
 	}
+
+	PrismaGorgon: {
+		// DisplayName: Prisma Gorgon
+		// Tooltip: "{$CommonItemTooltip.PercentChanceToSaveAmmo}"
+	}
 }
 
 ItemTooltip: {
@@ -1194,6 +1199,8 @@ Projectiles: {
 	// ArckaneScythe1Pro.DisplayName: Arckane Scythe
 	// ArckaneScythe2Pro.DisplayName: Arckane Scythe
 	// EvilPumpkinMinion.DisplayName: Evil Pumpkin Minion
+	// PrismaGorgonExplosion.DisplayName: Prisma Gorgon Explosion
+	// PrismaGorgonLaser.DisplayName: Prisma Gorgon Laser
 }
 
 Buffs: {

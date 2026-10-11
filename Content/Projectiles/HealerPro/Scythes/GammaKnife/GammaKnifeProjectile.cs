@@ -105,7 +105,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro.Scythes.GammaK
             SpawnDustEffects(in position, in velocity);
         }
 
-        private void SpawnDustEffects(in Vector2 position, in Vector2 velocity)
+        private static void SpawnDustEffects(in Vector2 position, in Vector2 velocity)
         {
             for (var i = 0; i < 10; i++)
             {
