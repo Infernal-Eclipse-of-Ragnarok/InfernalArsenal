@@ -77,6 +77,7 @@ Items: {
 			召唤最多10团追踪的鬼火
 			右键施放另一种血液喷吐攻击
 			血液喷吐会造成[cbuff:CalamityMod/ArmorCrunch]和[cbuff:CalamityMod/BurningBlood]减益
+			使用任一种攻击方式都会重置所有现存鬼火的持续时间
 			'''
 	}
 
@@ -116,8 +117,8 @@ Items: {
 	GrandThunderWhip: {
 		Tooltip:
 			'''
+			{$CommonItemTooltip.Whips}
 			3点召唤标记伤害
-			命中敌人时造成[rbuff:Electrified]减益
 			'''
 		DisplayName: 惊雷鞭
 	}
@@ -331,7 +332,7 @@ Items: {
 			[iabuff:Ichor]、[iabuff:Confused]、[iabuff:OnFire]、[iabuff:Frostburn]、
 			[iabuff:Poisoned]、[iabuff:ShadowFlame]、[iabuff:CursedInferno]、
 			[iabuff:CalamityMod/Crumbling]、[iabuff:CalamityMod/CrushDepth]、[iabuff:CalamityMod/AstralInfectionDebuff]、
-			[iabuff:CalamityMod/Plague]、[iabuff:CalamityMod/BrimstoneFlames]、[iabuff:ThoriumMod/MagickStaffDebuff]、
+			[iabuff:CalamityMod/Plague]、[iabuff:CalamityMod/BrimstoneFlames]、
 			[iabuff:ThoriumMod/Stunned]和[iabuff:ThoriumMod/Charmed]
 			'''
 	}
@@ -358,9 +359,9 @@ Items: {
 		DisplayName: 幽冥扳机
 		Tooltip:
 			'''
-			一把速射冲锋枪，每15发会射出一簇弹跳的诅咒焰
-			右键消耗200法力，进入10秒的暗影冲击
-			暗影冲击期间移动速度提高25%，且持枪时射击散布减小
+			一把速射冲锋枪，每20发会射出一簇弹跳的诅咒焰
+			射击时若至少拥有10点魔力，会消耗10点魔力，使暗影冲击延长1/3秒，并提高本次射击精度
+			暗影冲击期间移动速度提高25%
 			此武器的伤害也会受到魔力病影响
 			'''
 	}
@@ -507,7 +508,7 @@ Items: {
 			增加10%鞭子攻击速度和音波演奏速度
 			虚空值获取量提高4，最大虚空值提高125
 			增加15%灵感值再生速率
-			哨兵数量上限增加3
+			仆从数量上限增加3
 			'''
 		SetBonus:
 			'''
@@ -543,7 +544,7 @@ Items: {
 			提高30%远程和盗贼弹幕速度
 			消耗潜伏值时，会将所消耗潜伏值的15%转化为虚空值
 			增加15%飞行时间
-			虚空值获取量提高3，最大虚空值提高100
+			虚空值获取量提高3，最大虚空值提高75
 			'''
 	}
 
@@ -636,9 +637,9 @@ Items: {
 		DisplayName: 雷鸣调谐叉
 		Tooltip:
 			'''
-			左键发射一道雷击，造成带电减益
-			右键在附近所有带电目标的上方召唤落雷
-			落雷将移除带电状态，并造成一次高额爆发伤害
+			左键发射一道雷击，造成[cbuff:Electrified]减益
+			右键在附近所有受到电系减益敌怪的上方召唤落雷
+			落雷将移除带电状态，并造成一次高额爆发伤害，伤害随所移除的减益种类而变化
 			'''
 	}
 
@@ -648,7 +649,7 @@ Items: {
 			'''
 			释放多种不同颜色的音符
 			音符将根据其颜色造成不同的减益
-			每拥有一种2级或以上的咒音增幅效果，会额外释放一枚音符，最多额外释放五枚
+			每拥有一种2级或以上的咒音增幅效果，会额外释放一枚音符，最多总计释放五枚
 			[c/1FFBFF:我曾被派去寻找那个自称“追猎者”的战士团体]
 			[c/1FFBFF:他们向我展示了一件奇怪的乐器，形如音符，却长着一张嘴]
 			[c/1FFBFF:尽管这东西十分怪异，我仍设法将其改造成了一件武器，其威力会随着使用者所拥有的其他强化数量而增强]
@@ -708,11 +709,9 @@ Items: {
 		Tooltip:
 			'''
 			增加10%暴击率
-			增加暴击伤害
 			增加2个最大哨兵栏
-			被动提升缩放视野的范围
-			关闭饰品可见性禁用视野提升效果
-			按下饰品能力键将锁定镜头位置
+			允许你的哨兵暴击
+			按{$ThoriumMod.Keybinds.AccessoryAbility.DisplayName}键会大幅扩展视野
 			“我于你的未来窥见一座坚不可摧的堡垒”
 			'''
 	}
@@ -726,7 +725,7 @@ Items: {
 			长剑处于嵌入状态时会释放出光暗能量
 			光辉能量会追踪附近的友方，并治疗等同于额外治疗量的生命值
 			暗影能量会追踪附近的敌人，造成伤害
-			若使用者的额外治疗量大于等于5则施加[cbuff:BetsysCurse][cbuff:Ichor][cbuff:CalamityMod/ArmorCrunch][cbuff:CalamityMod/ArmorCrunch][cbuff:CalamityMod/MarkedforDeath]和[cbuff:CalamityMod/WhisperingDeath]减益
+			若使用者的额外治疗量大于等于5则施加[cbuff:BetsysCurse][cbuff:Ichor][cbuff:CalamityMod/ArmorCrunch][cbuff:CalamityMod/MarkedforDeath]和[cbuff:CalamityMod/WhisperingDeath]减益
 			一次只能投掷一把长剑
 			“抱歉了小猪猪，但这是必要的牺牲”
 			'''
@@ -788,7 +787,7 @@ Items: {
 	}
 
 	GauntletofAnnihilation: {
-		DisplayName: Gauntlet of Annihilation
+		DisplayName: 湮灭拳骨
 		Tooltip:
 			'''
 			左键释放四只宇宙拳套连打，造成[cbuff:CalamityMod/GodSlayerInferno]
@@ -819,7 +818,7 @@ Items: {
 			'''
 			基于你离队友的距离提供乘算伤害加成，最高提高20%
 			迸发炽烈的光环，同时为队友提高伤害
-			队友距离你越近，接近时间越长，受到的伤害加成越高
+			队友距离你越近，获得的乘算伤害加成越高
 			这些倍率不会与[i:CalamityMod/WarbanneroftheRighteous]正义战旗的倍率叠加，只会取两者中较高的加成
 			如果关闭饰品可见性，饰品效果会变得透明且安静
 			为所有队友增加{0}HP/s生命再生、{1}%最大生命值、{2}%伤害减免、{3}点防御和{4}%伤害
@@ -917,7 +916,7 @@ Items: {
 		DisplayName: 泰拉剑鞘
 		Tooltip:
 			'''
-			手持且不使用{1}秒后用剑攻击会释放{0}个泰拉法球
+			手持且不使用{1}秒后用剑攻击会释放{0}个追踪的泰拉法球
 			这些泰拉法球在命中敌人时会恢复你3%已损失的生命值
 			'''
 	}
@@ -932,6 +931,39 @@ Items: {
 			使用悠悠球命中敌人时，你将获得10%伤害减免，持续至你受到伤害为止
 			该效果在触发保护后需要15秒重新充能
 			'''
+	}
+
+	RGBMurasama: {
+		DisplayName: RGB鬼妖村正
+		Tooltip:
+			'''
+			一把高频剑，即使是最强大的怪物也能干净利落地切碎
+			第三段斩击会造成巨量伤害
+			杀死神明吞噬者来证明你的价值才能拔出此剑
+			“这套灯光花了我三千刀”
+			'''
+	}
+
+	EvilPumpkin: {
+		DisplayName: 邪恶南瓜法杖
+		Tooltip: 召唤一个能够不断再生的邪恶南瓜仆从，该仆从在接触敌人时会爆炸
+	}
+
+	JollyTune: {
+		DisplayName: 欢愉颂曲
+		Tooltip:
+			'''
+			召唤围绕你旋转的音符
+			召唤第8个音符时，所有音符将向外发射并追踪敌人
+			成功在计时区域击中会不断增加它的伤害和咒音增幅等级
+			错失节拍会大幅降低这些加成并消耗10点灵感值
+			这些加成在切换武器后仍会保留，但若不是你激活的武器，加成会逐渐消散
+			'''
+	}
+
+	PrismaGorgon: {
+		DisplayName: 棱晶蛇发女妖
+		Tooltip: "{$CommonItemTooltip.PercentChanceToSaveAmmo}"
 	}
 }
 
@@ -961,7 +993,7 @@ ItemTooltip: {
 		你与自己，才是最完美的组合。
 		'''
 	SearingSpearTip: 150% 基础伤害
-	ArcticSpearTip: 115% 基础伤害
+	ArcticSpearTip: 100% 基础伤害
 	VerveineItem: “来自兰花的祝福之物……”
 	EngineGatling:
 		'''
@@ -1010,6 +1042,7 @@ ItemTooltip: {
 		cat: StarlightCat
 		Goldsock: Goldsockz2
 		paradox: Imagiknight_Parad0xical
+		orpheus: Imagiknight Orpheus
 		Arkangel: Arkangel
 	}
 
@@ -1173,6 +1206,14 @@ Projectiles: {
 	HolyFlailCorePro.DisplayName: 神圣连枷核心
 	HolyFlailFire.DisplayName: 亵渎圣火
 	TerraOrb.DisplayName: 泰拉法球
+	ArckaneStaffHoldout.DisplayName: 奥能法杖
+	ArckaneGemPro.DisplayName: 奥能水晶
+	ArckaneScythe1Pro.DisplayName: 奥能之镰
+	ArckaneScythe2Pro.DisplayName: 奥能之镰
+	EvilPumpkinMinion.DisplayName: 邪恶南瓜仆从
+	JollyTunePro.DisplayName: 欢乐颂
+	PrismaGorgonExplosion.DisplayName: 棱晶蛇发女妖爆炸
+	PrismaGorgonLaser.DisplayName: 棱晶蛇发女妖激光
 }
 
 Buffs: {
@@ -1232,6 +1273,11 @@ Buffs: {
 			火系 - 50 DPS
 			减缓7.5%敌怪速度
 			'''
+	}
+
+	EvilPumpkinBuff: {
+		DisplayName: 邪恶南瓜
+		Description: 一批诡异的作物正在攻击你的敌人
 	}
 }
 
