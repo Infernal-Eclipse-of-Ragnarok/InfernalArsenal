@@ -29,7 +29,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
         {
             Item.width = 98;
             Item.height = 38;
-            Item.damage = 30;
+            Item.damage = 38;
             Item.DamageType = DamageClass.Ranged;
             Item.useTime = 20;
             Item.useAnimation = 20;
@@ -275,7 +275,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
 
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), GunTipPosition, shootVelocity, ModContent.ProjectileType<PrismaGorgonLaser>(), Projectile.damage * 4, Projectile.knockBack * 2f, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), GunTipPosition, shootVelocity, ModContent.ProjectileType<PrismaGorgonLaser>(), Projectile.damage * 8, Projectile.knockBack * 2f, Projectile.owner);
                 }
 
                 shotCounter = 0;

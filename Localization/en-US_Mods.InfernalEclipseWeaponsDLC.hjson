@@ -960,7 +960,10 @@ Items: {
 
 	PrismaGorgon: {
 		DisplayName: Prisma Gorgon
-		Tooltip: "{$CommonItemTooltip.PercentChanceToSaveAmmo}"
+		Tooltip:
+			'''
+			{$CommonItemTooltip.PercentChanceToSaveAmmo}
+			'''
 	}
 }
 
