@@ -48,7 +48,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic
             Item.autoReuse = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = new Terraria.Audio.SoundStyle("CalamityMod/Sounds/Custom/SCalSounds/BrothersDeath1");
-            Item.damage = 15 * (ModLoader.TryGetMod("FargowiltasSouls", out _) ? ModLoader.TryGetMod("ssm", out _) ? 450 : 300 : 235);
+            Item.damage = 15 * (ModLoader.TryGetMod("FargowiltasSouls", out _) ? ModLoader.TryGetMod("ssm", out _) ? 450 : 300 : 275);
             Item.DamageType = ThoriumDamageBase<HealerDamage>.Instance;
             Item.knockBack = 4f;
             Item.noMelee = true;
