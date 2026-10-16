@@ -1,8 +1,8 @@
 displayName = Infernal Arsenal Mod
 author = Infernal Eclipse of Ragnarok Team
-version = 1.6.0.4
-modReferences = ThoriumMod
-weakReferences = Luminance, Daybreak, SOTS, CatalystMod, CalamityMod
+version = 1.7
+modReferences = ThoriumMod, CalamityMod
+weakReferences = Luminance, Daybreak, SOTS, CatalystMod
 hideCode = true
 hideResources = true
 homepage = https://discord.gg/tc5nZdRvaU
