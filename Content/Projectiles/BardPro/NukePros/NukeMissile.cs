@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria;
 using ThoriumMod;
 using ThoriumMod.Projectiles.Bard;
+using CalamityMod;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NukePros
 {
@@ -41,14 +42,36 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NukePros
         public bool firstFrame = true;
         public float mouseY = 0;
         public bool ignoreMousePos = false;
+        private bool isHoming;
+
         public override void AI()
         {
             if (firstFrame)
             {
                 firstFrame = false;
+
                 mouseY = Main.MouseWorld.Y;
-                Tile tile = Main.tile[new Point((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16)];
+
+                Tile tile = Main.tile[
+                    new Point(
+                        (int)Main.MouseWorld.X / 16,
+                        (int)Main.MouseWorld.Y / 16
+                    )
+                ];
+
                 ignoreMousePos = tile.HasTile && Main.tileSolid[tile.TileType];
+
+                // Snap the missile's velocity towards the mouse.
+                Vector2 direction = Main.MouseWorld - Projectile.Center;
+
+                if (direction != Vector2.Zero)
+                {
+                    direction.Normalize();
+                    Projectile.velocity = direction * Projectile.velocity.Length();
+                }
+
+                // Rotate the sprite to match its initial direction.
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             }
             if (Projectile.frameCounter > 500)
             {
@@ -72,6 +95,43 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NukePros
                 Projectile.Kill();
             }
 
+            bool windHoming = Main.player[Projectile.owner].GetModPlayer<ThoriumPlayer>().accWindHoming;
+
+            isHoming = false;
+
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+
+                if (npc.CanBeChasedBy(Projectile.owner) &&
+                    Vector2.DistanceSquared(npc.Center, Projectile.Center) < 1000 * 1000)
+                {
+                    Vector2 vector = npc.Center - Projectile.Center;
+                    float speed = Projectile.velocity.Length();
+
+                    if (vector != Vector2.Zero)
+                    {
+                        vector.Normalize();
+                        vector *= speed;
+
+                        float inertia = windHoming ? 5f : 10f;
+
+                        Projectile.velocity =
+                            (Projectile.velocity * inertia + vector) / (inertia + 1f);
+
+                        if (Projectile.velocity != Vector2.Zero)
+                        {
+                            Projectile.velocity.Normalize();
+                            Projectile.velocity *= speed;
+                        }
+
+                        isHoming = true;
+                    }
+
+                    break;
+                }
+            }
+
             if (hit)
             {
                 Projectile.velocity.X = 0;
@@ -80,9 +140,10 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NukePros
             }
             else
             {
+                SpawnSmokeTrail();
                 Lighting.AddLight(Projectile.Center, Color.Lime.ToVector3() * 0.8f);
                 Projectile.rotation = Projectile.velocity.ToRotation();
-                if (Projectile.Center.Y > mouseY || ignoreMousePos)
+                if (!isHoming && (Projectile.Center.Y > mouseY || ignoreMousePos))
                 {
                     Tile tile = Main.tile[new Point((int)(Projectile.Center.X + Projectile.rotation.ToRotationVector2().X * Projectile.height / 2) / 16, (int)(Projectile.Center.Y + Projectile.rotation.ToRotationVector2().Y * Projectile.height / 2) / 16)];
                     if (tile.HasTile && Main.tileSolid[tile.TileType])
@@ -90,26 +151,64 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NukePros
                         groundY = Projectile.Center.Y;
                         // Projectile.Center -= Projectile.rotation.ToRotationVector2() * Projectile.height * 0.8f;
                         hit = true;
-                        if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
-                        {
-                            if (calamity.TryFind("WavePounderBoom", out ModProjectile boom))
-                            {
-                                Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero,
-                                    boom.Type, Projectile.damage, 1f);
-                                float j = 1;
-                                projectile.ai[1] = 320f + j * 45f;
-                                projectile.localAI[1] = Main.rand.NextFloat(0.08f, 0.25f);
-                                projectile.Opacity = MathHelper.Lerp(0.18f, 0.6f, j / 7f) + Main.rand.NextFloat(-0.08f, 0.08f);
-                                projectile.netUpdate = true;
-                            }
-                        }
+                        Projectile projectile = Projectile.NewProjectileDirect(
+                        Projectile.GetSource_FromAI(),
+                        Projectile.Center,
+                        Vector2.Zero,
+                        ModContent.ProjectileType<NukeBoom>(),
+                        Projectile.damage, // explosion damage
+                        1f  // explosion knockback
+                        );
+
+                        float j = 5;
+                        projectile.ai[1] = 320f + j * 45f;
+                        projectile.localAI[1] = Main.rand.NextFloat(0.08f, 0.25f);
+                        projectile.Opacity = MathHelper.Lerp(0.18f, 0.6f, j / 7f) + Main.rand.NextFloat(-0.08f, 0.08f);
+                        projectile.netUpdate = true;
                         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
+                        //Screenshake
+                        if (WeaponConfig.Instance.EnableScreenEffects)
+                        {
+                            float screenShakePower = Utils.GetLerpValue(
+                                1300f,
+                                0f,
+                                Projectile.Distance(Main.LocalPlayer.Center),
+                                true
+                            );
+
+                            Main.LocalPlayer.Calamity().GeneralScreenShakePower =
+                                screenShakePower * 6f;
+                        }
+
+                        Projectile.Kill();
                     }
                 }
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
                 Projectile.velocity.Y += 0.275f;
             }
+        }
+
+        private void SpawnSmokeTrail()
+        {
+            if (hit)
+                return;
+
+            Vector2 smokePosition = Projectile.Center -
+                Projectile.velocity.SafeNormalize(Vector2.UnitY) * (Projectile.height * 0.35f);
+
+            Dust smoke = Dust.NewDustPerfect(
+                smokePosition,
+                DustID.Smoke,
+                -Projectile.velocity * 0.05f + Main.rand.NextVector2Circular(0.8f, 0.8f),
+                60,
+                Color.Gray,
+                Main.rand.NextFloat(0.7f, 0.9f)
+            );
+
+            smoke.noGravity = true;
+            smoke.fadeIn = 0.3f;
+            smoke.velocity *= 0.4f;
         }
 
         public override void BardOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -130,28 +229,35 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.NukePros
             hit = true;
             Projectile.velocity = Vector2.Zero;
 
-            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
-            {
-                if (calamity.TryFind("WavePounderBoom", out ModProjectile boom))
-                {
-                    Projectile projectile = Projectile.NewProjectileDirect(
+            Projectile projectile = Projectile.NewProjectileDirect(
                         Projectile.GetSource_FromAI(),
                         Projectile.Center,
                         Vector2.Zero,
-                        boom.Type,
+                        ModContent.ProjectileType<NukeBoom>(),
                         Projectile.damage, // explosion damage
                         1f  // explosion knockback
                     );
 
-                    float j = 1;
-                    projectile.ai[1] = 320f + j * 45f;
-                    projectile.localAI[1] = Main.rand.NextFloat(0.08f, 0.25f);
-                    projectile.Opacity = MathHelper.Lerp(0.18f, 0.6f, j / 7f) + Main.rand.NextFloat(-0.08f, 0.08f);
-                    projectile.netUpdate = true;
-                }
-            }
+            float j = 5;
+            projectile.ai[1] = 320f + j * 45f;
+            projectile.localAI[1] = Main.rand.NextFloat(0.08f, 0.25f);
+            projectile.Opacity = MathHelper.Lerp(0.18f, 0.6f, j / 7f) + Main.rand.NextFloat(-0.08f, 0.08f);
+            projectile.netUpdate = true;
 
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
+            //Screenshake
+            if (WeaponConfig.Instance.EnableScreenEffects)
+            {
+                float screenShakePower = Utils.GetLerpValue(
+                    1300f,
+                    0f,
+                    Projectile.Distance(Main.LocalPlayer.Center),
+                    true
+                );
+
+                Main.LocalPlayer.Calamity().GeneralScreenShakePower =
+                    screenShakePower * 6f;
+            }
         }
 
     }

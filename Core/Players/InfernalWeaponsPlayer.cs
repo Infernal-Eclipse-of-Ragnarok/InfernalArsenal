@@ -49,7 +49,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public bool hideHeraldryVisual;
         public bool hasWarbanner;
 
-        public int missileIndex = 10;
+        public int missileIndex = 0;
         public int CataclysmFistShotCount = 0;
         public int annihilationBonusShotTimeLeft = 0;
         public int annihilationBonusShotCooldown = 0;
@@ -70,6 +70,16 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public bool mouseRotationListener;
         public bool syncMousePosition;
         public bool syncMouseRotation;
+
+        public int nukeWhistleMissileTimer;
+        public int nukeWhistleMissileSetTimer;
+        public Vector2 nukeWhistleVelocity;
+        public int nukeWhistleMissilesRemaining;
+        public int nukeWhistleDamage;
+        public float nukeWhistleKnockback;
+        public int nukeWhistleProjectileType;
+        public int nukeWhistleBarrageIndex;
+
         public Vector2 mouseWorld => Player.MountedCenter + mouseWorldDeltaFromPlayer;
 
         private static readonly HashSet<int> ManualFlails = new();
@@ -310,6 +320,52 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public override void UpdateDead()
         {
             murasamaHitCooldown = 0;
+        }
+
+        public override void PostUpdate()
+        {
+            if (nukeWhistleMissilesRemaining <= 0)
+                return;
+
+            nukeWhistleMissileTimer--;
+
+            if (nukeWhistleMissileTimer > 0)
+                return;
+
+            Player player = Player;
+
+            if (player.dead || !player.active)
+            {
+                nukeWhistleMissilesRemaining = 0;
+                return;
+            }
+
+            Vector2 target = Main.MouseWorld;
+            Vector2 direction = target - player.Center;
+
+            if (direction.LengthSquared() > 0f)
+                direction.Normalize();
+
+            int sign = Main.rand.NextBool() ? 1 : -1;
+
+            int xOffset = (int)((Main.MouseWorld.X - player.Center.X) / 3f)
+                + Main.rand.Next(-4, 8) * 65 * sign;
+
+            Projectile.NewProjectile(
+                player.GetSource_ItemUse(player.HeldItem),
+                player.Center + new Vector2(xOffset, -Main.screenHeight / 2f),
+                nukeWhistleVelocity,
+                nukeWhistleProjectileType,
+                nukeWhistleDamage,
+                nukeWhistleKnockback,
+                player.whoAmI
+            );
+
+            nukeWhistleMissilesRemaining--;
+
+            // 10 ticks between each missile.
+            if (nukeWhistleMissilesRemaining > 0)
+                nukeWhistleMissileTimer = nukeWhistleMissileSetTimer;
         }
 
         public override void PostUpdateEquips()

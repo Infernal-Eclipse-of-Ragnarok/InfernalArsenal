@@ -212,8 +212,14 @@ Items: {
 	}
 
 	NukeWhistle: {
-		Tooltip: "'Legalise nuclear songs'"
 		DisplayName: Intercontinental Ballistic Whistle
+		Tooltip:
+			'''
+			Calls down barrages of missiles that home onto enemies and explode
+			Every 4th barrage is instead replaced with a nuke
+			Nukes deal 500% damage and generate a far larger explosion
+			'Legalise nuclear songs'
+			'''
 	}
 
 	ListoftheDamned: {
@@ -962,12 +968,12 @@ Items: {
 		DisplayName: Prisma Gorgon
 		Tooltip:
 			'''
-			{$CommonItemTooltip.PercentChanceToSaveAmmo}
 			Requires a spool-up of 7 shots before optimal fire rate is achieved
 			Hitting 20 cumulative shots on an enemy will stack an void shot
 			<right> while firing to shoot a void shot which explodes on collision and will petrify enemies
 			Only 20 void shots can be stored at a time
 			'Adorned with void hardened prisma crystal, it is prized for its beauty and enhanced mechanics.'
+			{$CommonItemTooltip.PercentChanceToSaveAmmo}
 			'''
 	}
 }
@@ -1220,6 +1226,7 @@ Projectiles: {
 	JollyTunePro.DisplayName: Jolly Tune Pro
 	PrismaGorgonExplosion.DisplayName: Prisma Gorgon Explosion
 	PrismaGorgonLaser.DisplayName: Prisma Gorgon Laser
+	NukeBoom.DisplayName: Nuke Boom
 }
 
 Buffs: {

@@ -215,8 +215,8 @@ Items: {
 	}
 
 	NukeWhistle: {
-		Tooltip: “核歌曲自由！”
 		DisplayName: 洲际弹道口哨
+		Tooltip: “核歌曲自由！”
 	}
 
 	ListoftheDamned: {
@@ -1215,6 +1215,7 @@ Projectiles: {
 	JollyTunePro.DisplayName: 欢乐颂
 	PrismaGorgonExplosion.DisplayName: 棱晶蛇发女妖爆炸
 	PrismaGorgonLaser.DisplayName: 棱晶蛇发女妖激光
+	// NukeBoom.DisplayName: Nuke Boom
 }
 
 Buffs: {
