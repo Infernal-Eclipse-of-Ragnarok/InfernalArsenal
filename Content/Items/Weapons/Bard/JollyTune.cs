@@ -1,29 +1,23 @@
-﻿using CalamityMod.Items;
-using CalamityMod.Rarities;
-using CalamityMod.Tiles.Furniture.CraftingStations;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ReLogic.Utilities;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Items.BardItems;
-using ThoriumMod.Sounds;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
-    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
-    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class JollyTune : BigInstrumentItemBase
     {
         public override bool ForceDisableAutoReuse => true;
@@ -37,7 +31,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         private Texture2D GrinderAnimationTexture => ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Bard/JollyTuneSheet").Value;
 
-        private static readonly SoundStyle GrinderSong = new SoundStyle("InfernalEclipseWeaponsDLC/Assets/Sounds/JollyTune"){IsLooped = true, Volume = 1f};
+        private static readonly SoundStyle GrinderSong = new SoundStyle("InfernalEclipseWeaponsDLC/Assets/Sounds/JollyTune")
+        {
+            IsLooped = true, 
+            Volume = 1f
+        };
 
         public override void SafeSetStaticDefaults()
         {
@@ -61,8 +59,17 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Item.autoReuse = true;
             Item.damage = 400;
             Item.knockBack = 4f;
-            Item.rare = ModContent.RarityType<CosmicPurple>();
-            Item.value = CalamityGlobalItem.RarityDarkBlueBuyPrice;
+
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+            {
+                Item.rare = calamity.Find<ModRarity>("CosmicPurple").Type;
+            }
+            else
+            {
+                Item.rare = ItemRarityID.Purple;
+            }
+
+            Item.value = Item.buyPrice(2);
             InspirationCost = 10;
             Item.UseSound = null;
         }
@@ -79,17 +86,22 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override void AddRecipes()
         {
-            ModLoader.TryGetMod("CalamityMod", out Mod calamity);
-
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.MusicBox, 1);
             recipe.AddIngredient(ItemID.Present, 2);
 
-            recipe.AddIngredient(calamity.Find<ModItem>("EndothermicEnergy").Type, 25);
+            if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("EndothermicEnergy").Type, 25);
+                recipe.AddTile(calamity.Find<ModTile>("CosmicAnvil").Type);
+            }
+            else
+            {
+                recipe.AddIngredient(ItemID.FrostCore);
+                recipe.AddTile(TileID.LunarCraftingStation);
+            }
 
-            recipe.AddTile(ModContent.TileType<CosmicAnvil>());
             recipe.Register();
-            base.AddRecipes();
         }
 
         public override void Shoot_OnSuccess(Player player)
@@ -128,20 +140,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             float angleStep = MathHelper.TwoPi / orbitCount;
 
-            float angle =
-                Main.GameUpdateCount * JollyTunePro.OrbitSpeed + newProjectileIndex * angleStep;
+            float angle = Main.GameUpdateCount * JollyTunePro.OrbitSpeed + newProjectileIndex * angleStep;
 
             Vector2 spawnPosition = player.Center + angle.ToRotationVector2() * JollyTunePro.OrbitRadius;
 
-            Projectile newProjectile = Projectile.NewProjectileDirect(
-                source,
-                spawnPosition,
-                Vector2.Zero,
-                ModContent.ProjectileType<JollyTunePro>(),
-                damage,
-                knockback,
-                player.whoAmI
-            );
+            Projectile newProjectile = Projectile.NewProjectileDirect(source, spawnPosition, Vector2.Zero, ModContent.ProjectileType<JollyTunePro>(), damage, knockback, player.whoAmI);
 
             // Which sprite this projectile uses
             newProjectile.ai[0] = JollyTuneProjectileFrame;
@@ -181,7 +184,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             }
         }
 
-        private void RefreshGrinderSong(Player player)
+        private static void RefreshGrinderSong(Player player)
         {
             JollyTunePlayer modPlayer = player.GetModPlayer<JollyTunePlayer>();
 
@@ -197,10 +200,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
                 return;
             }
 
-            modPlayer.SongSlot = SoundEngine.PlaySound(
-                GrinderSong,
-                player.Center
-            );
+            modPlayer.SongSlot = SoundEngine.PlaySound(GrinderSong, player.Center);
         }
 
         public override bool ModifyItemDraw( ref PlayerDrawSet drawInfo, ref DrawData drawData, ref DrawData? coloredDrawData, ref DrawData? glowMaskDrawData)
@@ -308,7 +308,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         public SlotId SongSlot;
         public float SongVolume;
         public const float MaxSongVolume = 0.5f;
-        public const float SongVolumeDrainTime = 100f;
+        public const float SongVolumeDrainTime = 200f;
 
         public override void PostUpdate()
         {
@@ -323,8 +323,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
                 }
             }
 
-            bool holdingJollyTune =
-                Player.HeldItem.type == ModContent.ItemType<JollyTune>();
+            bool holdingJollyTune = Player.HeldItem.type == ModContent.ItemType<JollyTune>();
 
             if (!hasJollyTune)
             {

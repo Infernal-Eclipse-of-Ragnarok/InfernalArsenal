@@ -55,6 +55,8 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public int annihilationBonusShotCooldown = 0;
         public int murasamaHitCooldown = 0;
         public int gorgonShotsHit;
+        public bool gorgonIncarnon = false;
+        public int gorgonIncarnonShotsStored;
 
         public float heraldryDamageMult = 0f;
         public float heraldyBuffFromOther = 0f;
@@ -96,6 +98,11 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                 gorgonShotsHit = 0;
             else if (gorgonShotsHit > 20)
                 gorgonShotsHit = 20;
+
+            if (gorgonIncarnonShotsStored < 0)
+                gorgonIncarnonShotsStored = 0;
+            else if (gorgonIncarnonShotsStored > 20)
+                gorgonIncarnonShotsStored = 20;
         }
 
         public override void Load()

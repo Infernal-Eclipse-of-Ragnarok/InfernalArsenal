@@ -9,6 +9,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.RangedPro
 {
     public class PrismaGorgonLaser : ModProjectile
     {
+        public static readonly SoundStyle ExplosionSound = new($"{nameof(InfernalEclipseWeaponsDLC)}/Assets/Sounds/IncarnonExplosionSmallC")
+        {
+            Volume = 0.5f
+        };
+
         public static int ExplosionDebuff => ModContent.BuffType<Petrify>();
         public const int DebuffDuration = 300;
         public const float ExplosionRadius = 120f;
@@ -89,7 +94,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.RangedPro
 
             if (!Main.dedServ)
             {
-                SoundEngine.PlaySound(SoundID.Item14, center);
+                SoundEngine.PlaySound(ExplosionSound, center);
 
                 // Outer explosion.
                 for (int i = 0; i < 65; i++)

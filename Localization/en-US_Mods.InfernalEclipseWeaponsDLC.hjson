@@ -963,6 +963,11 @@ Items: {
 		Tooltip:
 			'''
 			{$CommonItemTooltip.PercentChanceToSaveAmmo}
+			Requires a spool-up of 7 shots before optimal fire rate is achieved
+			Hitting 20 cumulative shots on an enemy will stack an void shot
+			<right> while firing to shoot a void shot which explodes on collision and will petrify enemies
+			Only 20 void shots can be stored at a time
+			'Adorned with void hardened prisma crystal, it is prized for its beauty and enhanced mechanics.'
 			'''
 	}
 }
@@ -1044,6 +1049,7 @@ ItemTooltip: {
 		paradox: Imagiknight_Parad0xical
 		orpheus: Imagiknight Orpheus
 		Arkangel: Arkangel
+		Heatstroke: Heatstroke
 	}
 
 	Cooldowns: {

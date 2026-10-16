@@ -1,7 +1,5 @@
-﻿using CalamityMod.Buffs.StatDebuffs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,8 +8,8 @@ using ThoriumMod.Projectiles.Bard;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 {
-    [JITWhenModsEnabled("ThoriumMod", "CalamityMod")]
-    [ExtendsFromMod("ThoriumMod", "CalamityMod")]
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class JollyTunePro : BardProjectile
     {
         public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;
@@ -19,8 +17,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
         private const int TrailLength = 10;
         public const float OrbitRadius = 80f;
         public const float OrbitSpeed = 0.04f;
-        private float HomingSpeed = 14f;
-        private float HomingStrength = 0.08f;
+        private readonly float HomingSpeed = 14f;
+        private readonly float HomingStrength = 0.08f;
 
         private int LaunchTime = 12;
         private float LaunchSpeed = 12f;

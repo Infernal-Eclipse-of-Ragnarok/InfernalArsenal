@@ -1,7 +1,9 @@
 ﻿using CalamityMod.Systems.Collections;
 using InfernalEclipseWeaponsDLC.Content.Buffs;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee;
+using InfernalEclipseWeaponsDLC.Core.NewFolder;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
@@ -15,6 +17,17 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
         public override void ResetEffects(NPC npc)
         {
             limbBurn = false;
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            if (npc.boss)
+            {
+                foreach (Player player in Main.ActivePlayers)
+                {
+                    player.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored = 0;
+                }
+            }
         }
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)

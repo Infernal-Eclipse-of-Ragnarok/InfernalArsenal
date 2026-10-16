@@ -54,18 +54,18 @@ namespace InfernalEclipseWeaponsDLC.Core.Netcode
                     // Throw an exception now instead of allowing the network stream to corrupt.
                     //
 
-                    InfernalEclipseWeaponsDLC.Instance.Logger.Error($"Failed to parse Calamity packet: No Calamity packet exists with ID {netID}.");
-                    throw new Exception("Failed to parse Calamity packet: Invalid Calamity packet ID.");
+                    InfernalEclipseWeaponsDLC.Instance.Logger.Error($"Failed to parse WeaponsDLC packet: No WeaponsDLC packet exists with ID {netID}.");
+                    throw new Exception("Failed to parse WeaponsDLC packet: Invalid WeaponsDLC packet ID.");
                 }
             }
             catch (Exception e)
             {
                 if (e is EndOfStreamException eose)
-                    InfernalEclipseWeaponsDLC.Instance.Logger.Error("Failed to parse Calamity packet: Packet was too short, missing data, or otherwise corrupt.", eose);
+                    InfernalEclipseWeaponsDLC.Instance.Logger.Error("Failed to parse WeaponsDLC packet: Packet was too short, missing data, or otherwise corrupt.", eose);
                 else if (e is ObjectDisposedException ode)
-                    InfernalEclipseWeaponsDLC.Instance.Logger.Error("Failed to parse Calamity packet: Packet reader disposed or destroyed.", ode);
+                    InfernalEclipseWeaponsDLC.Instance.Logger.Error("Failed to parse WeaponsDLC packet: Packet reader disposed or destroyed.", ode);
                 else if (e is IOException ioe)
-                    InfernalEclipseWeaponsDLC.Instance.Logger.Error("Failed to parse Calamity packet: An unknown I/O error occurred.", ioe);
+                    InfernalEclipseWeaponsDLC.Instance.Logger.Error("Failed to parse WeaponsDLC packet: An unknown I/O error occurred.", ioe);
                 else
                     throw; // this either will crash the game or be caught by TML's packet policing
             }

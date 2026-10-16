@@ -67,7 +67,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
             Item.value = Item.buyPrice(2);
             Item.shoot = ModContent.ProjectileType<RGBMurasamaSlash>();
             Item.shootSpeed = 24f;
-            Item.rare = Calamity != null ? Calamity.Find<ModRarity>("CosmicPurple").Type : ItemRarityID.Purple;
+            Item.rare = Calamity != null ? Calamity.Find<ModRarity>("ExoticRainbow").Type : ItemRarityID.Purple;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frameI, Color drawColor, Color itemColor, Vector2 origin, float scale)

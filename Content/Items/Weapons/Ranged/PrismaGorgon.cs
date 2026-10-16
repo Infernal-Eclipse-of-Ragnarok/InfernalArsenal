@@ -2,8 +2,10 @@
 using InfernalEclipseWeaponsDLC.Core.NewFolder;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -17,7 +19,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
 {
     public class PrismaGorgon : ModItem
     {
-        public static int AmmoSavedPercent = 30;
+        private static int AmmoSavedPercent = 30;
+
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(AmmoSavedPercent);
 
         public override void SetStaticDefaults()
@@ -52,21 +55,18 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
         public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] <= 0;
         public override bool RangedPrefix() => true; //Can't scale with attack speed, but should still be able to recieve Unreal
         public override void HoldItem(Player player) => player.GetModPlayer<InfernalWeaponsPlayer>().mouseRotationListener = true;
-        public override bool AltFunctionUse(Player player) => player.GetModPlayer<InfernalWeaponsPlayer>().gorgonShotsHit >= 20;
         public override bool CanConsumeAmmo(Item ammo, Player player) => player.ownedProjectileCounts[Item.shoot] > 0 && Main.rand.Next(100) >= AmmoSavedPercent;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.altFunctionUse <= 2)
-            {
-                Projectile holdout = Projectile.NewProjectileDirect(source, position, velocity, Item.shoot, damage, knockback, player.whoAmI);
-                holdout.velocity = (player.GetModPlayer<InfernalWeaponsPlayer>().mouseWorld - player.MountedCenter).SafeNormalize(Vector2.Zero);
-            }
+            Projectile holdout = Projectile.NewProjectileDirect(source, position, velocity, Item.shoot, damage, knockback, player.whoAmI);
+            holdout.velocity = (player.GetModPlayer<InfernalWeaponsPlayer>().mouseWorld - player.MountedCenter).SafeNormalize(Vector2.Zero);
+
             return false;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            bool charged = Main.LocalPlayer.GetModPlayer<InfernalWeaponsPlayer>().gorgonShotsHit >= 20;
+            bool charged = Main.LocalPlayer.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored >= 1;
 
             if (!charged)
                 return true;
@@ -75,6 +75,63 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
             spriteBatch.Draw(texture, position, null, drawColor,0f, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
 
             return false;
+        }
+
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            var player = Main.LocalPlayer;
+            var modPlayer = player.GetModPlayer<InfernalWeaponsPlayer>();
+
+            if (modPlayer.gorgonIncarnonShotsStored <= 0) return;
+
+            Texture2D barBG = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Assets/Textures/GenericBarBack", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D barFG = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Assets/Textures/GenericBarFront", AssetRequestMode.ImmediateLoad).Value;
+
+            float chargeRatio = MathHelper.Clamp(modPlayer.gorgonIncarnonShotsStored / 20f, 0f, 1f);
+
+            float barScale = scale * 2.3f;
+            float rotation = MathHelper.PiOver2;
+
+            // Move the bar to the right of the weapon.
+            Vector2 drawPos = position + new Vector2(70f * scale, 0f);
+
+            float t = (float)((Math.Sin(Main.GlobalTimeWrappedHourly * 2f) + 1f) / 2f);
+            Color color = Color.Lerp(Color.CornflowerBlue, Color.LightBlue, t);
+
+            // Draw the background vertically.
+            Vector2 backgroundOrigin = barBG.Size() * 0.5f;
+
+            spriteBatch.Draw(barBG, drawPos, null, color, rotation, backgroundOrigin, barScale, SpriteEffects.None, 0f);
+
+            // Crop the foreground horizontally before rotating it.
+            int filledWidth = (int)(chargeRatio * barFG.Width);
+
+            if (filledWidth > 0)
+            {
+                Rectangle frameCrop = new(0, 0, filledWidth, barFG.Height);
+
+                // Keep the left edge of the original texture anchored.
+                // After rotation, this becomes the bottom of the vertical bar.
+                Vector2 foregroundOrigin = new Vector2(filledWidth - barFG.Width * 0.5f, barFG.Height * 0.5f);
+
+                spriteBatch.Draw(barFG, drawPos, frameCrop, color * 0.8f, rotation, foregroundOrigin, barScale, SpriteEffects.None, 0f);
+            }
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (Main.keyState.IsKeyDown(Keys.LeftShift))
+            {
+                TooltipLine line5 = new(Mod, "DedicatedItem", $"{Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.DedTo", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.Dedicated.Heatstroke"))}\n{Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.Donor")}");
+                line5.OverrideColor = new Color(196, 35, 44);
+                tooltips.Add(line5);
+            }
+            else
+            {
+                TooltipLine line5 = new(Mod, "DedicatedItem", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.Donor"));
+                line5.OverrideColor = new Color(196, 35, 44);
+                tooltips.Add(line5);
+            }
         }
 
         public override void AddRecipes()
@@ -119,11 +176,14 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
 
         private static Type AssociatedItemType => ItemLoader.GetItem(AssociatedItemID).GetType();
         private static Asset<Texture2D> ItemTexture => TextureAssets.Item[AssociatedItemID];
+        public static readonly SoundStyle TransformationSound = new($"{nameof(InfernalEclipseWeaponsDLC)}/Assets/Sounds/IncarnonWeaponVoidModeStart")
+        {
+            Volume = 0.5f
+        };
 
         public int Time = 0;
         public int shotCounter = 0;
         public int framesBetweenShots = 0;
-        public bool incarnonForme = false;
 
         public override LocalizedText DisplayName
         {
@@ -254,62 +314,84 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
 
         public void HoldoutAI()
         {
-            if (Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonShotsHit >= 20 && !incarnonForme)
+            ref bool incarnonForme = ref Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnon;
+
+            if (Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonShotsHit == 20)
             {
-                DoDustExplosion();
-                incarnonForme = true;
-            }
-
-            if (incarnonForme && Main.mouseRight && Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonShotsHit >= 20)
-            {
-                Vector2 shootVelocity = Projectile.velocity.SafeNormalize(Vector2.UnitY) * 24f;
-
-                SoundStyle fire = SoundID.Item14;
-                SoundEngine.PlaySound(fire with { Volume = 0.3f, Pitch = 0.4f, PitchVariance = 0.1f, MaxInstances = -1 }, Projectile.Center);
-
-                framesBetweenShots = 20;
-                OffsetLengthFromArm -= 5f;
-
-                Owner.PickAmmo(Owner.HeldItem, out int bulletAMMO, out float SpeedNoUse, out int bulletDamage, out float kBackNoUse, out _);
-                DoDustExplosion();
-
-                if (Main.myPlayer == Projectile.owner)
+                if (!incarnonForme)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), GunTipPosition, shootVelocity, ModContent.ProjectileType<PrismaGorgonLaser>(), Projectile.damage * 8, Projectile.knockBack * 2f, Projectile.owner);
+                    SoundEngine.PlaySound(TransformationSound, Owner.Center);
+                    Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored++;
+                    DoLargeDustExplosion();
+
+                    incarnonForme = true;
+                }
+                else if (Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored < 20)
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, Owner.Center);
+                    Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored++;
+                    DoSmallDustExplosion();
                 }
 
-                shotCounter = 0;
                 Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonShotsHit = 0;
-                incarnonForme = false;
             }
-            else if (framesBetweenShots == 0)
+
+            if (framesBetweenShots == 0)
             {
-                if (Time < 3)
-                    return;
-
-                Vector2 shootVelocity = Projectile.velocity.SafeNormalize(Vector2.UnitY) * 19;
-
-                SoundStyle fire = SoundID.Item11;
-                SoundEngine.PlaySound(fire with { Volume = 0.3f, Pitch = 0.4f, PitchVariance = 0.1f, MaxInstances = -1 }, Projectile.Center);
-
-                //How many frames between firing projectiles, and how far the gun moves backward to give the effect of recoil. Change this number to edit fire rate
-                framesBetweenShots = 20 - (int)(Math.Min(shotCounter, 7) * 2.3);
-                OffsetLengthFromArm -= 3f;
-
-                Owner.PickAmmo(Owner.HeldItem, out int bulletAMMO, out float SpeedNoUse, out int bulletDamage, out float kBackNoUse, out _);
-                if (Main.myPlayer == Projectile.owner)
+                if (incarnonForme && Main.mouseRight && Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored >= 1)
                 {
-                    Projectile bullet = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, shootVelocity.RotatedByRandom(MathHelper.ToRadians(1.5f)), bulletAMMO, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    bullet.GetGlobalProjectile<GorgonGlobalProjectile>().gorgonBullet = true;
-                    bullet.GetGlobalProjectile<GorgonGlobalProjectile>().bulletOwner = Owner;
+                    Vector2 shootVelocity = Projectile.velocity.SafeNormalize(Vector2.UnitY) * 24f;
+
+                    SoundStyle fire = SoundID.Item14;
+                    SoundEngine.PlaySound(fire with { Volume = 0.3f, Pitch = 0.4f, PitchVariance = 0.1f, MaxInstances = -1 }, Projectile.Center);
+
+                    framesBetweenShots = 20;
+                    OffsetLengthFromArm -= 5f;
+
+                    Owner.PickAmmo(Owner.HeldItem, out int bulletAMMO, out float SpeedNoUse, out int bulletDamage, out float kBackNoUse, out _);
+                    DoLargeDustExplosion();
+
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), GunTipPosition, shootVelocity, ModContent.ProjectileType<PrismaGorgonLaser>(), Projectile.damage * 8, Projectile.knockBack * 2f, Projectile.owner);
+                    }
+
+                    shotCounter = 0;
+
+                    Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored--;
+                    if (Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored <= 0)
+                        incarnonForme = false;
                 }
-                shotCounter++;
+                else
+                {
+                    if (Time < 3)
+                        return;
+
+                    Vector2 shootVelocity = Projectile.velocity.SafeNormalize(Vector2.UnitY) * 19;
+
+                    SoundStyle fire = SoundID.Item11;
+                    SoundEngine.PlaySound(fire with { Volume = 0.3f, Pitch = 0.4f, PitchVariance = 0.1f, MaxInstances = -1 }, Projectile.Center);
+
+                    //How many frames between firing projectiles, and how far the gun moves backward to give the effect of recoil. Change this number to edit fire rate
+                    framesBetweenShots = 20 - (int)(Math.Min(shotCounter, 7) * 2.3);
+                    OffsetLengthFromArm -= 3f;
+
+                    Owner.PickAmmo(Owner.HeldItem, out int bulletAMMO, out float SpeedNoUse, out int bulletDamage, out float kBackNoUse, out _);
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        Projectile bullet = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), GunTipPosition, shootVelocity.RotatedByRandom(MathHelper.ToRadians(1.5f)), bulletAMMO, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        bullet.GetGlobalProjectile<GorgonGlobalProjectile>().gorgonBullet = true;
+                        bullet.GetGlobalProjectile<GorgonGlobalProjectile>().bulletOwner = Owner;
+                    }
+                    shotCounter++;
+                }
             }
+
             if (framesBetweenShots > 0)
                 framesBetweenShots--;
         }
 
-        private void DoDustExplosion()
+        private void DoLargeDustExplosion()
         {
             Vector2 explosionPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 30f;
 
@@ -338,9 +420,37 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
             }
         }
 
+        private void DoSmallDustExplosion()
+        {
+            Vector2 explosionPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 30f;
+
+            for (int i = 0; i < 15; i++)
+            {
+                Vector2 velocity = Main.rand.NextVector2CircularEdge(1f, 1f) * Main.rand.NextFloat(1.5f, 4f);
+
+                int dustType = Main.rand.Next(3) switch
+                {
+                    0 => DustID.Ice,
+                    1 => DustID.IceTorch,
+                    _ => DustID.BlueTorch
+                };
+
+                Dust dust = Dust.NewDustPerfect(explosionPosition, dustType, velocity, 100, Color.Lerp(Color.Cyan, Color.LightBlue, Main.rand.NextFloat()), Main.rand.NextFloat(0.7f, 1.2f));
+                dust.noGravity = true;
+                dust.fadeIn = 0.8f;
+            }
+
+            // Small bright icy particles near the center
+            for (int i = 0; i < 5; i++)
+            {
+                Dust dust = Dust.NewDustPerfect(explosionPosition, DustID.IceTorch, Main.rand.NextVector2Circular(1.5f, 1.5f), 0, Color.White, Main.rand.NextFloat(0.8f, 1.4f));
+                dust.noGravity = true;
+            }
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonShotsHit >= 20 ? ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Ranged/PrismaGorgonIncarnon").Value : TextureAssets.Projectile[Type].Value;
+            Texture2D texture = Owner.GetModPlayer<InfernalWeaponsPlayer>().gorgonIncarnonShotsStored >= 1 ? ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Ranged/PrismaGorgonIncarnon").Value : TextureAssets.Projectile[Type].Value;
             Vector2 drawPosition = Projectile.Center - Main.screenPosition;
             Vector2 rotationPoint = texture.Size() * 0.5f;
             float drawRotation = Projectile.rotation;
@@ -398,6 +508,35 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
             }
 
             alreadyHitTarget = true;
+        }
+    }
+
+    public class GorgonStockpileLayer : PlayerDrawLayer
+    {
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
+
+        protected override void Draw(ref PlayerDrawSet drawInfo)
+        {
+            Player player = drawInfo.drawPlayer;
+            var modPlayer = player.GetModPlayer<InfernalWeaponsPlayer>();
+
+            if (player.HeldItem.ModItem is not PrismaGorgon) return;
+            if (modPlayer.gorgonIncarnonShotsStored <= 0) return;
+
+            Texture2D barBG = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Assets/Textures/GenericBarBack", AssetRequestMode.ImmediateLoad).Value;
+            Texture2D barFG = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Assets/Textures/GenericBarFront", AssetRequestMode.ImmediateLoad).Value;
+
+            Vector2 barOrigin = barBG.Size() * 0.5f;
+            float barScale = 0.95f;
+            Vector2 drawPos = player.Top + Vector2.UnitY * -16f - Main.screenPosition;
+
+            Rectangle frameCrop = new Rectangle(0, 0, (int)(modPlayer.gorgonIncarnonShotsStored / 20f * barFG.Width), barFG.Height);
+
+            float t = (float)((Math.Sin(Main.GlobalTimeWrappedHourly * 2f) + 1f) / 2f);
+            Color color = Color.Lerp(Color.CornflowerBlue, Color.LightBlue, t);
+
+            Main.spriteBatch.Draw(barBG, drawPos, null, color, 0f, barOrigin, barScale, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(barFG, drawPos, frameCrop, color * 0.8f, 0f, barOrigin, barScale, SpriteEffects.None, 0f);
         }
     }
 }
