@@ -46,8 +46,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes
             Item.useStyle = 100;
             Item.noUseGraphic = false;
             Item.useTime = Item.useAnimation = 36;
-
-            Item.Calamity().CannotBeEnchanted = true;
         }
 
         //Credit for this logic goes to Unowen
