@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace InfernalEclipseWeaponsDLC.Content.Buffs
+namespace InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Summons
 {
     public class EvilPumpkinBuff : ModBuff // would we put summon buffs in their own bit? -Arkangel
     {

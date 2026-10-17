@@ -1,3 +1,4 @@
+using InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Summons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
             Item.value = Item.buyPrice(0, 60);
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item44;
-            Item.buffType = ModContent.BuffType<Buffs.EvilPumpkinBuff>();
+            Item.buffType = ModContent.BuffType<EvilPumpkinBuff>();
             Item.shoot = ModContent.ProjectileType<Projectiles.SummonerPro.MinionPro.EvilPumpkinMinion>();
         }
 

@@ -965,6 +965,20 @@ Items: {
 		DisplayName: 棱晶蛇发女妖
 		Tooltip: "{$CommonItemTooltip.PercentChanceToSaveAmmo}"
 	}
+
+	Deoxyribonunoboko: {
+		// DisplayName: Deoxyribonunoboko
+		/* Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{1}% summon tag critical strike chance
+			Hitting with the tip of the whip deals 1.5x damage
+			Hitting with the green crystals on the whip inflicts Poison
+			Hitting with the orange crystals on the whip breaks armor
+			Hitting with the blue crystals on the whip increae the tag damage to 20 and lifesteals
+			{$CommonItemTooltip.Whips}
+			''' */
+	}
 }
 
 ItemTooltip: {
@@ -1215,6 +1229,7 @@ Projectiles: {
 	JollyTunePro.DisplayName: 欢乐颂
 	PrismaGorgonExplosion.DisplayName: 棱晶蛇发女妖爆炸
 	PrismaGorgonLaser.DisplayName: 棱晶蛇发女妖激光
+	// DNAWhipPro.DisplayName: Deoxyribonunoboko
 }
 
 Buffs: {
@@ -1279,6 +1294,16 @@ Buffs: {
 	EvilPumpkinBuff: {
 		DisplayName: 邪恶南瓜
 		Description: 一批诡异的作物正在攻击你的敌人
+	}
+
+	DeoxyribonunobokoWhipTagDefault: {
+		// DisplayName: Deoxyribonunoboko Whip Tag Default
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.DeoxyribonunobokoWhipTagDefault.Description
+	}
+
+	DeoxyribonunobokoWhipTagStrong: {
+		// DisplayName: Deoxyribonunoboko Whip Tag Strong
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.DeoxyribonunobokoWhipTagStrong.Description
 	}
 }
 

@@ -10,7 +10,6 @@ using CalamityMod.NPCs.Ravager;
 using CalamityMod.NPCs.AstrumDeus;
 using CalamityMod.NPCs.OldDuke;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Magic;
 using CalamityMod.NPCs.AquaticScourge;
 using CalamityMod;
@@ -23,6 +22,7 @@ using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Hybrid;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner.Whips;
 
 namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
 {

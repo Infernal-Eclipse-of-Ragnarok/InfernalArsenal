@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CalamityMod.Items;
-using CalamityMod.Projectiles.Melee;
-using Microsoft.CodeAnalysis.Operations;
-using Terraria.DataStructures;
+﻿using Terraria.DataStructures;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro;
+using InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro.GrandThunderWhip;
 
-namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
+namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner.Whips
 {
     public class GrandThunderWhip : ModItem
     {
@@ -34,22 +26,10 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.rare = ItemRarityID.Blue;
-            Item.value = CalamityGlobalItem.RarityBlueBuyPrice;
+            Item.value = Item.buyPrice(0, 1);
         }
 
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => player.ownedProjectileCounts[type] < 1;
         public override bool MeleePrefix() => true;
-
-        public override bool Shoot(
-          Player player,
-          EntitySource_ItemUse_WithAmmo source,
-          Vector2 position,
-          Vector2 velocity,
-          int type,
-          int damage,
-          float knockback
-        )
-        {
-            return player.ownedProjectileCounts[type] < 1;
-        }
     }
 }

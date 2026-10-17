@@ -26,5 +26,7 @@ namespace InfernalEclipseWeaponsDLC.Utilities
         public static bool DownedDoG => DownedBossSystem.downedDoG;
 
         public static bool HasMeleeScaleIncreaes(Player player) => player.GetModPlayer<IVDripPlayer>().HasAlcohol(AlcoholType.Ale) || player.GetModPlayer<IVDripPlayer>().HasAlcohol(AlcoholType.Sake);
+
+        public static bool IsImmuneToSlowsAndOtherSpecialEffects(NPC npc) => CalamityNPCSets.ImmuneToSlowsAndOtherSpecialEffects[npc.type];
     }
 }

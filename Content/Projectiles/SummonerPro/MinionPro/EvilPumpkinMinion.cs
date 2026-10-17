@@ -1,3 +1,4 @@
+using InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Summons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -46,8 +47,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.MinionPro
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.dead || !player.active) player.ClearBuff(ModContent.BuffType<Buffs.EvilPumpkinBuff>());
-            if (player.HasBuff(ModContent.BuffType<Buffs.EvilPumpkinBuff>())) Projectile.timeLeft = 2;
+            if (player.dead || !player.active) player.ClearBuff(ModContent.BuffType<EvilPumpkinBuff>());
+            if (player.HasBuff(ModContent.BuffType<EvilPumpkinBuff>())) Projectile.timeLeft = 2;
 
             if (Projectile.velocity.X != 0f)
             {

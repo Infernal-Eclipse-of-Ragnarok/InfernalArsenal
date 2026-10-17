@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace InfernalEclipseWeaponsDLC.Content.Buffs
+namespace InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Tag
 {
     public class GrandThunderWhipTag : ModBuff
     {

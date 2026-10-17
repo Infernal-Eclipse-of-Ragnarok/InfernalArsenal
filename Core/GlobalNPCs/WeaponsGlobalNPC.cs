@@ -1,9 +1,10 @@
-﻿using CalamityMod.Systems.Collections;
-using InfernalEclipseWeaponsDLC.Content.Buffs;
+﻿using InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Tag;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee;
 using InfernalEclipseWeaponsDLC.Core.NewFolder;
+using InfernalEclipseWeaponsDLC.Utilities;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
@@ -44,9 +45,47 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
             }
         }
 
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            if (ModLoader.HasMod("CalamityMod"))
+                return;
+
+            if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
+                return;
+
+            // SummonTagDamageMultiplier scales down tag damage for some specific minion and sentry projectiles for balance purposes.
+            var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
+
+            if (npc.HasBuff<GrandThunderWhipTag>())
+            {
+                modifiers.FlatBonusDamage += 3 * projTagMultiplier;
+            }
+
+            if (npc.HasBuff<DeoxyribonunobokoWhipTagDefault>())
+            {
+                modifiers.FlatBonusDamage += DeoxyribonunobokoWhipTagDefault.TagDamage * projTagMultiplier;
+
+                if (Main.rand.Next(0, 101) < DeoxyribonunobokoWhipTagDefault.CritChance)
+                    modifiers.SetCrit();
+            }
+
+            if (npc.HasBuff<DeoxyribonunobokoWhipTagStrong>())
+            {
+                modifiers.FlatBonusDamage += DeoxyribonunobokoWhipTagStrong.TagDamage * projTagMultiplier;
+
+                if (Main.rand.Next(0, 101) < DeoxyribonunobokoWhipTagStrong.CritChance)
+                    modifiers.SetCrit();
+            }
+        }
+
         public override void PostAI(NPC npc)
         {
-            if (!(CalamityNPCSets.ImmuneToSlowsAndOtherSpecialEffects[npc.type] || npc.boss))
+            bool calImmuneToSlowsAndOtherSpecialEffects = false;
+
+            if (ModLoader.HasMod("CalamityMod"))
+                calImmuneToSlowsAndOtherSpecialEffects = CalamityHelper.IsImmuneToSlowsAndOtherSpecialEffects(npc);
+
+            if (!(calImmuneToSlowsAndOtherSpecialEffects || npc.boss))
             {
                 float velocitySlownessFactor = 1f;
 

@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
 using CalamityMod.Items.TreasureBags;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Magic;
 using CalamityMod.Items.Fishing.SulphurCatches;
 using CalamityMod;
@@ -15,6 +14,7 @@ using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Hybrid;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner.Whips;
 
 namespace InfernalEclipseWeaponsDLC.Core.GlobalItems
 {

@@ -1,20 +1,13 @@
 ﻿using System.IO;
-using System.Linq;
 using InfernalEclipseWeaponsDLC.Content.Dusts;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer;
-using InfernalEclipseWeaponsDLC.Core.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.Graphics;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod.Projectiles.Scythe;
-using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
 using System;
 

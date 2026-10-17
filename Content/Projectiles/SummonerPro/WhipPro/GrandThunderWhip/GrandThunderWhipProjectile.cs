@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using ReLogic.Content;
 using Terraria.GameContent;
 using Terraria;
-using InfernalEclipseWeaponsDLC.Content.Buffs;
+using InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Tag;
 
-namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro
+namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro.GrandThunderWhip
 {
     public class GrandThunderWhipProjectile : ModProjectile
     {
@@ -30,7 +25,10 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro
         public float segmentRotation;
         private bool runOnce = true;
 
-        public override void SetStaticDefaults() => ProjectileID.Sets.IsAWhip[Type] = true;
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.IsAWhip[Type] = true;
+        }
 
         public override void SetDefaults()
         {
@@ -44,11 +42,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro
             Projectile.DamageType = DamageClass.SummonMeleeSpeed;
             Projectile.width = 40;
             Projectile.height = 40;
-            Projectile.WhipSettings.Segments = 10;
+            Projectile.WhipSettings.Segments = 15;
             Projectile.WhipSettings.RangeMultiplier = 0.55f;
 
-            whipSegment = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Projectiles/SummonerPro/WhipPro/GrandThunderWhipSegment").Value;
-            whipTip = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Projectiles/SummonerPro/WhipPro/GrandThunderWhipTip").Value;
+            whipSegment = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Projectiles/SummonerPro/WhipPro/GrandThunderWhip/GrandThunderWhipSegment").Value;
+            whipTip = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Projectiles/SummonerPro/WhipPro/GrandThunderWhip/GrandThunderWhipTip").Value;
         }
 
         public override bool PreAI()

@@ -927,9 +927,23 @@ Items: {
 			{$CommonItemTooltip.PercentChanceToSaveAmmo}
 			Requires a spool-up of 7 shots before optimal fire rate is achieved
 			Hitting 20 cumulative shots on an enemy will stack an void shot
-			<right> to shoot a void shot which explodes on collision and will petrify enemies
+			<right> while firing to shoot a void shot which explodes on collision and will petrify enemies
 			Only 20 void shots can be stored at a time
 			'Adorned with void hardened prisma crystal, it is prized for its beauty and enhanced mechanics.'
+			''' */
+	}
+
+	Deoxyribonunoboko: {
+		// DisplayName: Deoxyribonunoboko
+		/* Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			{1}% summon tag critical strike chance
+			Hitting with the tip of the whip deals 1.5x damage
+			Hitting with the green crystals on the whip inflicts Poison
+			Hitting with the orange crystals on the whip breaks armor
+			Hitting with the blue crystals on the whip increae the tag damage to 20 and lifesteals
+			{$CommonItemTooltip.Whips}
 			''' */
 	}
 }
@@ -1178,10 +1192,11 @@ Projectiles: {
 	// ArckaneGemPro.DisplayName: Arckane Gem
 	// ArckaneScythe1Pro.DisplayName: Arckane Scythe
 	// ArckaneScythe2Pro.DisplayName: Arckane Scythe
-	// EvilPumpkinMinion.DisplayName: Evil Pumpkin Minion
-	// JollyTunePro.DisplayName: Jolly Tune Pro
-	// PrismaGorgonExplosion.DisplayName: Prisma Gorgon Explosion
-	// PrismaGorgonLaser.DisplayName: Prisma Gorgon Laser
+	// EvilPumpkinMinion.DisplayName: Evil Pumpkin
+	// JollyTunePro.DisplayName: Jolly Tune
+	// PrismaGorgonExplosion.DisplayName: Void Explosion
+	// PrismaGorgonLaser.DisplayName: Void Laser
+	// DNAWhipPro.DisplayName: Deoxyribonunoboko
 }
 
 Buffs: {
@@ -1246,6 +1261,16 @@ Buffs: {
 	EvilPumpkinBuff: {
 		// DisplayName: Evil Pumpkins
 		// Description: A dubious harvest attacks your enemies
+	}
+
+	DeoxyribonunobokoWhipTagDefault: {
+		// DisplayName: Deoxyribonunoboko Whip Tag Default
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.DeoxyribonunobokoWhipTagDefault.Description
+	}
+
+	DeoxyribonunobokoWhipTagStrong: {
+		// DisplayName: Deoxyribonunoboko Whip Tag Strong
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.DeoxyribonunobokoWhipTagStrong.Description
 	}
 }
 

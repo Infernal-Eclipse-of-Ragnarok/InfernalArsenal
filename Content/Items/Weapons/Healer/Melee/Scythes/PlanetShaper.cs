@@ -15,6 +15,8 @@ using ThoriumMod.Items.Titan;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class PlanetShaper : ScytheItem
     {
         private int swingDirection;

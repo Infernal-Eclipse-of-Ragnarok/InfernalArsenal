@@ -1,7 +1,7 @@
 using CalamityMod.DataStructures;
 using CalamityMod.Systems.Collections;
-using InfernalEclipseWeaponsDLC.Content.Buffs;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner;
+using InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Tag;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner.Whips;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -24,7 +24,7 @@ namespace InfernalEclipseWeaponsDLC.Core
 
         public override void PostSetupContent()
         {
-            SummonTagEntry[] array = new SummonTagEntry[1]
+            SummonTagEntry[] array =
             {
                 new SummonTagEntry
                 {
@@ -34,9 +34,35 @@ namespace InfernalEclipseWeaponsDLC.Core
                     {
                         summonTag.FlatTagDamage = 3;
                         summonTag.AutoDrawTooltip = false;
-                        summonTag.TagTexture = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Summoner/GrandThunderWhip", (AssetRequestMode)1);
+                        summonTag.TagTexture = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Summoner/Whips/GrandThunderWhip", (AssetRequestMode)1);
                     }
-                }
+                },
+
+                new SummonTagEntry
+                {
+                    ItemType = () => ModContent.ItemType<Deoxyribonunoboko>(),
+                    BuffType = () => ModContent.BuffType<DeoxyribonunobokoWhipTagDefault>(),
+                    Setup = delegate (SummonTag summonTag)
+                    {
+                        summonTag.FlatTagDamage = 12;
+                        summonTag.TagCritChance = 15;
+                        summonTag.AutoDrawTooltip = false;
+                        summonTag.TagTexture = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Summoner/Whips/Deoxyribonunoboko", (AssetRequestMode)1);
+                    }
+                },
+
+                new SummonTagEntry
+                {
+                    ItemType = () => ModContent.ItemType<Deoxyribonunoboko>(),
+                    BuffType = () => ModContent.BuffType<DeoxyribonunobokoWhipTagStrong>(),
+                    Setup = delegate (SummonTag summonTag)
+                    {
+                        summonTag.FlatTagDamage = 20;
+                        summonTag.TagCritChance = 15;
+                        summonTag.AutoDrawTooltip = false;
+                        summonTag.TagTexture = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Summoner/Whips/Deoxyribonunoboko", (AssetRequestMode)1);
+                    }
+                },
             };
 
             for (int num = 0; num < array.Length; num++)
