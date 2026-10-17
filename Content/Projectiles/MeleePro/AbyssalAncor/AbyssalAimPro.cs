@@ -169,6 +169,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.AbyssalAncor
             // Save the charge before changing states.
             float charge = Timer;
 
+            // Scale damage from 1x to 1.5x
+            float chargeProgress = MathHelper.Clamp(charge / 80f, 0f, 1f);
+            float damageMultiplier = MathHelper.Lerp(1f, 1.5f, chargeProgress);
+
+            Projectile.damage = (int)(Projectile.damage * damageMultiplier);
+
             Projectile.velocity = throwDirection * ThrowSpeed;
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.spriteDirection = 1;

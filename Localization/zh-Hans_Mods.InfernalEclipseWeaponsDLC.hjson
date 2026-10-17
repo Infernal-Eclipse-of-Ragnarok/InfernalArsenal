@@ -970,13 +970,13 @@ Items: {
 		// DisplayName: Deoxyribonunoboko
 		/* Tooltip:
 			'''
+			{$CommonItemTooltip.Whips}
 			{$CommonItemTooltip.SummonTagDamage}
 			{1}% summon tag critical strike chance
 			Hitting with the tip of the whip deals 1.5x damage
-			Hitting with the green crystals on the whip inflicts Poison
+			Hitting with the green crystals on the whip inflicts venom
 			Hitting with the orange crystals on the whip breaks armor
-			Hitting with the blue crystals on the whip increae the tag damage to 20 and lifesteals
-			{$CommonItemTooltip.Whips}
+			Hitting with the blue crystals on the whip increases the tag damage to 20 and lifesteals
 			''' */
 	}
 

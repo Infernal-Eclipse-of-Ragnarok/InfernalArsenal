@@ -31,7 +31,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
         {
             Item.width = 40;
             Item.height = 56;
-            Item.damage = 4250;
+            Item.damage = 5750;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.crit = 15;
             Item.noMelee = true;
