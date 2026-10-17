@@ -15,7 +15,8 @@ using InfernalEclipseWeaponsDLC.Utilities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
 {
-    [ExtendsFromMod("SOTS")]
+    [JITWhenModsEnabled("CalamityMod", "SOTS")]
+    [ExtendsFromMod("CalamityMod", "SOTS")]
     public class CataclysmicGauntletVoid : VoidItem
     {
         public const int OnHitIFrames = 15;

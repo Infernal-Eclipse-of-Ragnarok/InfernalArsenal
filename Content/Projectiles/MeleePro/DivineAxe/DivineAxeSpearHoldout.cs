@@ -13,6 +13,8 @@ using Terraria.ID;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class DivineAxeSpearHoldout : BaseCustomUseStyleProjectile
     {
         public override int AssignedItemID => ModContent.ItemType<Items.Weapons.Melee.DivineAxe>();

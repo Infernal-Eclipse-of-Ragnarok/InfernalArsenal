@@ -9,12 +9,12 @@ using Microsoft.Xna.Framework;
 using CalamityMod.Items.Placeables.Furniture.Trophies;
 using CalamityMod.Tiles.Furniture.CraftingStations;
 using SOTS.Void;
-using System.Reflection;
 using InfernalEclipseWeaponsDLC.Utilities;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
 {
-    [ExtendsFromMod("SOTS")]
+    [JITWhenModsEnabled("CalamityMod", "SOTS")]
+    [ExtendsFromMod("CalamityMod", "SOTS")]
     public class CatastrophicLongbladeVoid : VoidItem
     {
         public override string Texture => "InfernalEclipseWeaponsDLC/Content/Items/Weapons/Melee/Void/CatastrophicLongblade";

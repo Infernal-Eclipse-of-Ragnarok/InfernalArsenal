@@ -29,7 +29,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override void SetBardDefaults()
         {
-            Item.Size = new Vector2(44, 48);
+            Item.width = 54;
+            Item.height = 30;
 
             Item.useTime = 20;
             Item.useAnimation = 20;
@@ -51,7 +52,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             if (!ModLoader.HasMod("Look"))
             {
-                ((ModItem)this).Item.holdStyle = 3;
+                Item.holdStyle = 3;
             }
         }
 

@@ -262,7 +262,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.WhipPro.DNAW
                     break;
 
                 case SegmentEffect.Poison:
-                    target.AddBuff(BuffID.Poisoned, DebuffDuration);
+                    target.AddBuff(BuffID.Venom, DebuffDuration);
                     target.AddBuff(ModContent.BuffType<DeoxyribonunobokoWhipTagDefault>(), DebuffDuration);
                     break;
 

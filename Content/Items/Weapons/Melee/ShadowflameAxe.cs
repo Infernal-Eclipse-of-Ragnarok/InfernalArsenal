@@ -1,28 +1,27 @@
-﻿using Microsoft.Xna.Framework;
+﻿using InfernalEclipseWeaponsDLC.Common;
+using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.ShadowflameAxePro;
+using InfernalEclipseWeaponsDLC.Core;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria;
 using Terraria.ModLoader;
-using InfernalEclipseWeaponsDLC.Common;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.ShadowflameAxePro;
-using CalamityMod;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
 {
     public class ShadowflameAxe : ModItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return WeaponConfig.Instance.AIGenedWeapons;
-        }
+        public override bool IsLoadingEnabled(Mod mod) => WeaponConfig.Instance.AIGenedWeapons;
+
+        private static Mod Calamity => ModIntegrationsSystem.Calamity.Loaded ? ModIntegrationsSystem.Calamity.Mod : null;
 
         public override void SetDefaults()
         {
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = false;
-            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
+            Item.DamageType = Calamity != null ? Calamity.Find<DamageClass>("TrueMeleeDamageClass") : DamageClass.Melee;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 113;
             Item.width = 52;

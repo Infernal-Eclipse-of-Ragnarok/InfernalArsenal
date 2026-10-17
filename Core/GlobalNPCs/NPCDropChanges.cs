@@ -1,28 +1,17 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
-using CalamityMod.NPCs.Bumblebirb;
-using CalamityMod.NPCs.DevourerofGods;
-using CalamityMod.NPCs.Signus;
-using CalamityMod.NPCs.BrimstoneElemental;
-using CalamityMod.NPCs.Ravager;
-using CalamityMod.NPCs.AstrumDeus;
-using CalamityMod.NPCs.OldDuke;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Magic;
-using CalamityMod.NPCs.AquaticScourge;
-using CalamityMod;
-using Terraria.ID;
-using CalamityMod.NPCs.DesertScourge;
-using CalamityMod.NPCs.SupremeCalamitas;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged;
+﻿using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Hybrid;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Magic;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner.Whips;
+using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
 {
@@ -46,12 +35,6 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            Mod calamity;
-            Mod console;
-
-            ModLoader.TryGetMod("CalamityMod", out calamity);
-            ModLoader.TryGetMod("Consolaria", out console);
-
             if (npc.type == NPCID.GoblinSummoner && WeaponConfig.Instance.AIGenedWeapons)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShadowflameAxe>(), 10));
@@ -64,67 +47,78 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
                 npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<BottleOfSouls>(), 3));
             }
 
+            ModLoader.TryGetMod("CalamityMod", out Mod calamity);
+            ModLoader.TryGetMod("Consolaria", out Mod console);
+
             if (calamity != null)
             {
-                if (npc.type == ModContent.NPCType<BrimstoneElemental>() && console == null && WeaponConfig.Instance.AIGenedWeapons)
+                int FindNPC(string name)
                 {
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StormCrossbow>(), 10));
+                    return calamity.Find<ModNPC>(name).Type;
                 }
 
-                if (npc.type == ModContent.NPCType<DesertScourgeHead>())
+                if (npc.type == FindNPC("BrimstoneElemental"))
+                {
+                    npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<BrimstoneHarp>(), 3));
+
+                    if (console == null && WeaponConfig.Instance.AIGenedWeapons)
+                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StormCrossbow>(), 10));
+                }
+
+                if (npc.type == FindNPC("DesertScourgeHead"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<SandSlasher>(), 3));
                 }
 
-                if (npc.type == ModContent.NPCType<AquaticScourgeHead>())
+                if (npc.type == FindNPC("AquaticScourgeHead"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<SulphuricShanty>(), 7));
                 }
 
-                if (npc.type == ModContent.NPCType<BrimstoneElemental>())
-                {
-                    npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<BrimstoneHarp>(), 3));
-                }
-
-                if (npc.type == ModContent.NPCType<AstrumDeusHead>())
+                if (npc.type == FindNPC("AstrumDeusHead"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<DeusFlute>(), 3));
                 }
 
-                if (npc.type == ModContent.NPCType<RavagerBody>())
+                if (npc.type == FindNPC("RavagerBody"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<NecroticChorus>(), 3));
                 }
 
-                if (npc.type == ModContent.NPCType<Signus>())
+                if (npc.type == FindNPC("Signus"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<TheParallel>(), 3));
                 }
 
-                if (npc.type == ModContent.NPCType<Dragonfolly>())
+                if (npc.type == FindNPC("Dragonfolly"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<BirbSaxophone>(), 3));
                 }
 
-                if (npc.type == ModContent.NPCType<DevourerofGodsHead>())
+                if (npc.type == FindNPC("DevourerofGodsHead"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<DeathsWhisper>(), 3));
                 }
 
-                if (npc.type == ModContent.NPCType<OldDuke>())
+                if (npc.type == FindNPC("OldDuke"))
                 {
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<CorrodedCane>(), 4));
                     npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<DukeSynth>(), 4));
                 }
 
-                if (npc.type == ModContent.NPCType<SupremeCataclysm>())
+                if (npc.type == FindNPC("SupremeCataclysm"))
                 {
                     npcLoot.Add(ItemDropRule.Common(ModLoader.HasMod("SOTS") ? Mod.Find<ModItem>("CataclysmicGauntletVoid").Type : ModContent.ItemType<CataclysmicGauntlet>(), 10));
                 }
 
-                if (npc.type == ModContent.NPCType<SupremeCatastrophe>())
+                if (npc.type == FindNPC("SupremeCatastrophe"))
                 {
                     npcLoot.Add(ItemDropRule.Common(ModLoader.HasMod("SOTS") ? Mod.Find<ModItem>("CatastrophicLongbladeVoid").Type : ModContent.ItemType<CatastrophicLongblade>(), 10));
+                }
+
+                if (npc.type == FindNPC("PrimordialWyrmHead"))
+                {
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AbyssalAnchor>()));
                 }
             }
 
@@ -164,20 +158,11 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
 
                 if (npc.type == thorium.Find<ModNPC>("Lich").Type)
                 {
-                    var dropRule = new CommonDropNotScalingWithLuck(ModContent.ItemType<ListoftheDamned>(), 5, 1, 1)
-                    {
-                        chanceNumerator = 2 // 2/5 = 40%
-                    };
-
-                    // Wrap the custom rule in a LeadingConditionRule so it only fires when NotExpert is true
-                    var leadingRule = new LeadingConditionRule(new Conditions.NotExpert());
-                    leadingRule.Add(dropRule);
-
-                    npcLoot.Add(leadingRule);
+                    npcLoot.Add(ItemDropRule.ByCondition(new Conditions.NotExpert(), ModContent.ItemType<ListoftheDamned>(), 5));
                 }
             }
 
-            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls) && !ModLoader.TryGetMod("YharimEX", out _))
+            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls) && !ModLoader.HasMod("YharimEX"))
             {
                 if (npc.type == souls.Find<ModNPC>("MutantBoss").Type)
                 {

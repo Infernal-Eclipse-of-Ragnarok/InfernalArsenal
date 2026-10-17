@@ -2,14 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using CalamityMod.Items.Materials;
-using ThoriumMod.Buffs;
 using InfernalEclipseWeaponsDLC.Content.Buffs;
-using CalamityMod;
-using Terraria.Audio;
-using System;
-using CalamityMod.Items;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.RangedPro;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
 {
@@ -24,7 +17,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 1.5f;
-            Item.value = CalamityGlobalItem.RarityGreenBuyPrice;
+            Item.value = Item.buyPrice(0, 2);
             Item.rare = ItemRarityID.Green;
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;
@@ -32,10 +25,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged
             Item.shootSpeed = 12f;
             Item.useAmmo = AmmoID.Bullet;
 
-            Item.width = 15;
-            Item.height = 11;
-
-            Item.scale = 0.66f;
+            Item.width = 48;
+            Item.height = 30;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

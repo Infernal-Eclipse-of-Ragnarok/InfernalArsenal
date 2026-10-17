@@ -10,15 +10,14 @@ using SOTS;
 using SOTS.Items.Chaos;
 using SOTS.Void;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
 {
-    [JITWhenModsEnabled("SOTS")]
-    [ExtendsFromMod("SOTS")]
+    [JITWhenModsEnabled("SOTS", "CalamityMod")]
+    [ExtendsFromMod("SOTS", "CalamityMod")]
     public class GauntletofAnnihilationVoid : VoidItem
     {
         public override string Texture => "InfernalEclipseWeaponsDLC/Content/Items/Weapons/Melee/Void/GauntletofAnnihilation";

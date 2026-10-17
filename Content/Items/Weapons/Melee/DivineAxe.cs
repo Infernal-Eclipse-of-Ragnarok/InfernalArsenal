@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using CalamityMod;
-using CalamityMod.Items.Materials;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.DivineAxe;
+using InfernalEclipseWeaponsDLC.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -15,14 +14,17 @@ using ThoriumMod.Items.HealerItems;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class DivineAxe : ModItem
     {
+        private static Mod Calamity => ModIntegrationsSystem.Calamity.Loaded ? ModIntegrationsSystem.Calamity.Mod : null;
         private int attackCombo = 1;
 
         public override void SetDefaults()
         {
             Item.damage = 1850;
-            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
+            Item.DamageType = Calamity != null ? Calamity.Find<DamageClass>("TrueMeleeDamageClass") : DamageClass.Melee;
             Item.width = 112;
             Item.height = 122;
             Item.knockBack = 6f;
@@ -68,7 +70,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
                 Item.useTime = 35;
                 Item.useAnimation = 35;
                 Item.shoot = spearHoldout;
-                Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             }
             else
             {
@@ -76,7 +77,6 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
                 Item.useTime = 60;
                 Item.useAnimation = 60;
                 Item.shoot = axeHoldout;
-                Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
             }
 
             return true;
@@ -142,13 +142,18 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
 
         public override void AddRecipes()
         {
-            CreateRecipe()
+            Recipe recipe = CreateRecipe()
                 .AddIngredient(ItemID.LunarBar, 12)
                 .AddIngredient(ItemID.FragmentSolar, 4)
                 .AddIngredient<CelestialFragment>(4)
-                .AddIngredient<UnholyEssence>(9)
-                .AddTile(TileID.LunarCraftingStation)
-                .Register();
+                .AddTile(TileID.LunarCraftingStation);
+
+            if (Calamity != null)
+            {
+                recipe.AddIngredient(Calamity.Find<ModItem>("UnholyEssence"), 9);
+            }
+
+            recipe.Register();
         }
     }
 }

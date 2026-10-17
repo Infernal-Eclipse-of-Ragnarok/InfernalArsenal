@@ -1,20 +1,22 @@
-﻿using CalamityMod;
+﻿using InfernalEclipseWeaponsDLC.Core;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
 {
     public class Stick : ModItem
     {
+        private static Mod Calamity => ModIntegrationsSystem.Calamity.Loaded ? ModIntegrationsSystem.Calamity.Mod : null;
+
         public override void SetDefaults()
         {
             Item.damage = 600; //Sharpness V
-            Item.DamageType = ModContent.GetInstance<TrueMeleeDamageClass>();
+            Item.DamageType = Calamity != null ? Calamity.Find<DamageClass>("TrueMeleeDamageClass") : DamageClass.Melee;
 
             Item.width = 32;
             Item.height = 32;
@@ -42,114 +44,56 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
         }
 
         #region Drawing
-        private static Asset<Texture2D> _glintTex;
-        private static Effect _glintFx;
+        private static Asset<Texture2D> glintTexure;
+        private static Effect glintFx;
 
         private static void EnsureAssetsLoaded()
         {
-            if (_glintTex == null || !_glintTex.IsLoaded)
-                _glintTex = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Assets/Textures/Enchanted", AssetRequestMode.ImmediateLoad);
+            if (glintTexure == null || !glintTexure.IsLoaded)
+                glintTexure = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Assets/Textures/Enchanted", AssetRequestMode.ImmediateLoad);
 
-            if (_glintFx == null)
-                _glintFx = ModContent.Request<Effect>("InfernalEclipseWeaponsDLC/Assets/Effects/Transform", AssetRequestMode.ImmediateLoad).Value;
+            if (glintFx == null)
+                glintFx = ModContent.Request<Effect>("InfernalEclipseWeaponsDLC/Assets/Effects/Transform", AssetRequestMode.ImmediateLoad).Value;
         }
 
-        public override bool PreDrawInInventory(
-            SpriteBatch sb,
-            Vector2 position,
-            Rectangle frame,
-            Color drawColor,
-            Color itemColor,
-            Vector2 origin,
-            float scale)
+        public override bool PreDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             EnsureAssetsLoaded();
 
-            _glintFx.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
-            _glintFx.CurrentTechnique.Passes["EnchantedPass"].Apply();
-            Main.instance.GraphicsDevice.Textures[1] = _glintTex.Value;
+            glintFx.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
+            glintFx.CurrentTechnique.Passes["EnchantedPass"].Apply();
+            Main.instance.GraphicsDevice.Textures[1] = glintTexure.Value;
 
             sb.End();
-            sb.Begin(
-                SpriteSortMode.Deferred,
-                sb.GraphicsDevice.BlendState,
-                sb.GraphicsDevice.SamplerStates[0],
-                sb.GraphicsDevice.DepthStencilState,
-                sb.GraphicsDevice.RasterizerState,
-                _glintFx,
-                Main.UIScaleMatrix
-            );
+            sb.Begin(SpriteSortMode.Deferred, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0],  sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, glintFx, Main.UIScaleMatrix);
 
             return true; // let vanilla draw the item with our active effect
         }
 
-        public override void PostDrawInInventory(
-            SpriteBatch sb,
-            Vector2 position,
-            Rectangle frame,
-            Color drawColor,
-            Color itemColor,
-            Vector2 origin,
-            float scale)
+        public override void PostDrawInInventory(SpriteBatch sb, Vector2 position, Rectangle frame, Color drawColor,Color itemColor, Vector2 origin, float scale)
         {
             sb.End();
-            sb.Begin(
-                SpriteSortMode.Deferred,
-                sb.GraphicsDevice.BlendState,
-                sb.GraphicsDevice.SamplerStates[0],
-                sb.GraphicsDevice.DepthStencilState,
-                sb.GraphicsDevice.RasterizerState,
-                null,
-                Main.UIScaleMatrix
-            );
+            sb.Begin(SpriteSortMode.Deferred, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0],  sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
         }
 
-        public override bool PreDrawInWorld(
-            SpriteBatch sb,
-            Color lightColor,
-            Color alphaColor,
-            ref float rotation,
-            ref float scale,
-            int whoAmI)
+        public override bool PreDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
             EnsureAssetsLoaded();
 
-            _glintFx.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
-            _glintFx.CurrentTechnique.Passes["EnchantedPass"].Apply();
-            Main.instance.GraphicsDevice.Textures[1] = _glintTex.Value;
+            glintFx.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
+            glintFx.CurrentTechnique.Passes["EnchantedPass"].Apply();
+            Main.instance.GraphicsDevice.Textures[1] = glintTexure.Value;
 
             sb.End();
-            sb.Begin(
-                SpriteSortMode.Deferred,
-                Main.spriteBatch.GraphicsDevice.BlendState,
-                sb.GraphicsDevice.SamplerStates[0],
-                Main.spriteBatch.GraphicsDevice.DepthStencilState,
-                sb.GraphicsDevice.RasterizerState,
-                _glintFx,
-                Main.GameViewMatrix.TransformationMatrix
-            );
+            sb.Begin(SpriteSortMode.Deferred, Main.spriteBatch.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], Main.spriteBatch.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, glintFx, Main.GameViewMatrix.TransformationMatrix);
 
             return true; // let vanilla draw the world item with our active effect
         }
 
-        public override void PostDrawInWorld(
-            SpriteBatch sb,
-            Color lightColor,
-            Color alphaColor,
-            float rotation,
-            float scale,
-            int whoAmI)
+        public override void PostDrawInWorld(SpriteBatch sb, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             sb.End();
-            sb.Begin(
-                SpriteSortMode.Deferred,
-                sb.GraphicsDevice.BlendState,
-                sb.GraphicsDevice.SamplerStates[0],
-                sb.GraphicsDevice.DepthStencilState,
-                sb.GraphicsDevice.RasterizerState,
-                null,
-                Main.GameViewMatrix.TransformationMatrix
-            );
+            sb.Begin(SpriteSortMode.Deferred, sb.GraphicsDevice.BlendState, sb.GraphicsDevice.SamplerStates[0], sb.GraphicsDevice.DepthStencilState, sb.GraphicsDevice.RasterizerState, null, Main.GameViewMatrix.TransformationMatrix);
         }
         #endregion
     }
@@ -193,8 +137,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee
     #region Player Drawing
     public sealed class HeldItemGlowLayer : PlayerDrawLayer //this doesn't work but someone can try to fix it. not too important though.
     {
-        public override Position GetDefaultPosition() =>
-            new AfterParent(PlayerDrawLayers.HeldItem);
+        public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.HeldItem);
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {

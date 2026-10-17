@@ -14,6 +14,8 @@ using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
 {
+    [JITWhenModsEnabled("CalamityMod")]
+    [ExtendsFromMod("CalamityMod")]
     public class GauntletofAnnihilation : ModItem
     {
         public override bool IsLoadingEnabled(Mod mod)

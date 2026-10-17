@@ -946,6 +946,18 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			''' */
 	}
+
+	AbyssalAnchor: {
+		// DisplayName: Abyssal Anchor
+		/* Tooltip:
+			'''
+			<left> to perform a 5-swing combo that ends with throwing the anchor
+			Each swing of the anchor flings an abyss creature that homes into the nearest target
+			Hold <right> to charge up a thrown attack for a maximum of 1.2 seconds
+			On release of <right> the the anchor will be thrown
+			Harpoons will be fired alongside it based on how long it was charged
+			''' */
+	}
 }
 
 ItemTooltip: {
@@ -1026,6 +1038,8 @@ ItemTooltip: {
 		// orpheus: Imagiknight Orpheus
 		// Arkangel: Arkangel
 		// Heatstroke: Heatstroke
+		// Rocket: rocket
+		// Soopns: Soopns
 	}
 
 	Cooldowns: {
@@ -1198,6 +1212,10 @@ Projectiles: {
 	// PrismaGorgonLaser.DisplayName: Void Laser
 	// DNAWhipPro.DisplayName: Deoxyribonunoboko
 	// NukeBoom.DisplayName: Nuke Boom
+	// AbyssalAnchorSwungAnchor.DisplayName: Abyssal Anchor
+	// AbyssCreature.DisplayName: Abyss Creature
+	// AbyssalAimPro.DisplayName: Abyssal Anchor
+	// AbyssalHarpoon.DisplayName: Abyssal Harpoon
 }
 
 Buffs: {
