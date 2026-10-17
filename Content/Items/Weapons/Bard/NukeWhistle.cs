@@ -11,6 +11,8 @@ using InfernalEclipseWeaponsDLC.Core.NewFolder;
 using ThoriumMod.Sounds;
 using CalamityMod.Items;
 using CalamityMod.Rarities;
+using Terraria.Audio;
+using CalamityMod.Sounds;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -22,19 +24,22 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override void SetStaticDefaults()
         {
-            Empowerments.AddInfo<Damage>(200);
-            Empowerments.AddInfo<CriticalStrikeChance>(25);
+            Empowerments.AddInfo<ResourceMaximum>(7);
+            Empowerments.AddInfo<ResourceRegen>(7);
+            Empowerments.AddInfo<ResourceGrabRange>(7);
+            Empowerments.AddInfo<Damage>(7);
+            Empowerments.AddInfo<CriticalStrikeChance>(7);
         }
 
         public override void SetBardDefaults()
         {
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 90;
+            Item.useAnimation = 90;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.width = 20;
             Item.height = 38;
-            Item.shootSpeed = 15;
+            Item.shootSpeed = 5;
             Item.shoot = ModContent.ProjectileType<NukeMissile>();
             // Item.Size = new Vector2(38, 31);
             Item.autoReuse = true;
@@ -79,43 +84,101 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             }
             if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
             {
+                if (calamity.TryFind("ExoPrism", out ModItem prism))
+                {
+                    recipe.AddIngredient(prism, 8);
+                }
+                recipe.AddIngredient(ItemID.FireworksBox, 1);
+                recipe.AddIngredient(ItemID.MiniNukeI, 999);
                 if (calamity.TryFind("ShadowspecBar", out ModItem bar))
                 {
                     recipe.AddIngredient(bar, 5);
                 }
             }
+            else
+            {
+                recipe.AddIngredient(ItemID.FireworksBox, 1);
+                recipe.AddIngredient(ItemID.MiniNukeI, 1000);
+            }
+
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
             base.AddRecipes();
         }
 
-        public override bool BardShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position,
-            Vector2 velocity, int type, int damage, float knockback)
+        public override bool BardShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            InfernalWeaponsPlayer modPlayer = player.GetModPlayer<InfernalWeaponsPlayer>();
+            InfernalWeaponsPlayer modPlayer =
+                player.GetModPlayer<InfernalWeaponsPlayer>();
+
             modPlayer.missileIndex--;
-            if (modPlayer.missileIndex == 0)
+
+            bool fireBigNuke = modPlayer.missileIndex <= 0;
+
+            if (fireBigNuke)
+                modPlayer.missileIndex = 4;
+
+            int projectileType = fireBigNuke
+                ? ModContent.ProjectileType<NukePro>()
+                : ModContent.ProjectileType<NukeMissile>();
+
+            int projectileDamage = fireBigNuke
+                ? (int)(damage * 5f)
+                : damage;
+
+            int sign = Main.rand.NextBool() ? 1 : -1;
+
+            int xOffset = (int)((Main.MouseWorld.X - player.Center.X) / 3f)
+                + Main.rand.Next(-4, 8) * 65 * sign;
+
+            if (fireBigNuke)
             {
-                modPlayer.missileIndex = 10;
-                int sign = Main.rand.Next(0, 2) * 2 - 1;
-                int xOffset = (int)((Main.MouseWorld.X - player.Center.X) / 3) +
-                              (sign == 0 ? Main.rand.Next(-8, 4) * 65 : Main.rand.Next(-4, 8) * 65);
-                Projectile.NewProjectile(source, player.Center + new Vector2(xOffset, -Main.screenHeight / 2),
-                    new Vector2((Main.MouseWorld.X -
-                                 (player.Center.X + xOffset)) / 37, 7), ModContent.ProjectileType<NukePro>(),
-                    (int)((double)damage * 2), knockback, 0, Item.useTime);
-            }
-            else
-            {
-                int sign = Main.rand.Next(0, 2) * 2 - 1;
-                int xOffset = (int)((Main.MouseWorld.X - player.Center.X) / 3) +
-                              (sign == 0 ? Main.rand.Next(-8, 4) * 65 : Main.rand.Next(-4, 8) * 65);
-                Projectile.NewProjectile(source, player.Center + new Vector2(xOffset, -Main.screenHeight / 2),
-                    new Vector2((Main.MouseWorld.X -
-                                 (player.Center.X + xOffset)) / 37, 7), type, damage, knockback, 0, Item.useTime);
+                Projectile.NewProjectile(
+                    source,
+                    player.Center + new Vector2(xOffset, (-Main.screenHeight / 2f) * 1.5f),
+                    (new Vector2((Main.MouseWorld.X - (player.Center.X + xOffset)) / 37f, 7f) * (Item.shootSpeed / 4)),
+                    projectileType,
+                    projectileDamage,
+                    knockback,
+                    player.whoAmI,
+                    Item.useTime
+                );
+
+                PlayTargetSound(player);
+                return false;
             }
 
+            // Fire the first missile immediately.
+            Projectile.NewProjectile(
+                source,
+                player.Center + new Vector2(xOffset, (-Main.screenHeight / 2f) * 1.5f),
+                (new Vector2((Main.MouseWorld.X - (player.Center.X + xOffset)) / 37f, 7f) * (Item.shootSpeed / 3)),
+                projectileType,
+                projectileDamage,
+                knockback,
+                player.whoAmI
+            );
+
+            // Schedule two more missiles at 10-tick intervals.
+            modPlayer.nukeWhistleMissilesRemaining = 2;
+            modPlayer.nukeWhistleMissileTimer = Item.useAnimation / 4;
+            modPlayer.nukeWhistleMissileSetTimer = Item.useAnimation / 4;
+            modPlayer.nukeWhistleVelocity = (new Vector2((Main.MouseWorld.X - (player.Center.X + xOffset)) / 37f, 7f) * (Item.shootSpeed / 3));
+            modPlayer.nukeWhistleProjectileType = projectileType;
+            modPlayer.nukeWhistleDamage = projectileDamage;
+            modPlayer.nukeWhistleKnockback = knockback;
+
             return false;
+        }
+
+        public static void PlayTargetSound(Player player)
+        {
+            SoundEngine.PlaySound(
+                new SoundStyle("CalamityMod/Sounds/Custom/ExoMechs/ApolloArtemisTargetSelection")
+                with
+                { Volume = 1f },
+                player.position
+            );
         }
     }
 }
