@@ -29,7 +29,7 @@ namespace InfernalEclipseWeaponsDLC.Utilities
         public static float CircInOutEasing(float amount, int degree) => amount < 0.5 ? (1f - (float)Math.Sqrt(1 - Math.Pow(2 * amount, 2f))) / 2f : ((float)Math.Sqrt(1 - Math.Pow(-2f * amount - 2f, 2f)) + 1f) / 2f;
 
 
-        public enum EasingType //Potion seller. I need your strongest ease ins
+        public enum EasingType 
         {
             Linear,
             SineIn, SineOut, SineInOut, SineBump,

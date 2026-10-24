@@ -44,8 +44,8 @@ namespace InfernalEclipseWeaponsDLC.Core
                     BuffType = () => ModContent.BuffType<DeoxyribonunobokoWhipTagDefault>(),
                     Setup = delegate (SummonTag summonTag)
                     {
-                        summonTag.FlatTagDamage = 0;
-                        summonTag.TagCritChance = 0;
+                        summonTag.FlatTagDamage = 12;
+                        summonTag.TagCritChance = 15;
                         summonTag.AutoDrawTooltip = false;
                         summonTag.TagTexture = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Summoner/Whips/Deoxyribonunoboko", (AssetRequestMode)1);
                     }
@@ -57,8 +57,8 @@ namespace InfernalEclipseWeaponsDLC.Core
                     BuffType = () => ModContent.BuffType<DeoxyribonunobokoWhipTagStrong>(),
                     Setup = delegate (SummonTag summonTag)
                     {
-                        summonTag.FlatTagDamage = 0;
-                        summonTag.TagCritChance = 0;
+                        summonTag.FlatTagDamage = 20;
+                        summonTag.TagCritChance = 15;
                         summonTag.AutoDrawTooltip = false;
                         summonTag.TagTexture = ModContent.Request<Texture2D>("InfernalEclipseWeaponsDLC/Content/Items/Weapons/Summoner/Whips/Deoxyribonunoboko", (AssetRequestMode)1);
                     }
