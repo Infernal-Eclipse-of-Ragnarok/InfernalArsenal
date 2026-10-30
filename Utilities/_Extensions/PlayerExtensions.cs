@@ -9,9 +9,18 @@ namespace InfernalEclipseWeaponsDLC.Utilities
         {
             return player.altFunctionUse == ItemAlternativeFunctionID.ActivatedAndUsed;
         }
+
+        public static bool HasMaxSentries(this Player player)
+        {
+            int sentryCount = 0;
+
+            foreach (Projectile projectile in Main.ActiveProjectiles)
+            {
+                if (projectile.owner == player.whoAmI && projectile.sentry)
+                    sentryCount++;
+            }
+
+            return sentryCount >= player.maxTurrets;
+        }
     }
 }
-
-/// <summary>
-///     Provides <see cref="Player"/> extension methods.
-/// </summary>

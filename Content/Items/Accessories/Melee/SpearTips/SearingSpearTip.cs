@@ -21,15 +21,15 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.SpearTips
 
         public override void SetStaticDefaults()
         {
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 6));
             ItemID.Sets.AnimatesAsSoul[Type] = true;
         }
 
         public override void SetDefaults()
         {
             accDamage = Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.SearingSpearTip");
-            Item.width = 36;
-            Item.height = 36;
+            Item.width = 32;
+            Item.height = 46;
             Item.value = Item.buyPrice(0, 60);
             Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;

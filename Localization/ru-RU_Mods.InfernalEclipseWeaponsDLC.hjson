@@ -941,7 +941,7 @@ Items: {
 			{$CommonItemTooltip.SummonTagDamage}
 			{1}% summon tag critical strike chance
 			Hitting with the tip of the whip deals 1.5x damage
-			Hitting with the green crystals on the whip inflicts venom
+			Hitting with the green crystals on the whip inflicts Venom
 			Hitting with the orange crystals on the whip breaks armor
 			Hitting with the blue crystals on the whip increases the tag damage to 20 and lifesteals
 			''' */
@@ -956,6 +956,22 @@ Items: {
 			Hold <right> to charge up a thrown attack for a maximum of 1.2 seconds
 			On release of <right> the the anchor will be thrown
 			Harpoons will be fired alongside it based on how long it was charged
+			''' */
+	}
+
+	HollowbrookMonolith: {
+		// DisplayName: Hollowbrook Monolith
+		/* Tooltip:
+			'''
+			Summons a Castle Hollowbrook that has three stages
+			Each stage increases its radius and costs a sentry slot
+			The base stage causes enemies within its radius to take 7 additional summon tag damage
+			The base stage also allows players within its radius to reroll critical strikes with an higher chance to crit
+			Its second stage allows minions to break enemies armor within its radius
+			Its second stage also causes enemies to drop Hearts, Stars, and Notes when critically hit within its radius
+			In its third stage, it will shoot a cannon after a player critically strikes 10 times within its radius
+			When the cannon is shot, players within the radius will be granted a random buff and enemies will be granted a random debuff
+			The cannon deals summon damage and has the same stats as a cannon ball
 			''' */
 	}
 }
@@ -1216,6 +1232,8 @@ Projectiles: {
 	// AbyssCreature.DisplayName: Abyss Creature
 	// AbyssalAimPro.DisplayName: Abyssal Anchor
 	// AbyssalHarpoon.DisplayName: Abyssal Harpoon
+	// HollowbrookMonolithPro.DisplayName: Hollowbrook Monolith
+	// HollowbrookMonolithUpgradePro.DisplayName: Hollowbrook Monolith
 }
 
 Buffs: {
@@ -1290,6 +1308,11 @@ Buffs: {
 	DeoxyribonunobokoWhipTagStrong: {
 		// DisplayName: Deoxyribonunoboko Whip Tag Strong
 		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.DeoxyribonunobokoWhipTagStrong.Description
+	}
+
+	HollowbrookTag: {
+		// DisplayName: Hollowbrook Tag
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.HollowbrookTag.Description
 	}
 }
 

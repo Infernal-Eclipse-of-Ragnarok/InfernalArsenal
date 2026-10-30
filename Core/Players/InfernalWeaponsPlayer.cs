@@ -1,4 +1,5 @@
 ﻿using InfernalEclipseWeaponsDLC.Content.Buffs;
+using InfernalEclipseWeaponsDLC.Content.Buffs.Summoner.Tag;
 using InfernalEclipseWeaponsDLC.Content.Items.Materials;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
@@ -17,6 +18,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Buffs;
+using ThoriumMod.Items.BardItems;
 using ThoriumMod.Items.Donate;
 using ThoriumMod.Projectiles;
 using ThoriumMod.Utilities;
@@ -57,6 +59,10 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public int gorgonShotsHit;
         public bool gorgonIncarnon = false;
         public int gorgonIncarnonShotsStored;
+        public int hollowbrookTier;
+        public Vector2? hollowbrookLocation;
+        public int hollowbrookCrits;
+        public int hollowbrookSpawnCooldown = 0;
 
         public float heraldryDamageMult = 0f;
         public float heraldyBuffFromOther = 0f;
@@ -113,6 +119,20 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                 gorgonIncarnonShotsStored = 0;
             else if (gorgonIncarnonShotsStored > 20)
                 gorgonIncarnonShotsStored = 20;
+
+            if (!hollowbrookLocation.HasValue)
+            {
+                hollowbrookTier = 0;
+            }
+            hollowbrookLocation = null;
+
+            if (hollowbrookCrits < 0)
+                hollowbrookCrits = 0;
+            else if (hollowbrookCrits > 10)
+                hollowbrookCrits = 10;
+
+            if (hollowbrookSpawnCooldown > 0)
+                hollowbrookSpawnCooldown--;
         }
 
         public override void Load()
@@ -146,6 +166,48 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             if (!randomChanceSuccess || !goodEnoughLevel) return;
 
             itemDrop = ModContent.ItemType<DeepSeaDrawlShard2>();
+        }
+
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (target.HasBuff<HollowbrookTag>() && hollowbrookTier >= 2)
+            {
+                if (hit.Crit)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Vector2 spawnPosition = target.Center;
+
+                        bool TrySpawnPickup(int itemType)
+                        {
+                            if (!CanSpawnPickup(itemType, spawnPosition))
+                                return false;
+
+                            int itemIndex = Item.NewItem(target.GetSource_OnHit(target), target.getRect(), itemType);
+
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, itemIndex);
+
+                            return true;
+                        }
+
+                        bool heart = TrySpawnPickup(ItemID.Heart);
+                        bool star = TrySpawnPickup(ItemID.Star);
+                        bool note = false;
+                        if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium) && thorium.TryFind("InspirationNote", out ModItem inspNote))
+                        {
+                            note = TrySpawnPickup(inspNote.Type);
+                        }
+
+                        if (heart || star || note)
+                        {
+                            hollowbrookSpawnCooldown = 5 * 60;
+                        }
+                    }
+
+                    hollowbrookCrits++;
+                }
+            }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
@@ -279,6 +341,74 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                     }
                 }
             }
+
+            if (target.HasBuff<HollowbrookTag>() && hollowbrookTier >= 2)
+            {
+                if (hit.Crit)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Vector2 spawnPosition = target.Center;
+
+                        bool TrySpawnPickup(int itemType)
+                        {
+                            if (!CanSpawnPickup(itemType, spawnPosition))
+                                return false;
+
+                            int itemIndex = Item.NewItem(target.GetSource_OnHit(target), target.getRect(), itemType);
+
+                            if (Main.netMode == NetmodeID.Server)
+                                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, itemIndex);
+
+                            return true;
+                        }
+
+                        bool heart = TrySpawnPickup(ItemID.Heart);
+                        bool star = TrySpawnPickup(ItemID.Star);
+                        bool note = false;
+                        if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium) && thorium.TryFind("InspirationNote", out ModItem inspNote))
+                        {
+                            note = TrySpawnPickup(inspNote.Type);
+                        }
+
+                        if (heart || star || note)
+                        {
+                            hollowbrookSpawnCooldown = 5 * 60;
+                        }
+                    }
+
+                    hollowbrookCrits++;
+                }
+
+                if (proj.IsMinionOrSentryRelated)
+                {
+                    if (ModLoader.TryGetMod("CalamityMod", out Mod calamity) && calamity.TryFind("ArmorCrunch", out ModBuff armorCrunch))
+                    {
+                        target.AddBuff(armorCrunch.Type, 180);
+                    }
+                    else
+                    {
+                        target.AddBuff(BuffID.BrokenArmor, 180);
+                    }
+                }
+            }
+        }
+
+        private bool CanSpawnPickup(int itemType, Vector2 position)
+        {
+            if (hollowbrookSpawnCooldown != 0)
+                return false;
+
+            int total = 0;
+            foreach (Item item in Main.ActiveItems)
+            {
+                if (item.type != itemType)
+                    continue;
+
+                total++;
+            }
+
+            return total < 6;
         }
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
@@ -291,6 +421,203 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                 if (Main.rand.Next(100) < ActualClassCrit(Player, DamageClass.Summon))
                     modifiers.SetCrit();
             }
+        }
+
+        public static void InflictRandomDebuff(NPC target)
+        {
+            int debuffRarity = Main.rand.Next(21);
+
+            ModLoader.TryGetMod("ThoriumMod", out Mod thoriumMod);
+            ModLoader.TryGetMod("CalamityMod", out Mod cal);
+
+            if (debuffRarity < 5)
+            {
+                int debuff = Main.rand.Next(8);
+
+                switch (debuff)
+                {
+                    case 0:
+                        target.AddBuff(BuffID.Poisoned, 180, false);
+                        break;
+                    case 2:
+                        target.AddBuff(BuffID.Frostburn, 180, false);
+                        break;
+                    case 3:
+                        goto default;
+                    case 4:
+                        target.AddBuff(BuffID.Confused, 90, false);
+                        break;
+                    case 5:
+                        target.AddBuff(BuffID.Ichor, 120, false);
+                        break;
+                    case 6:
+                        if (thoriumMod != null)
+                        {
+                            target.AddBuff(thoriumMod.Find<ModBuff>("Charmed").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 7:
+                        if (thoriumMod != null)
+                        {
+                            if (!target.boss)
+                            {
+                                target.AddBuff(thoriumMod.Find<ModBuff>("Stunned").Type, 30, false);
+                                break;
+                            }
+                            else goto default;
+                        }
+                        else goto default;
+                    default:
+                        target.AddBuff(BuffID.OnFire3, 180, false);
+                        break;
+                }
+            }
+            else if (debuffRarity >= 5 && debuffRarity < 20)
+            {
+                int debuff = Main.rand.Next(8);
+
+                switch (debuff)
+                {
+                    case 0:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("BrimstoneFlames").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 2:
+                        target.AddBuff(BuffID.ShadowFlame, 180, false);
+                        break;
+                    case 3:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("Plague").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 4:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("AstralInfectionDebuff").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 5:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("CrushDepth").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 6:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("Crumbling").Type, 120, false);
+                            break;
+                        }
+                        else goto default;
+                    default:
+                        target.AddBuff(BuffID.CursedInferno, 180, false);
+                        break;
+                }
+            }
+            else
+            {
+                int debuff = Main.rand.Next(11);
+
+                switch (debuff)
+                {
+                    case 0:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("MiracleBlight").Type, 120, false);
+                            break;
+                        }
+                        else goto default;
+                    case 2:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("VulnerabilityHex").Type, 120, false);
+                            break;
+                        }
+                        else goto default;
+                    case 3:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("WhisperingDeath").Type, 120, false);
+                            break;
+                        }
+                        else goto default;
+                    case 4:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("MarkedforDeath").Type, 120, false);
+                            break;
+                        }
+                        else goto default;
+                    case 5:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("Laceration").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 6:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("ElementalMix").Type, 60, false);
+                            break;
+                        }
+                        else goto default;
+                    case 7:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("HolyFlames").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 8:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("GodSlayerInferno").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 9:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("Dragonfire").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    case 10:
+                        if (cal != null)
+                        {
+                            target.AddBuff(cal.Find<ModBuff>("Voidfrost").Type, 180, false);
+                            break;
+                        }
+                        else goto default;
+                    default:
+                        if (Main.rand.NextBool())
+                        {
+                            target.AddBuff(BuffID.CursedInferno, 180, false);
+                        }
+                        else
+                        {
+                            target.AddBuff(BuffID.ShadowFlame, 180, false);
+                        }
+                        break;
+                }
+            }
+        }
+
+        public static void GrantRandomBuff(Player player)
+        {
+            player.AddBuff(Utils.NextFromList<int>(Main.rand, new int[]
+            {
+                2, 3, 5, 6, 7, 24, 26, 26, 48, 59, 87, 89, 105, 108, 110, 112, 113, 114, 115, 116, 117, 146, 150, 158, 170, 173, 176, 179, 206, 207, 257,
+            }), 600, false);
         }
 
         public override void PreUpdate()

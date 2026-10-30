@@ -33,28 +33,40 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            if (item.type != ModContent.ItemType<Stick>())
-                return;
-
-            if (!npc.boss)
-                return;
-
-            if (BossHasNoContactDamage(npc))
+            if (item.type == ModContent.ItemType<Stick>() && npc.boss)
             {
-                modifiers.FinalDamage *= 0.5f;
+                if (BossHasNoContactDamage(npc))
+                {
+                    modifiers.FinalDamage *= 0.5f;
+                }
+            }
+
+            if (npc.HasBuff<HollowbrookTag>())
+            {
+                if (Main.rand.Next(0, 101) < item.crit + 10)
+                    modifiers.SetCrit();
             }
         }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (ModLoader.HasMod("CalamityMod"))
-                return;
+            // SummonTagDamageMultiplier scales down tag damage for some specific minion and sentry projectiles for balance purposes.
+            var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
+
+            if (npc.HasBuff<HollowbrookTag>() && projectile.CritChance > 0)
+            {
+                if (Main.rand.Next(0, 101) < projectile.CritChance + 10)
+                    modifiers.SetCrit();
+
+                if (projectile.IsMinionOrSentryRelated)
+                    modifiers.FlatBonusDamage += 7 * projTagMultiplier;
+            }
 
             if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
                 return;
 
-            // SummonTagDamageMultiplier scales down tag damage for some specific minion and sentry projectiles for balance purposes.
-            var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
+            if (ModLoader.HasMod("CalamityMod"))
+                return;
 
             if (npc.HasBuff<GrandThunderWhipTag>())
             {
