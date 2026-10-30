@@ -1,10 +1,13 @@
 ﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.SentryPro;
 using InfernalEclipseWeaponsDLC.Core.NewFolder;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using ThoriumMod.Items.Placeable;
 using ThoriumMod.Items.SummonItems;
@@ -70,6 +73,22 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
             }
 
             return false;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (Main.keyState.IsKeyDown(Keys.LeftShift))
+            {
+                TooltipLine line5 = new(Mod, "DedicatedItem", $"{Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.DedTo", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.Dedicated.RPG"))}\n{Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.Donor")}");
+                line5.OverrideColor = new Color(196, 35, 44);
+                tooltips.Add(line5);
+            }
+            else
+            {
+                TooltipLine line5 = new(Mod, "DedicatedItem", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.Donor"));
+                line5.OverrideColor = new Color(196, 35, 44);
+                tooltips.Add(line5);
+            }
         }
 
         public override void AddRecipes()

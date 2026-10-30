@@ -1100,6 +1100,7 @@ ItemTooltip: {
 		Heatstroke: Heatstroke
 		Rocket: rocket
 		Soopns: Soopns
+		RPG: NotRPGHealthbar
 	}
 
 	Cooldowns: {
