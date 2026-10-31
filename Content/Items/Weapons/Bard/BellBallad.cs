@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Items;
+using ThoriumMod.Items.Misc;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -103,7 +104,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             if (ModLoader.TryGetMod("CalamityMod", out Mod cal))
             {
                 CreateRecipe()
-                    .AddIngredient(ItemID.Bell, 1)
+                    .AddIngredient(ItemID.Bell)
                     .AddIngredient(cal.Find<ModItem>("EssenceofEleum").Type, 3)
                     .AddIngredient(cal.Find<ModItem>("EssenceofHavoc").Type, 3)
                     .AddIngredient(cal.Find<ModItem>("EssenceofSunlight").Type, 3)
@@ -113,7 +114,14 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             }
             else
             {
-
+                CreateRecipe()
+                    .AddIngredient(ItemID.Bell)
+                    .AddIngredient(ItemID.SoulofSight, 3)
+                    .AddIngredient<SoulofPlight>(3)
+                    .AddIngredient(ItemID.SoulofFlight, 3)
+                    .AddIngredient(ItemID.SoulofNight, 5)
+                    .AddTile(TileID.MythrilAnvil)
+                    .Register();
             }
         }
     }

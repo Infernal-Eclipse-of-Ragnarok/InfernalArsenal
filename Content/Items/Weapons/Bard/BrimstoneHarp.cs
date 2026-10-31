@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using ThoriumMod.Items.Misc;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -84,6 +85,15 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override void AddRecipes()
         {
+            if (!ModLoader.HasMod("CalamityMod"))
+            {
+                CreateRecipe()
+                    .AddIngredient(ItemID.HellstoneBar, 20)
+                    .AddIngredient<SoulofPlight>(8)
+                    .AddIngredient(ItemID.SoulofFright, 15)
+                    .AddTile(TileID.MythrilAnvil)
+                    .Register();
+            }
         }
     }
 }

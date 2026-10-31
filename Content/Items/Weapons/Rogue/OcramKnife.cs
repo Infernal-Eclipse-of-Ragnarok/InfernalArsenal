@@ -83,7 +83,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue
             {
                 CreateRecipe()
                     .AddIngredient<Carnwennan>()
-                    .AddRecipeGroup(RecipeGroups.Titanium, 10)
+                    .AddRecipeGroup(ArsenalRecipeSystem.Titanium, 10)
                     .AddIngredient(consolaria.Find<ModItem>("SoulofBlight").Type, 15)
                     .AddTile(TileID.MythrilAnvil)
                     .Register();

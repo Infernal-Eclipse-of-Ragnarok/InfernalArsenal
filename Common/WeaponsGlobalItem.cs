@@ -26,7 +26,15 @@ namespace InfernalEclipseWeaponsDLC.Common
                 {
                     player.GetModPlayer<InfernalWeaponsPlayer>().hasWarbanner = true;
                 }
-            }    
+            }
+
+            if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
+            {
+                if (item.type == thorium.Find<ModItem>("TheRing").Type)
+                {
+                    player.GetModPlayer<InfernalWeaponsPlayer>().shadowDiamondRing = true;
+                }
+            }
         }
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -57,6 +65,36 @@ namespace InfernalEclipseWeaponsDLC.Common
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
+            {
+                if (item.type == thorium.Find<ModItem>("TheRing").Type)
+                {
+                    int maxTooltipIndex = -1;
+                    int maxNumber = -1;
+
+                    // Find the TooltipLine with the highest TooltipX name
+                    for (int i = 0; i < tooltips.Count; i++)
+                    {
+                        if (tooltips[i].Mod == "Terraria" && tooltips[i].Name.StartsWith("Tooltip"))
+                        {
+                            if (int.TryParse(tooltips[i].Name.Substring(7), out int num) && num > maxNumber)
+                            {
+                                maxNumber = num;
+                                maxTooltipIndex = i;
+                            }
+                        }
+                    }
+
+                    // If found, insert a new TooltipLine right after it with the desired color
+                    if (maxTooltipIndex != -1)
+                    {
+                        int insertIndex = maxTooltipIndex + 1;
+                        TooltipLine customLine = new TooltipLine(Mod, "ShadowDiamondRingTooltip", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.Items.ShadowDiamondRing.Tooltip"));
+                        tooltips.Insert(insertIndex, customLine);
+                    }
+                }
+            }
+
             if (verveineItem)
             {
                 int maxTooltipIndex = -1;

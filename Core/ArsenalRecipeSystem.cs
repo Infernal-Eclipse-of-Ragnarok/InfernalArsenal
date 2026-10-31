@@ -1,11 +1,12 @@
-﻿using Terraria;
+﻿using InfernalEclipseWeaponsDLC.Content.Items.Accessories.Other;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod.Items.BasicAccessories;
 
 namespace InfernalEclipseWeaponsDLC.Core
 {
-    public class RecipeGroups : ModSystem
+    public class ArsenalRecipeSystem : ModSystem
     {
         public static RecipeGroup Titanium;
         public static RecipeGroup IronShield;
@@ -32,6 +33,20 @@ namespace InfernalEclipseWeaponsDLC.Core
                 ModContent.ItemType<LeadShield>()
             });
             RecipeGroup.RegisterGroup($"{modName}:IronShieldRecipeGroup", IronShield);
+        }
+
+        public override void PostAddRecipes()
+        {
+            foreach (var recipe in Main.recipe)
+            {
+                if (ModLoader.TryGetMod("ThoriumMod", out Mod thorium))
+                {
+                    if (recipe.HasResult(thorium.Find<ModItem>("TheRing")))
+                    {
+                        recipe.AddIngredient<ShadowDiamondRing>();
+                    }
+                }
+            }
         }
     }
 }

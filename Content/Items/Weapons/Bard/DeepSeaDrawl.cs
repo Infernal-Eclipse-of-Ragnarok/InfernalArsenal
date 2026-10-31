@@ -96,7 +96,12 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             }
             else if (!hasCal)
             {
-
+                CreateRecipe()
+                    .AddIngredient(ItemID.SiltBlock, 10)
+                    .AddIngredient(ItemID.GrassSeeds, 5)
+                    .AddIngredient(ItemID.Bone, 3)
+                    .AddTile(TileID.Anvils)
+                    .Register();
             }
         }
     }

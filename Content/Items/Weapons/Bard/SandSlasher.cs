@@ -12,6 +12,8 @@ using ThoriumMod.Sounds;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.Audio;
+using ThoriumMod.Items.BardItems;
+using ThoriumMod.Items.Sandstone;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -68,6 +70,18 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             Vector2 offset = new Vector2(-10, 10f) * player.Directions;
 
             player.itemLocation += offset;
+        }
+
+        public override void AddRecipes()
+        {
+            if (!ModLoader.HasMod("CalamityMod"))
+            {
+                CreateRecipe()
+                    .AddIngredient<Sitar>()
+                    .AddIngredient<SandstoneIngot>(4)
+                    .AddTile(TileID.Anvils)
+                    .Register();
+            }
         }
     }
 

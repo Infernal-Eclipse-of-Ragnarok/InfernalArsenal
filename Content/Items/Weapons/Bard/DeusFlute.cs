@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.DeusFlute;
 using Terraria.Localization;
+using ThoriumMod.Items.BardItems;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -50,7 +51,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             if (!ModLoader.HasMod("Look"))
             {
-                ((ModItem)this).Item.holdStyle = 3;
+                Item.holdStyle = 3;
             }
         }
 
@@ -61,7 +62,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
         public override void UseItemFrame(Player player)
         {
-            ((ModItem)this).HoldItemFrame(player);
+            HoldItemFrame(player);
         }
 
         public override void HoldItemFrame(Player player)
@@ -89,6 +90,18 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             tooltips.Add(new TooltipLine(Mod, "DuesFluteLore", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.DuesFluteLore")) { OverrideColor = Color.MediumPurple });
             tooltips.Add(new TooltipLine(Mod, "DuesFluteLore2", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.DuesFluteLore2")) { OverrideColor = Color.MediumPurple });
             tooltips.Add(new TooltipLine(Mod, "DuesFluteLore3", Language.GetTextValue("Mods.InfernalEclipseWeaponsDLC.ItemTooltip.DuesFluteLore3")) { OverrideColor = Color.MediumPurple });
+        }
+
+        public override void AddRecipes()
+        {
+            if (!ModLoader.HasMod("CalamityMod"))
+            {
+                CreateRecipe()
+                    .AddIngredient<ShootingStarFragment>(8)
+                    .AddIngredient(ItemID.FragmentStardust, 8)
+                    .AddTile(TileID.LunarCraftingStation)
+                    .Register();
+            }
         }
     }
 }

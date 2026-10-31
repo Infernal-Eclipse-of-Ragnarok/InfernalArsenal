@@ -98,7 +98,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Melee.Scythes
             {
                 CreateRecipe()
                     .AddIngredient<HallowedScythe>()
-                    .AddRecipeGroup(RecipeGroups.Titanium, 10)
+                    .AddRecipeGroup(ArsenalRecipeSystem.Titanium, 10)
                     .AddIngredient(consolaria.Find<ModItem>("SoulofBlight").Type, 15)
                     .AddTile(TileID.MythrilAnvil)
                     .Register();

@@ -58,7 +58,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Armor.Ocram.Eclipse
             Recipe recipe = CreateRecipe();
 
             recipe.AddIngredient(ItemID.HallowedGreaves);
-            recipe.AddRecipeGroup(RecipeGroups.Titanium, 12);
+            recipe.AddRecipeGroup(ArsenalRecipeSystem.Titanium, 12);
             recipe.AddIngredient(ItemID.SoulofLight, 10);
 
             if (ModLoader.TryGetMod("Consolaria", out Mod consolariaMod))

@@ -1054,6 +1054,25 @@ Items: {
 			'How do you want to do this?'
 			'''
 	}
+
+	VeryVeryStrangeSkull: {
+		DisplayName: Very Very Strange Skull
+		Tooltip: Summons a void skull to shoot laser beam bursts at enemies, which cause damage over time
+	}
+
+	VeryVeryStrangeSkullVoid: {
+		DisplayName: Very Very Strange Skull
+		Tooltip:
+			'''
+			Summons a void skull to shoot laser beam bursts at enemies, which cause damage over time
+			Each shot consumes 4 void
+			'''
+	}
+
+	ShadowDiamondRing: {
+		DisplayName: Shadow Diamond Ring
+		Tooltip: Increases critical strike damage by 4
+	}
 }
 
 ItemTooltip: {
@@ -1317,6 +1336,8 @@ Projectiles: {
 	HollowbrookMonolithUpgradePro.DisplayName: Hollowbrook Monolith
 	D20Projectile.DisplayName: D20 Projectile
 	D20Roller.DisplayName: D20 Roller
+	VeryVeryStrangeSkullPro.DisplayName: Very Very Strange Skull
+	VeryVeryStrangeSkullShotPro.DisplayName: Very Very Strange Skull Shot
 }
 
 Buffs: {

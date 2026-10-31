@@ -998,7 +998,36 @@ Items: {
 
 	D20: {
 		// DisplayName: D20
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Throws a 20-sided die with varying effects based on the roll
+			1: A complete dud
+			2-19: Scaling damage, speeds, and homing capabilities
+			20: Guaranteed critical hit with an apocalyptic explosion
+			Damage scales linearly from 25% to 200% based on the number rolled
+			The number rolled is affected by luck
+			Stealth strikes roll with advantage (rolls 2 numbers and uses the highest)
+			'How do you want to do this?'
+			''' */
+	}
+
+	VeryVeryStrangeSkull: {
+		// DisplayName: Very Very Strange Skull
+		// Tooltip: Summons a void skull to shoot laser beam bursts at enemies, which cause damage over time
+	}
+
+	VeryVeryStrangeSkullVoid: {
+		// DisplayName: Very Very Strange Skull
+		/* Tooltip:
+			'''
+			Summons a void skull to shoot laser beam bursts at enemies, which cause damage over time
+			Each shot consumes 4 void
+			''' */
+	}
+
+	ShadowDiamondRing: {
+		// DisplayName: Shadow Diamond Ring
+		// Tooltip: Increases critical strike damage by 4
 	}
 }
 
@@ -1263,6 +1292,8 @@ Projectiles: {
 	// HollowbrookMonolithUpgradePro.DisplayName: Hollowbrook Monolith
 	// D20Projectile.DisplayName: D20 Projectile
 	// D20Roller.DisplayName: D20 Roller
+	// VeryVeryStrangeSkullPro.DisplayName: Very Very Strange Skull
+	// VeryVeryStrangeSkullShotPro.DisplayName: Very Very Strange Skull Shot
 }
 
 Buffs: {

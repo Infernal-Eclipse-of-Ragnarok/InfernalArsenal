@@ -53,6 +53,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public bool marniteHoverbootsJumped;
         public bool hideHeraldryVisual;
         public bool hasWarbanner;
+        public bool shadowDiamondRing;
 
         public float heraldryDamageMult = 0f;
         public float heraldyBuffFromOther = 0f;
@@ -108,6 +109,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             holyFlail = false;
             perennialShield = false;
             marniteHoverboots = false;
+            shadowDiamondRing = false;
 
             if (annihilationBonusShotTimeLeft > 0)
                 annihilationBonusShotTimeLeft--;
@@ -426,6 +428,12 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
                 if (Main.rand.Next(100) < ActualClassCrit(Player, DamageClass.Summon))
                     modifiers.SetCrit();
             }
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (shadowDiamondRing)
+                modifiers.CritDamage += 4;
         }
 
         public static void InflictRandomDebuff(NPC target)

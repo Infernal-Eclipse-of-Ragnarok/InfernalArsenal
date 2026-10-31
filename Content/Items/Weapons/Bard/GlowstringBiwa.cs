@@ -8,6 +8,8 @@ using ThoriumMod.Empowerments;
 using ThoriumMod.Items;
 using ThoriumMod.Sounds;
 using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
+using ThoriumMod.Items.BardItems;
+using ThoriumMod.Tiles;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -29,7 +31,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 
             Item.useTime = 40;
             Item.useAnimation = 40;
-            ((ModItem)this).Item.holdStyle = 5;
+            Item.holdStyle = 5;
             Item.autoReuse = true;
             Item.useStyle = ItemUseStyleID.Guitar;
 
@@ -118,6 +120,18 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
             beam.ai[1] = secondProj;
 
             return false;
+        }
+
+        public override void AddRecipes()
+        {
+            if (!ModLoader.HasMod("SOTS"))
+            {
+                CreateRecipe()
+                    .AddIngredient<Sitar>()
+                    .AddIngredient(ItemID.GlowingMushroom, 25)
+                    .AddTile<ArcaneArmorFabricator>()
+                    .Register();
+            }
         }
     }
 }

@@ -41,7 +41,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.LifeShields
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup(RecipeGroups.IronShield)
+                .AddRecipeGroup(ArsenalRecipeSystem.IronShield)
                 .AddIngredient(ModContent.ItemType<VibrantBar>(), 10)
                 .AddTile<ThoriumAnvil>()
                 .Register();

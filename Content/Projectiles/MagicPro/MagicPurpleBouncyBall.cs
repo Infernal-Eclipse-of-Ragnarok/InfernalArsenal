@@ -34,6 +34,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MagicPro
             Projectile.localNPCHitCooldown = 60;
         }
 
+        public override void AI()
+        {
+            Projectile.rotation += 0.27f;
+        }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.ai[0]++;

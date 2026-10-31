@@ -79,7 +79,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Hybrid
 
             radiantLifeCost = modPlayer.fullyCharged ? 0 : 3;
 
-            return true;
+            return radiantLifeCost < player.statLife;
         }
 
         public override bool AltFunctionUse(Player player) => true;

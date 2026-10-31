@@ -8,7 +8,10 @@ using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Empowerments;
 using ThoriumMod.Items;
+using ThoriumMod.Items.Flesh;
+using ThoriumMod.Items.Misc;
 using ThoriumMod.Sounds;
+using ThoriumMod.Tiles;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
 {
@@ -148,6 +151,19 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Bard
         {
             Item.shootSpeed = 4f;
             // Right-click logic now handled by BardShoot method
+        }
+
+        public override void AddRecipes()
+        {
+            if (!ModLoader.HasMod("CalamityMod"))
+            {
+                CreateRecipe()
+                    .AddIngredient<SolarPebble>(8)
+                    .AddIngredient<UnfathomableFlesh>(6)
+                    .AddIngredient(ItemID.Ectoplasm, 6)
+                    .AddTile<SoulForge>()
+                    .Register();
+            }
         }
     }
 }
