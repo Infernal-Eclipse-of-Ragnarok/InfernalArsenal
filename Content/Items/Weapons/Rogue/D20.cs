@@ -357,7 +357,10 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue
 
                     CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y - 30, player.width, player.height), textColor, finalRoll.ToString(), true);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, savedVelocity, ModContent.ProjectileType<D20Projectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner, finalRoll);
+                    Vector2 direction = Main.MouseWorld - Projectile.Center;
+                    direction.Normalize();
+
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, direction * savedVelocity.Length(), ModContent.ProjectileType<D20Projectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner, finalRoll);
                 }
             }
         }

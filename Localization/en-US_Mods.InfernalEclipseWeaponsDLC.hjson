@@ -1434,8 +1434,8 @@ Buffs: {
 	}
 
 	CecropiaMothBuff: {
-		DisplayName: Cecropia Moth Buff
-		Description: Mods.InfernalEclipseWeaponsDLC.Buffs.CecropiaMothBuff.Description
+		DisplayName: Cecropia Moth
+		Description: A Ceropia Moth attacks your enemies
 	}
 }
 

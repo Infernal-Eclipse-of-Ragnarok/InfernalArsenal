@@ -20,7 +20,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner.Void
 
         public override void SetDefaults()
         {
-            Item.damage = 1000;
+            Item.damage = 250;
             Item.DamageType = DamageClass.Summon;
             Item.sentry = true;
             Item.mana = 10;

@@ -42,37 +42,130 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner
             player.FindSentryRestingSpot(type, out int x, out int y, out int height);
 
             position = new Vector2(x, y);
-            position.Y -= type >= 0 && type < ProjectileLoader.ProjectileCount ? (int)Math.Ceiling(ContentSamples.ProjectilesByType[type].height / 2.0) : height;
+            position.Y -= type >= 0 && type < ProjectileLoader.ProjectileCount
+                ? (int)Math.Ceiling(ContentSamples.ProjectilesByType[type].height / 2.0)
+                : height;
 
-            if (player.ownedProjectileCounts[type] <= 0)
+            InfernalWeaponsPlayer modPlayer = player.GetModPlayer<InfernalWeaponsPlayer>();
+
+            player.UpdateMaxTurrets();
+
+            if (modPlayer.hollowbrookTier <= 0 || player.ownedProjectileCounts[type] <= 0)
             {
-                player.GetModPlayer<InfernalWeaponsPlayer>().hollowbrookLocation = position;
-                Projectile.NewProjectileDirect(source, position, Vector2.UnitY * -8f, type, damage, knockback, player.whoAmI, type).originalDamage = Item.damage;
-                player.UpdateMaxTurrets();
+                modPlayer.hollowbrookLocation = position;
 
-                player.GetModPlayer<InfernalWeaponsPlayer>().hollowbrookTier = 1;
+                if (!TryFreeSentrySlot(player))
+                    return false;
+
+                Projectile sentry = Projectile.NewProjectileDirect(
+                    source, position, Vector2.UnitY * -8f,
+                    type, damage, knockback, player.whoAmI, type
+                );
+
+                if (sentry == null || !sentry.active)
+                    return false;
+
+                sentry.originalDamage = Item.damage;
+                modPlayer.hollowbrookTier = 1;
             }
-            else if (player.GetModPlayer<InfernalWeaponsPlayer>().hollowbrookTier < 3)
+            else if (modPlayer.hollowbrookTier < 3)
             {
-                player.GetModPlayer<InfernalWeaponsPlayer>().hollowbrookLocation = position;
+                modPlayer.hollowbrookLocation = position;
 
-                player.GetModPlayer<InfernalWeaponsPlayer>().hollowbrookTier++;
-                Projectile upgrade = Projectile.NewProjectileDirect(source, position, Vector2.Zero, ModContent.ProjectileType<HollowbrookMonolithUpgradePro>(), damage, knockback, player.whoAmI, type);
-                    
+                if (!TryFreeSentrySlot(player))
+                    return false;
+
+                Projectile upgrade = Projectile.NewProjectileDirect(
+                    source, position, Vector2.Zero,
+                    ModContent.ProjectileType<HollowbrookMonolithUpgradePro>(),
+                    damage, knockback, player.whoAmI, type
+                );
+
+                if (upgrade == null || !upgrade.active)
+                    return false;
+
                 upgrade.originalDamage = Item.damage;
-
-                //Main.NewText($"Upgrade spawned: {upgrade.active}, ID: {upgrade.whoAmI}");
-
-                player.UpdateMaxTurrets();
-
-                //Main.NewText($"Upgrade after UpdateMaxTurrets: {upgrade.active}");
+                modPlayer.hollowbrookTier++;
             }
             else
             {
-                player.GetModPlayer<InfernalWeaponsPlayer>().hollowbrookLocation = position;
+                modPlayer.hollowbrookLocation = position;
             }
 
+            player.UpdateMaxTurrets();
+
             return false;
+        }
+
+        //To allow replacing existing sentrys with upgrades without spawning a new projectile
+        private int GetOccupiedSentrySlots(Player player)
+        {
+            int occupied = 0;
+
+            foreach (Projectile projectile in Main.projectile)
+            {
+                if (projectile.active &&
+                    projectile.owner == player.whoAmI &&
+                    projectile.sentry)
+                {
+                    occupied++;
+                }
+            }
+
+            return occupied;
+        }
+
+        private bool TryFreeSentrySlot(Player player)
+        {
+            player.UpdateMaxTurrets();
+
+            int occupied = GetOccupiedSentrySlots(player);
+
+            if (occupied < player.maxTurrets)
+                return true;
+
+            if (!RemoveOldestSentry(player))
+                return false;
+
+            player.UpdateMaxTurrets();
+
+            occupied = GetOccupiedSentrySlots(player);
+
+            return occupied < player.maxTurrets;
+        }
+
+        private bool RemoveOldestSentry(Player player)
+        {
+            Projectile oldestSentry = null;
+            int oldestTimeLeft = int.MaxValue;
+
+            int hollowbrookType = ModContent.ProjectileType<HollowbrookMonolithPro>();
+            int upgradeType = ModContent.ProjectileType<HollowbrookMonolithUpgradePro>();
+
+            foreach (Projectile projectile in Main.projectile)
+            {
+                if (!projectile.active ||
+                    projectile.owner != player.whoAmI ||
+                    !projectile.sentry)
+                    continue;
+
+                if (projectile.type == hollowbrookType ||
+                    projectile.type == upgradeType)
+                    continue;
+
+                if (projectile.timeLeft < oldestTimeLeft)
+                {
+                    oldestTimeLeft = projectile.timeLeft;
+                    oldestSentry = projectile;
+                }
+            }
+
+            if (oldestSentry == null)
+                return false;
+
+            oldestSentry.Kill();
+
+            return true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
