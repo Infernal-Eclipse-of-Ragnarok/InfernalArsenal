@@ -1062,6 +1062,11 @@ Items: {
 		// DisplayName: Shadow Diamond Ring
 		// Tooltip: Increases critical strike damage by 4
 	}
+
+	SuspiciousLookingEgg: {
+		// DisplayName: Suspicious Looking Egg
+		// Tooltip: ""
+	}
 }
 
 ItemTooltip: {
@@ -1145,6 +1150,7 @@ ItemTooltip: {
 		// Rocket: rocket
 		// Soopns: Soopns
 		// RPG: NotRPGHealthbar
+		// Renavo: Renavo
 	}
 
 	Cooldowns: {
@@ -1327,6 +1333,8 @@ Projectiles: {
 	// D20Roller.DisplayName: D20 Roller
 	// VeryVeryStrangeSkullPro.DisplayName: Very Very Strange Skull
 	// VeryVeryStrangeSkullShotPro.DisplayName: Very Very Strange Skull Shot
+	// SusLookingEggPro.DisplayName: Sus Looking Egg Pro
+	// CercropiaMoth.DisplayName: Cercropia Moth
 }
 
 Buffs: {
@@ -1406,6 +1414,11 @@ Buffs: {
 	HollowbrookTag: {
 		// DisplayName: Hollowbrook Tag
 		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.HollowbrookTag.Description
+	}
+
+	CecropiaMothBuff: {
+		// DisplayName: Cecropia Moth Buff
+		// Description: Mods.InfernalEclipseWeaponsDLC.Buffs.CecropiaMothBuff.Description
 	}
 }
 

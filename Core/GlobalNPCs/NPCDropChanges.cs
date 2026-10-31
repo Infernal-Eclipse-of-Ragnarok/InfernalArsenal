@@ -7,6 +7,7 @@ using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Summoner.Whips;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -38,6 +39,11 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
             if (npc.type == NPCID.GoblinSummoner && WeaponConfig.Instance.AIGenedWeapons)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShadowflameAxe>(), 10));
+            }
+
+            if (npc.type == NPCID.Mothron)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SuspiciousLookingEgg>(), 10));
             }
 
             if (npc.type == NPCID.WallofFlesh)
