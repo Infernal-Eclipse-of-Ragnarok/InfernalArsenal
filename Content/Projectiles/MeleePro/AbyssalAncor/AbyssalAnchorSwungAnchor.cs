@@ -292,15 +292,16 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.AbyssalAncor
 
             return false;
         }
+        */
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Thrown && ThrowState == Throwing && !target.friendly && !target.dontTakeDamage)
             {
-                //BeginAnchorReturn();
+                SoundEngine.PlaySound(new("InfernalEclipseWeaponsDLC/Assets/Sounds/BellSound"), Projectile.Center);
             }
         }
-        */
+
 
         public override bool PreDraw(ref Color lightColor)
         {

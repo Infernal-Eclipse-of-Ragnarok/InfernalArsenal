@@ -1032,7 +1032,13 @@ Items: {
 
 	SuspiciousLookingEgg: {
 		// DisplayName: Suspicious Looking Egg
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Uses 1 minion slot
+			Throws an moth egg that hatches into a Cercropia Moth on impact
+			Eggs can be thrown even when summon slots are maxed out
+			{$CommonItemTooltip.Whips} by the egg
+			''' */
 	}
 }
 

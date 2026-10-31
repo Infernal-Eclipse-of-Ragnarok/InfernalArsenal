@@ -376,6 +376,11 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.MeleePro.AbyssalAncor
             }
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            SoundEngine.PlaySound(new("InfernalEclipseWeaponsDLC/Assets/Sounds/BellSound"), Projectile.Center);
+        }
+
         public override void SendExtraAI(System.IO.BinaryWriter writer)
         {
             writer.Write(returnRotation);
