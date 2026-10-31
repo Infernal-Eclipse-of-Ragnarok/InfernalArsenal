@@ -1,5 +1,6 @@
 ﻿using InfernalEclipseWeaponsDLC.Content.Items.Materials;
 using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Ranged;
+using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Rogue;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -72,6 +73,18 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalNPCs
                         if (items[i] == null || items[i].IsAir)
                         {
                             items[i] = new Item(ModContent.ItemType<DeepSeaDrawlShard3>());
+                            break;
+                        }
+                    }
+                }
+
+                if (Main.rand.Next(100) < 10)
+                {
+                    for (int i = 0; i < items.Length; i++)
+                    {
+                        if (items[i] == null || items[i].IsAir)
+                        {
+                            items[i] = new Item(ModContent.ItemType<D20>());
                             break;
                         }
                     }

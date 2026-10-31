@@ -986,7 +986,18 @@ Items: {
 	}
 
 	MarniteRepulsionShieldMK2: {
-		// DisplayName: Marnite Repulsion Shield M K2
+		// DisplayName: Marnite Repulsion Shield MK2
+		/* Tooltip:
+			'''
+			Enemies behiid you are struck by high-knockback hardlight quills
+			Launches attackers away from you with javelins
+			Reduces damage taken by 8%
+			[c/FFF191:Back... and Frontstabbers Beware!]
+			''' */
+	}
+
+	D20: {
+		// DisplayName: D20
 		// Tooltip: ""
 	}
 }
@@ -1250,6 +1261,8 @@ Projectiles: {
 	// AbyssalHarpoon.DisplayName: Abyssal Harpoon
 	// HollowbrookMonolithPro.DisplayName: Hollowbrook Monolith
 	// HollowbrookMonolithUpgradePro.DisplayName: Hollowbrook Monolith
+	// D20Projectile.DisplayName: D20 Projectile
+	// D20Roller.DisplayName: D20 Roller
 }
 
 Buffs: {

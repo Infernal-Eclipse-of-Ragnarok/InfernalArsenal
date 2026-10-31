@@ -1039,6 +1039,21 @@ Items: {
 			[c/FFF191:Back... and Frontstabbers Beware!]
 			'''
 	}
+
+	D20: {
+		DisplayName: D20
+		Tooltip:
+			'''
+			Throws a 20-sided die with varying effects based on the roll
+			1: A complete dud
+			2-19: Scaling damage, speeds, and homing capabilities
+			20: Guaranteed critical hit with an apocalyptic explosion
+			Damage scales linearly from 25% to 200% based on the number rolled
+			The number rolled is affected by luck
+			Stealth strikes roll with advantage (rolls 2 numbers and uses the highest)
+			'How do you want to do this?'
+			'''
+	}
 }
 
 ItemTooltip: {
@@ -1300,6 +1315,8 @@ Projectiles: {
 	AbyssalHarpoon.DisplayName: Abyssal Harpoon
 	HollowbrookMonolithPro.DisplayName: Hollowbrook Monolith
 	HollowbrookMonolithUpgradePro.DisplayName: Hollowbrook Monolith
+	D20Projectile.DisplayName: D20 Projectile
+	D20Roller.DisplayName: D20 Roller
 }
 
 Buffs: {
