@@ -1018,6 +1018,27 @@ Items: {
 			The cannon deals summon damage and has the same stats as a cannon ball
 			'''
 	}
+
+	MarniteHoverboots: {
+		DisplayName: Marnite Hoverboots
+		Tooltip:
+			'''
+			5% increased movement speed
+			The wearer can run super fast
+			Allows you to walk and jump on air briefly after leaving the ground
+			'''
+	}
+
+	MarniteRepulsionShieldMK2: {
+		DisplayName: Marnite Repulsion Shield MK2
+		Tooltip:
+			'''
+			Enemies behiid you are struck by high-knockback hardlight quills
+			Launches attackers away from you with javelins
+			Reduces damage taken by 8%
+			[c/FFF191:Back... and Frontstabbers Beware!]
+			'''
+	}
 }
 
 ItemTooltip: {

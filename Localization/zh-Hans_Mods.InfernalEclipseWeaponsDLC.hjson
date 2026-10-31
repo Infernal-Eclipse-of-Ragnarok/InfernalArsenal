@@ -1007,6 +1007,21 @@ Items: {
 			The cannon deals summon damage and has the same stats as a cannon ball
 			''' */
 	}
+
+	MarniteHoverboots: {
+		// DisplayName: Marnite Hoverboots
+		/* Tooltip:
+			'''
+			5% increased movement speed
+			The wearer can run super fast
+			Allows you to walk and jump on air briefly after leaving the ground
+			''' */
+	}
+
+	MarniteRepulsionShieldMK2: {
+		// DisplayName: Marnite Repulsion Shield M K2
+		// Tooltip: ""
+	}
 }
 
 ItemTooltip: {
@@ -1089,6 +1104,7 @@ ItemTooltip: {
 		// Heatstroke: Heatstroke
 		// Rocket: rocket
 		// Soopns: Soopns
+		// RPG: NotRPGHealthbar
 	}
 
 	Cooldowns: {

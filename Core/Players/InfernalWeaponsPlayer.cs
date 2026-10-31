@@ -47,9 +47,17 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public bool perennialShield;
         public bool scourgeBag;
         public bool scourgeBag2;
-
+        public bool gorgonIncarnon = false;
+        public bool marniteHoverboots;
+        public bool marniteHoverbootsCanHover;
+        public bool marniteHoverbootsJumped;
         public bool hideHeraldryVisual;
         public bool hasWarbanner;
+
+        public float heraldryDamageMult = 0f;
+        public float heraldyBuffFromOther = 0f;
+        public int marniteHoverbootsHoverTimer;
+        public int marniteHoverbootsJumpTimer;
 
         public int missileIndex = 0;
         public int CataclysmFistShotCount = 0;
@@ -57,26 +65,11 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public int annihilationBonusShotCooldown = 0;
         public int murasamaHitCooldown = 0;
         public int gorgonShotsHit;
-        public bool gorgonIncarnon = false;
         public int gorgonIncarnonShotsStored;
         public int hollowbrookTier;
         public Vector2? hollowbrookLocation;
         public int hollowbrookCrits;
         public int hollowbrookSpawnCooldown = 0;
-
-        public float heraldryDamageMult = 0f;
-        public float heraldyBuffFromOther = 0f;
-
-        public Vector2 mouseWorldDeltaFromPlayer;
-        public float mouseRotationFromPlayer;
-        private Vector2 oldMouseWorldDeltaFromPlayer;
-        private int mouseWorldPacketTimer;
-        private const int MouseWorldPacketInterval = 2;
-        public bool mouseWorldListener;
-        public bool mouseRotationListener;
-        public bool syncMousePosition;
-        public bool syncMouseRotation;
-
         public int nukeWhistleMissileTimer;
         public int nukeWhistleMissileSetTimer;
         public Vector2 nukeWhistleVelocity;
@@ -86,7 +79,18 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
         public int nukeWhistleProjectileType;
         public int nukeWhistleBarrageIndex;
 
+        #region Mouse Listeners
         public Vector2 mouseWorld => Player.MountedCenter + mouseWorldDeltaFromPlayer;
+        public Vector2 mouseWorldDeltaFromPlayer;
+        public float mouseRotationFromPlayer;
+        private Vector2 oldMouseWorldDeltaFromPlayer;
+        private int mouseWorldPacketTimer;
+        private const int MouseWorldPacketInterval = 2;
+        public bool mouseWorldListener;
+        public bool mouseRotationListener;
+        public bool syncMousePosition;
+        public bool syncMouseRotation;
+        #endregion
 
         private static readonly HashSet<int> ManualFlails = new();
 
@@ -103,6 +107,7 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             blackholeFlail = false;
             holyFlail = false;
             perennialShield = false;
+            marniteHoverboots = false;
 
             if (annihilationBonusShotTimeLeft > 0)
                 annihilationBonusShotTimeLeft--;
@@ -703,6 +708,42 @@ namespace InfernalEclipseWeaponsDLC.Core.NewFolder
             {
                Player.AddBuff(ModContent.BuffType<YoyoProtectionBuff>(), 2);
                Player.endurance += 0.1f;
+            }
+
+            float hoverSpeed = 0.4f;
+            if (marniteHoverboots && !Player.mount.Active)
+            {
+                marniteHoverbootsJumped = Player.controlDown;
+
+                bool airborne = !Player.IsOnStandableGround();
+                if (airborne)
+                {
+                    if (marniteHoverbootsHoverTimer == 0 && Player.velocity.Y >= hoverSpeed)
+                        Player.position.Y -= hoverSpeed;
+
+                    marniteHoverbootsHoverTimer++;
+                }
+                else
+                {
+                    marniteHoverbootsHoverTimer = 0;
+                }
+
+                marniteHoverbootsCanHover = marniteHoverbootsHoverTimer < 240;
+
+                if (marniteHoverbootsCanHover && !marniteHoverbootsJumped && airborne)
+                {
+                    Player.maxFallSpeed = 0f;
+                    Player.fallStart = (int)(Player.position.Y / 16f);
+
+                    Vector2 dustPosition = Player.BottomLeft - new Vector2(2f);
+                    int dustWidth = Player.width + 4;
+
+                    int dustIndex = Dust.NewDust(dustPosition, dustWidth, 4, DustID.Vortex, 0f, 0f, 100, new Color(), 1.25f);
+                    Dust dust = Main.dust[dustIndex];
+                    dust.noGravity = true;
+                    dust.noLight = true;
+                    dust.velocity *= 0f;
+                }
             }
         }
 
