@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace InfernalEclipseWeaponsDLC.Core.GlobalItems
@@ -37,6 +38,9 @@ namespace InfernalEclipseWeaponsDLC.Core.GlobalItems
                 case "Shanny":
                     if (cal != null)
                         itemLoot.Add(ItemDropRule.Common(cal.Find<ModItem>("TrustyOldRod").Type));
+                    break;
+                case "REDWORT":
+                    itemLoot.Add(ItemDropRule.Common(ItemID.UnluckyYarn, 1, 2));
                     break;
                 default:
                     break;
