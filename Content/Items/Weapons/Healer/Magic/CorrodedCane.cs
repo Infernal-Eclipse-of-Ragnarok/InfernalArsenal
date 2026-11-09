@@ -1,24 +1,18 @@
-﻿using CalamityMod.Items;
-using CalamityMod.Rarities;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro;
-using InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro;
+﻿using InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro;
+using InfernalEclipseWeaponsDLC.Core;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
-using ThoriumMod.Empowerments;
 using ThoriumMod.Items;
-using ThoriumMod.Sounds;
-using static System.Net.Mime.MediaTypeNames;
-
 namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class CorrodedCane : ThoriumItem
     {
-        public override void SetStaticDefaults()
-        {
-        }
+        public static Mod Calamity => ModIntegrationsSystem.Calamity.Loaded ? ModIntegrationsSystem.Calamity.Mod : null;
 
         public override void SetDefaults()
         {
@@ -40,8 +34,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer.Magic
 
             Item.mana = 20;
 
-            Item.value = CalamityGlobalItem.RarityPureGreenBuyPrice;
-            Item.rare = ModContent.RarityType<PureGreen>();
+            Item.value = Item.buyPrice(1, 75);
+            Item.rare = Calamity != null ? Calamity.Find<ModRarity>("PureGreen").Type : ItemRarityID.Purple;
             Item.shoot = ModContent.ProjectileType<CorrodedCanePro>();
             Item.shootSpeed = 1f;
             Item.DamageType = ThoriumDamageBase<HealerDamage>.Instance;

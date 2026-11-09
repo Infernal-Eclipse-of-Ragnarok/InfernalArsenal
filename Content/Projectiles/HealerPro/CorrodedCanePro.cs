@@ -1,14 +1,11 @@
 ﻿using CalamityMod;
-using CalamityMod.Buffs.StatDebuffs;
 using CalamityMod.Projectiles.Boss;
-using InfernalEclipseWeaponsDLC.Content.Items.Weapons.Healer;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ThoriumMod.Empowerments;
 
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro

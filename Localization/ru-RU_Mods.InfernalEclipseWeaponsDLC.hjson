@@ -1049,6 +1049,11 @@ Items: {
 			Additionally your weapon causes a massive white explosion this attack
 			''' */
 	}
+
+	EmptySheath: {
+		// DisplayName: Empty Sheath
+		// Tooltip: ""
+	}
 }
 
 ItemTooltip: {

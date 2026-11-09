@@ -1090,7 +1090,17 @@ Items: {
 		Tooltip:
 			'''
 			{$Common.Tooltips.Sheath}
-			Additionally your weapon causes a massive white explosion this attack
+			Additionally your weapon causes a massive white explosion with this attack
+			'''
+	}
+
+	EmptySheath: {
+		DisplayName: Empty Sheath?
+		Tooltip:
+			'''
+			{$Common.Tooltips.Sheath}
+			Uses all your remaining void on a sheath strike, with its power increasing on how much void was expended
+			Additionally your weapon releases cataclysm lightning that inflicts radiation
 			'''
 	}
 }
