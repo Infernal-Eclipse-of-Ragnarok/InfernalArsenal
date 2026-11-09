@@ -12,6 +12,8 @@ using ThoriumMod.Items.Misc;
 
 namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.Sheaths
 {
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class TerraSheath : SwordSheathBase
     {
         public override SheathData SheathData => SheathDataLoader.Get<TerraSheathData>();
@@ -52,6 +54,8 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.Sheaths
         }
     }
 
+    [JITWhenModsEnabled("ThoriumMod")]
+    [ExtendsFromMod("ThoriumMod")]
     public class TerraSheathData : SheathData
     {
         public override SoundStyle? HitSound => SoundID.Item71;
@@ -77,7 +81,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.Sheaths
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<TerraOrb>()] <= 4)
+                    if (player.ownedProjectileCounts[projectileType] <= 4)
                         Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, player.DirectionTo(target.Center).RotatedByRandom(1.25f) * 1.75f, projectileType, damage, 0f, player.whoAmI);
                 }
             }

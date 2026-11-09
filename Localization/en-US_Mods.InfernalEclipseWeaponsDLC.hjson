@@ -1084,6 +1084,15 @@ Items: {
 			{$CommonItemTooltip.Whips} by the egg
 			'''
 	}
+
+	LightMatterSheath: {
+		DisplayName: Light Matter Sheath
+		Tooltip:
+			'''
+			{$Common.Tooltips.Sheath}
+			Additionally your weapon causes a massive white explosion this attack
+			'''
+	}
 }
 
 ItemTooltip: {
@@ -1352,6 +1361,7 @@ Projectiles: {
 	VeryVeryStrangeSkullShotPro.DisplayName: Very Very Strange Skull Shot
 	SusLookingEggPro.DisplayName: Sus Looking Egg Pro
 	CercropiaMoth.DisplayName: Cercropia Moth
+	HolyExplosion.DisplayName: Holy Explosion
 }
 
 Buffs: {

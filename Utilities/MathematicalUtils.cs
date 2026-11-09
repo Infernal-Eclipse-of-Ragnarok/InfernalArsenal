@@ -110,5 +110,23 @@ namespace InfernalEclipseWeaponsDLC.Utilities
             return (lerpValue < 0.5f ? (float)Math.Pow(Utils.GetLerpValue(0, 0.5f, lerpValue, true), inPower) * 0.5f : 0.5f + (1 - (float)Math.Pow(Utils.GetLerpValue(1, 0.5f, lerpValue, true), outPower)) * 0.5f);
         }
         #endregion
+
+        public static bool CircularCollision(Vector2 checkPosition, Rectangle hitbox, float radius)
+        {
+            float dist1 = Vector2.Distance(checkPosition, hitbox.TopLeft());
+            float dist2 = Vector2.Distance(checkPosition, hitbox.TopRight());
+            float dist3 = Vector2.Distance(checkPosition, hitbox.BottomLeft());
+            float dist4 = Vector2.Distance(checkPosition, hitbox.BottomRight());
+
+            float minDist = dist1;
+            if (dist2 < minDist)
+                minDist = dist2;
+            if (dist3 < minDist)
+                minDist = dist3;
+            if (dist4 < minDist)
+                minDist = dist4;
+
+            return minDist <= radius;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Bard
     [AutoloadEquip(EquipType.Face)]
     public class GodsPitch : BardItem
     {
-        public Mod calamity => ModIntegrationsSystem.Calamity.Loaded ? ModIntegrationsSystem.Calamity.Mod : null;
+        public static Mod Calamity => ModIntegrationsSystem.Calamity.Loaded ? ModIntegrationsSystem.Calamity.Mod : null;
 
         public override void SetStaticDefaults()
         {
@@ -28,7 +28,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Bard
             Item.width = 36;
             Item.height = 38;
             Item.accessory = true;
-            Item.rare = (calamity != null) ? calamity.Find<ModRarity>("BurnishedAuric").Type : ItemRarityID.Purple;
+            Item.rare = (Calamity != null) ? Calamity.Find<ModRarity>("BurnishedAuric").Type : ItemRarityID.Purple;
             Item.value = Item.buyPrice(2, 40);
         }
 
@@ -81,10 +81,10 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Bard
                     recipe.AddIngredient(cInstrument.Type);
             }
 
-            if (calamity != null)
+            if (Calamity != null)
             {
-                recipe.AddIngredient(calamity.Find<ModItem>("AuricBar").Type, 5);
-                recipe.AddTile(calamity.Find<ModTile>("CosmicAnvil").Type);
+                recipe.AddIngredient(Calamity.Find<ModItem>("AuricBar").Type, 5);
+                recipe.AddTile(Calamity.Find<ModTile>("CosmicAnvil").Type);
             }
             else
             {

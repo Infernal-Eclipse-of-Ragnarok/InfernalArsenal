@@ -39,7 +39,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro
 
         public int TileBounces = 2;
 
-        private Vector2 originalVelocity; // store the base velocity
+        //private Vector2 originalVelocity; // store the base velocity
         private bool storedVelocity = false; // flag to store velocity once
 
         private float oscillationTimer = 0f; // per projectile
