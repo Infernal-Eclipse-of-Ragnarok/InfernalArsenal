@@ -18,6 +18,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.SentryPro
         public static Color AuraColor => new(145, 175, 75, 50);
         public float fade = 1.2f;
         public virtual bool DisplayRing => true;
+        private static bool isCleaningUp;
 
         public override void SetDefaults()
         {
@@ -205,6 +206,42 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.SentryPro
 
             return false;
         }
+
+        //Niche fix for Entropy's sentry remover allowing for upgrades to be "removed" while the original remains still upgraded, allowing for free sentry slots
+        public static void KillAllHollowbrookProjectiles(Projectile dyingProjectile)
+        {
+            if (isCleaningUp)
+                return;
+
+            isCleaningUp = true;
+
+            try
+            {
+                int mainType = ModContent.ProjectileType<HollowbrookMonolithPro>();
+                int upgradeType = ModContent.ProjectileType<HollowbrookMonolithUpgradePro>();
+
+                foreach (Projectile projectile in Main.projectile)
+                {
+                    if (!projectile.active ||
+                        projectile.owner != dyingProjectile.owner)
+                        continue;
+
+                    if (projectile.type == mainType || projectile.type == upgradeType)
+                    {
+                        projectile.Kill();
+                    }
+                }
+            }
+            finally
+            {
+                isCleaningUp = false;
+            }
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            KillAllHollowbrookProjectiles(Projectile);
+        }
     }
 
     [JITWhenModsEnabled("ThoriumMod")]
@@ -240,22 +277,38 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.SummonerPro.SentryPro
                 return;
             }
 
-            InfernalWeaponsPlayer modPlayer = player.GetModPlayer<InfernalWeaponsPlayer>();
+            int hollowbrookType = ModContent.ProjectileType<HollowbrookMonolithPro>();
 
-            if (modPlayer.hollowbrookLocation.HasValue)
+            Projectile mainSentry = null;
+
+            foreach (Projectile projectile in Main.projectile)
             {
-                Projectile.Center = modPlayer.hollowbrookLocation.Value;
+                if (projectile.active &&
+                    projectile.owner == Projectile.owner &&
+                    projectile.type == hollowbrookType)
+                {
+                    mainSentry = projectile;
+                    break;
+                }
             }
-            else
+
+            if (mainSentry == null)
             {
                 Projectile.Kill();
                 return;
             }
+
+            Projectile.Center = mainSentry.Center;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             return false;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            HollowbrookMonolithPro.KillAllHollowbrookProjectiles(Projectile);
         }
     }
 }
