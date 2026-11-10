@@ -1,5 +1,6 @@
 ﻿using CalamityMod;
 using CalamityMod.Buffs.StatDebuffs;
+using CalamityMod.Buffs.DamageOverTime;
 using CalamityMod.NPCs.OldDuke;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -102,7 +103,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.HealerPro
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<Irradiated>(), 300);
+            target.AddBuff(ModContent.BuffType<SulphuricPoisoning>(), 300);
         }
     }
 }

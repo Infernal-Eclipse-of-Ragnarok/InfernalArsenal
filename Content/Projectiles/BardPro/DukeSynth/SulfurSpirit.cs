@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using CalamityMod.Buffs.StatDebuffs;
 using ThoriumMod.Projectiles.Bard;
+using CalamityMod.Buffs.DamageOverTime;
 
 namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.DukeSynth
 {
@@ -81,7 +82,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Projectiles.BardPro.DukeSynth
 
         public override void BardOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<Irradiated>(), 180);
+            target.AddBuff(ModContent.BuffType<SulphuricPoisoning>(), 180);
             Explode();
         }
 
