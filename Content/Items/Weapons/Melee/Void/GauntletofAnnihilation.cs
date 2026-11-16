@@ -26,7 +26,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
 
         public override void SetDefaults()
         {
-            Item.damage = 150;
+            Item.damage = 225;
             Item.DamageType = DamageClass.Melee;
             Item.width = 28;
             Item.height = 26;
@@ -74,7 +74,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Weapons.Melee.Void
         {
             if (player.altFunctionUse == 2)
             {
-                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<GauntletofAnnihilationPunches>(), damage * 35, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<GauntletofAnnihilationPunches>(), damage * 25, knockback, player.whoAmI);
             }
             else
             {

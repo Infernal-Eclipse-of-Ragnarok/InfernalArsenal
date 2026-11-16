@@ -1089,8 +1089,7 @@ Items: {
 		DisplayName: Light Matter Sheath
 		Tooltip:
 			'''
-			{$Common.Tooltips.Sheath}
-			Additionally your weapon causes a massive white explosion with this attack
+			Sword strikes cause a massive white explosion with this attack if held and not used for 3 seconds
 			'''
 	}
 

@@ -34,6 +34,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.Sheaths
 
         public override void SafeSetDefaults()
         {
+            accDamage = $"{this.SheathData.DamageMultiplier * 100f}% basic damage";
             Item.width = 36;
             Item.height = 34;
             Item.value = Item.buyPrice(1, 50, 0, 0);
@@ -87,7 +88,7 @@ namespace InfernalEclipseWeaponsDLC.Content.Items.Accessories.Melee.Sheaths
             if (player.ownedProjectileCounts[projType] <= 0)
             {
                 SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, target.Center);
-                Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, Vector2.Zero, projType, damage, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, Vector2.Zero, projType, damageDone, 0f, player.whoAmI);
             }
         }
     }
